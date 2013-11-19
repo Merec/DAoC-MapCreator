@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MapData" targetNamespace="http://tempuri.org/MapData.xsd" xmlns:mstns="http://tempuri.org/MapData.xsd" xmlns="http://tempuri.org/MapData.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="MapData" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="MapData" msprop:Generator_UserDSName="MapData">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="NifData" msprop:Generator_TableClassName="NifDataDataTable" msprop:Generator_TableVarName="tableNifData" msprop:Generator_TablePropName="NifData" msprop:Generator_RowDeletingName="NifDataRowDeleting" msprop:Generator_UserTableName="NifData" msprop:Generator_RowChangingName="NifDataRowChanging" msprop:Generator_RowEvHandlerName="NifDataRowChangeEventHandler" msprop:Generator_RowDeletedName="NifDataRowDeleted" msprop:Generator_RowEvArgName="NifDataRowChangeEvent" msprop:Generator_RowChangedName="NifDataRowChanged" msprop:Generator_RowClassName="NifDataRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nif" msprop:Generator_ColumnVarNameInTable="columnnif" msprop:Generator_ColumnPropNameInRow="nif" msprop:Generator_ColumnPropNameInTable="nifColumn" msprop:Generator_UserColumnName="nif" type="xs:int" />
+              <xs:element name="textual_name" msprop:Generator_ColumnVarNameInTable="columntextual_name" msprop:Generator_ColumnPropNameInRow="textual_name" msprop:Generator_ColumnPropNameInTable="textual_nameColumn" msprop:Generator_UserColumnName="textual_name" type="xs:string" minOccurs="0" />
+              <xs:element name="filename" msprop:Generator_ColumnVarNameInTable="columnfilename" msprop:Generator_ColumnPropNameInRow="filename" msprop:Generator_ColumnPropNameInTable="filenameColumn" msprop:Generator_UserColumnName="filename" type="xs:string" minOccurs="0" />
+              <xs:element name="only" msprop:Generator_ColumnVarNameInTable="columnonly" msprop:Generator_ColumnPropNameInRow="only" msprop:Generator_ColumnPropNameInTable="onlyColumn" msprop:Generator_UserColumnName="only" type="xs:int" minOccurs="0" />
+              <xs:element name="shadow" msprop:Generator_ColumnVarNameInTable="columnshadow" msprop:Generator_ColumnPropNameInRow="shadow" msprop:Generator_ColumnPropNameInTable="shadowColumn" msprop:Generator_UserColumnName="shadow" type="xs:int" minOccurs="0" />
+              <xs:element name="color" msprop:Generator_ColumnVarNameInTable="columncolor" msprop:Generator_ColumnPropNameInRow="color" msprop:Generator_ColumnPropNameInTable="colorColumn" msprop:Generator_UserColumnName="color" type="xs:string" minOccurs="0" />
+              <xs:element name="animate" msprop:Generator_ColumnVarNameInTable="columnanimate" msprop:Generator_ColumnPropNameInRow="animate" msprop:Generator_ColumnPropNameInTable="animateColumn" msprop:Generator_UserColumnName="animate" type="xs:int" minOccurs="0" />
+              <xs:element name="collide" msprop:Generator_ColumnVarNameInTable="columncollide" msprop:Generator_ColumnPropNameInRow="collide" msprop:Generator_ColumnPropNameInTable="collideColumn" msprop:Generator_UserColumnName="collide" type="xs:int" minOccurs="0" />
+              <xs:element name="ground" msprop:Generator_ColumnVarNameInTable="columnground" msprop:Generator_ColumnPropNameInRow="ground" msprop:Generator_ColumnPropNameInTable="groundColumn" msprop:Generator_UserColumnName="ground" type="xs:int" minOccurs="0" />
+              <xs:element name="minangle" msprop:Generator_ColumnVarNameInTable="columnminangle" msprop:Generator_ColumnPropNameInRow="minangle" msprop:Generator_ColumnPropNameInTable="minangleColumn" msprop:Generator_UserColumnName="minangle" type="xs:int" minOccurs="0" />
+              <xs:element name="maxangle" msprop:Generator_ColumnVarNameInTable="columnmaxangle" msprop:Generator_ColumnPropNameInRow="maxangle" msprop:Generator_ColumnPropNameInTable="maxangleColumn" msprop:Generator_UserColumnName="maxangle" type="xs:int" minOccurs="0" />
+              <xs:element name="minscale" msprop:Generator_ColumnVarNameInTable="columnminscale" msprop:Generator_ColumnPropNameInRow="minscale" msprop:Generator_ColumnPropNameInTable="minscaleColumn" msprop:Generator_UserColumnName="minscale" type="xs:int" minOccurs="0" />
+              <xs:element name="maxscale" msprop:Generator_ColumnVarNameInTable="columnmaxscale" msprop:Generator_ColumnPropNameInRow="maxscale" msprop:Generator_ColumnPropNameInTable="maxscaleColumn" msprop:Generator_UserColumnName="maxscale" type="xs:int" minOccurs="0" />
+              <xs:element name="radius" msprop:Generator_ColumnVarNameInTable="columnradius" msprop:Generator_ColumnPropNameInRow="radius" msprop:Generator_ColumnPropNameInTable="radiusColumn" msprop:Generator_UserColumnName="radius" type="xs:int" minOccurs="0" />
+              <xs:element name="lod1" msprop:Generator_ColumnVarNameInTable="columnlod1" msprop:Generator_ColumnPropNameInRow="lod1" msprop:Generator_ColumnPropNameInTable="lod1Column" msprop:Generator_UserColumnName="lod1" type="xs:int" minOccurs="0" />
+              <xs:element name="lod2" msprop:Generator_ColumnVarNameInTable="columnlod2" msprop:Generator_ColumnPropNameInRow="lod2" msprop:Generator_ColumnPropNameInTable="lod2Column" msprop:Generator_UserColumnName="lod2" type="xs:int" minOccurs="0" />
+              <xs:element name="lod3" msprop:Generator_ColumnVarNameInTable="columnlod3" msprop:Generator_ColumnPropNameInRow="lod3" msprop:Generator_ColumnPropNameInTable="lod3Column" msprop:Generator_UserColumnName="lod3" type="xs:int" minOccurs="0" />
+              <xs:element name="lod4" msprop:Generator_ColumnVarNameInTable="columnlod4" msprop:Generator_ColumnPropNameInRow="lod4" msprop:Generator_ColumnPropNameInTable="lod4Column" msprop:Generator_UserColumnName="lod4" type="xs:int" minOccurs="0" />
+              <xs:element name="ref_height" msprop:Generator_ColumnVarNameInTable="columnref_height" msprop:Generator_ColumnPropNameInRow="ref_height" msprop:Generator_ColumnPropNameInTable="ref_heightColumn" msprop:Generator_UserColumnName="ref_height" type="xs:int" minOccurs="0" />
+              <xs:element name="ref_width" msprop:Generator_ColumnVarNameInTable="columnref_width" msprop:Generator_ColumnPropNameInRow="ref_width" msprop:Generator_ColumnPropNameInTable="ref_widthColumn" msprop:Generator_UserColumnName="ref_width" type="xs:int" minOccurs="0" />
+              <xs:element name="unique" msprop:Generator_ColumnVarNameInTable="columnunique" msprop:Generator_ColumnPropNameInRow="unique" msprop:Generator_ColumnPropNameInTable="uniqueColumn" msprop:Generator_UserColumnName="unique" type="xs:int" minOccurs="0" />
+              <xs:element name="local" msprop:Generator_ColumnVarNameInTable="columnlocal" msprop:Generator_ColumnPropNameInRow="local" msprop:Generator_ColumnPropNameInTable="localColumn" msprop:Generator_UserColumnName="local" type="xs:int" minOccurs="0" />
+              <xs:element name="terrain" msprop:Generator_ColumnVarNameInTable="columnterrain" msprop:Generator_ColumnPropNameInRow="terrain" msprop:Generator_ColumnPropNameInTable="terrainColumn" msprop:Generator_UserColumnName="terrain" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="FixturesData" msprop:Generator_TableClassName="FixturesDataDataTable" msprop:Generator_TableVarName="tableFixturesData" msprop:Generator_TablePropName="FixturesData" msprop:Generator_RowDeletingName="FixturesDataRowDeleting" msprop:Generator_UserTableName="FixturesData" msprop:Generator_RowChangingName="FixturesDataRowChanging" msprop:Generator_RowEvHandlerName="FixturesDataRowChangeEventHandler" msprop:Generator_RowDeletedName="FixturesDataRowDeleted" msprop:Generator_RowEvArgName="FixturesDataRowChangeEvent" msprop:Generator_RowChangedName="FixturesDataRowChanged" msprop:Generator_RowClassName="FixturesDataRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
+              <xs:element name="nif_id" msprop:Generator_ColumnVarNameInTable="columnnif_id" msprop:Generator_ColumnPropNameInRow="nif_id" msprop:Generator_ColumnPropNameInTable="nif_idColumn" msprop:Generator_UserColumnName="nif_id" type="xs:int" minOccurs="0" />
+              <xs:element name="textual_name" msprop:Generator_ColumnVarNameInTable="columntextual_name" msprop:Generator_ColumnPropNameInRow="textual_name" msprop:Generator_ColumnPropNameInTable="textual_nameColumn" msprop:Generator_UserColumnName="textual_name" type="xs:string" minOccurs="0" />
+              <xs:element name="x" msprop:Generator_ColumnVarNameInTable="columnx" msprop:Generator_ColumnPropNameInRow="x" msprop:Generator_ColumnPropNameInTable="xColumn" msprop:Generator_UserColumnName="x" type="xs:int" minOccurs="0" />
+              <xs:element name="y" msprop:Generator_ColumnVarNameInTable="columny" msprop:Generator_ColumnPropNameInRow="y" msprop:Generator_ColumnPropNameInTable="yColumn" msprop:Generator_UserColumnName="y" type="xs:int" minOccurs="0" />
+              <xs:element name="z" msprop:Generator_ColumnVarNameInTable="columnz" msprop:Generator_ColumnPropNameInRow="z" msprop:Generator_ColumnPropNameInTable="zColumn" msprop:Generator_UserColumnName="z" type="xs:int" minOccurs="0" />
+              <xs:element name="a" msprop:Generator_ColumnVarNameInTable="columna" msprop:Generator_ColumnPropNameInRow="a" msprop:Generator_ColumnPropNameInTable="aColumn" msprop:Generator_UserColumnName="a" type="xs:int" minOccurs="0" />
+              <xs:element name="scale" msprop:Generator_ColumnVarNameInTable="columnscale" msprop:Generator_ColumnPropNameInRow="scale" msprop:Generator_ColumnPropNameInTable="scaleColumn" msprop:Generator_UserColumnName="scale" type="xs:int" minOccurs="0" />
+              <xs:element name="collide" msprop:Generator_ColumnVarNameInTable="columncollide" msprop:Generator_ColumnPropNameInRow="collide" msprop:Generator_ColumnPropNameInTable="collideColumn" msprop:Generator_UserColumnName="collide" type="xs:int" minOccurs="0" />
+              <xs:element name="radius" msprop:Generator_ColumnVarNameInTable="columnradius" msprop:Generator_ColumnPropNameInRow="radius" msprop:Generator_ColumnPropNameInTable="radiusColumn" msprop:Generator_UserColumnName="radius" type="xs:int" minOccurs="0" />
+              <xs:element name="animate" msprop:Generator_ColumnVarNameInTable="columnanimate" msprop:Generator_ColumnPropNameInRow="animate" msprop:Generator_ColumnPropNameInTable="animateColumn" msprop:Generator_UserColumnName="animate" type="xs:int" minOccurs="0" />
+              <xs:element name="ground" msprop:Generator_ColumnVarNameInTable="columnground" msprop:Generator_ColumnPropNameInRow="ground" msprop:Generator_ColumnPropNameInTable="groundColumn" msprop:Generator_UserColumnName="ground" type="xs:int" minOccurs="0" />
+              <xs:element name="flip" msprop:Generator_ColumnVarNameInTable="columnflip" msprop:Generator_ColumnPropNameInRow="flip" msprop:Generator_ColumnPropNameInTable="flipColumn" msprop:Generator_UserColumnName="flip" type="xs:int" minOccurs="0" />
+              <xs:element name="cave" msprop:Generator_ColumnVarNameInTable="columncave" msprop:Generator_ColumnPropNameInRow="cave" msprop:Generator_ColumnPropNameInTable="caveColumn" msprop:Generator_UserColumnName="cave" type="xs:int" minOccurs="0" />
+              <xs:element name="unique_id" msprop:Generator_ColumnVarNameInTable="columnunique_id" msprop:Generator_ColumnPropNameInRow="unique_id" msprop:Generator_ColumnPropNameInTable="unique_idColumn" msprop:Generator_UserColumnName="unique_id" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0033_d_angle" msprop:Generator_ColumnVarNameInTable="column3d_angle" msprop:Generator_ColumnPropNameInRow="_3d_angle" msprop:Generator_ColumnPropNameInTable="_3d_angleColumn" msprop:Generator_UserColumnName="3d_angle" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0033_d_axis_x" msprop:Generator_ColumnVarNameInTable="column3d_axis_x" msprop:Generator_ColumnPropNameInRow="_3d_axis_x" msprop:Generator_ColumnPropNameInTable="_3d_axis_xColumn" msprop:Generator_UserColumnName="3d_axis_x" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0033_d_axis_y" msprop:Generator_ColumnVarNameInTable="column3d_axis_y" msprop:Generator_ColumnPropNameInRow="_3d_axis_y" msprop:Generator_ColumnPropNameInTable="_3d_axis_yColumn" msprop:Generator_UserColumnName="3d_axis_y" type="xs:decimal" minOccurs="0" />
+              <xs:element name="_x0033_d_axis_z" msprop:Generator_ColumnVarNameInTable="column3d_axis_z" msprop:Generator_ColumnPropNameInRow="_3d_axis_z" msprop:Generator_ColumnPropNameInTable="_3d_axis_zColumn" msprop:Generator_UserColumnName="3d_axis_z" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:NifData" />
+      <xs:field xpath="mstns:nif" />
+    </xs:unique>
+    <xs:unique name="FixturesData_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:FixturesData" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FixturesDataNifIdToNif" msdata:parent="NifData" msdata:child="FixturesData" msdata:parentkey="nif" msdata:childkey="nif_id" msprop:Generator_UserChildTable="FixturesData" msprop:Generator_ChildPropName="GetFixturesDataRows" msprop:Generator_ParentPropName="NifDataRow" msprop:Generator_UserRelationName="FixturesDataNifIdToNif" msprop:Generator_RelationVarName="relationFixturesDataNifIdToNif" msprop:Generator_UserParentTable="NifData" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

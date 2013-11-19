@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<zones>
+  <realm name="All">
+    
+    <expansion name="New Frontiers">
+      <zone id="175" type="Outdoor">Snowdonia</zone>
+      <zone id="176" type="Outdoor">Sauvage-Wald</zone>
+      <zone id="177" type="Outdoor">Pennine-Berge</zone>
+      <zone id="178" type="Outdoor">Hadrianswall</zone>
+
+      <zone id="163" type="Outdoor">Agramon</zone>
+      <zone id="164" type="Outdoor">Irische See</zone>
+    </expansion>
+    
+    <expansion name="Trials of Atlantis">
+      <zone id="070" type="Outdoor">Ruins of Atlantis (Albion)</zone>
+      <zone id="071" type="Outdoor">Ruins of Atlantis (Midgard)</zone>
+      <zone id="072" type="Outdoor">Ruins of Atlantis (Hibernia)</zone>
+
+      <zone id="073" type="Outdoor">Oceanus Hesperos</zone>
+      <zone id="074" type="Outdoor">Mesothalassa</zone>
+      <zone id="075" type="Outdoor">Oceanus Boreal</zone>
+      <zone id="076" type="Outdoor">Oceanus Notos</zone>
+      <zone id="077" type="Outdoor">Oceanus Anatole</zone>
+      <zone id="081" type="Outdoor">Stygia Delta</zone>
+      <zone id="082" type="Outdoor">Land von Atum</zone>
+      <zone id="084" type="Outdoor">Typhons Reach</zone>
+      <zone id="085" type="Outdoor">Ascheinseln</zone>
+      <zone id="086" type="Outdoor">Grüne Lichtungen</zone>
+      <zone id="087" type="Outdoor">Arbor Glen</zone>
+      <!--
+      <zone id="078" type="Dungeon">Cetus Höhle</zone>
+      <zone id="079" type="Dungeon">Sobekite Ewigkeit</zone>
+      <zone id="080" type="Dungeon">Tempel des Zwielichts</zone>
+      <zone id="083" type="Dungeon">Hallen von Ma'ati</zone>
+      <zone id="088" type="Dungeon">Grosse Pyramide</zone>
+      <zone id="089" type="Dungeon">Herz von Volcanus</zone>
+      <zone id="090" type="Dungeon">Aerus Stadt</zone>
+      -->
+    </expansion>
+    
+  </realm>
+  
+  <realm name="Albion">
+    <expansion name="Classic">
+      <!--<zone id="026" type="Capitol">Camelot</zone>-->
+      
+      <zone id="000" type="Outdoor">Hügel von Camelot</zone>
+      <zone id="001" type="Outdoor">Ebenen von Salisbury</zone>
+      <zone id="002" type="Outdoor">Schwarzberge (Süd)</zone>
+      <zone id="003" type="Outdoor">Schwarzberge (Nord)</zone>
+      <zone id="004" type="Outdoor">Dartmoor</zone>
+      <zone id="006" type="Outdoor">Cornwall</zone>
+      <zone id="007" type="Outdoor">Llyn Barfog</zone>
+      <zone id="008" type="Outdoor">Campacorentinwald</zone>
+      <zone id="009" type="Outdoor">Avalon-Sümpfe</zone>
+      <zone id="010" type="Outdoor">Lyonesse</zone>
+      <!--
+      <zone id="021" type="Dungeon">Mithras Gruft</zone>
+      <zone id="019" type="Dungeon">Stonehenge-Gräber</zone>
+      -->
+    </expansion>
+
+    <expansion name="Shrouded Isles">
+      <zone id="051" type="Outdoor">Glasinsel</zone>
+      <zone id="052" type="Outdoor">Avalon</zone>
+      <zone id="053" type="Outdoor">Täler von Devwy</zone>
+      <zone id="054" type="Outdoor">Caldey</zone>
+      <zone id="055" type="Outdoor">Gwyddneau</zone>
+      <zone id="056" type="Outdoor">Aldland</zone>
+      <zone id="057" type="Outdoor">Inishail</zone>
+    </expansion>
+
+    <!--
+    <expansion name="Catacombs">
+      <zone id="059" type="Indoor">Glaschtin-Schmiede (Albion)</zone>
+      <zone id="063" type="Indoor">Römische Aquädukte</zone>
+      <zone id="065" type="Indoor">Inconnu-Krypta</zone>
+      <zone id="066" type="Indoor">Untergrundwald (Albion)</zone>
+      <zone id="067" type="Indoor">Totenland von Annwn (Albion)</zone>
+      <zone id="068" type="Indoor">Untere Krypta</zone>
+      <zone id="109" type="Indoor">Grenzlinien (Albion)</zone>
+      <zone id="196" type="Indoor">Anderwelt (Albion)</zone>
+      <zone id="227" type="Indoor">Verlassene Minen (Albion)</zone>
+
+      <zone id="069" type="Dungeon">Dunkelturm</zone>
+    </expansion>
+    -->
+
+    <expansion name="Darkness Rising">
+      <zone id="330" type="Outdoor">Abgelegene Hügel (Albion)</zone>
+      <!--
+      <zone id="336" type="Indoor">dämonisches Gefängnis</zone>
+      <zone id="339" type="Indoor">Schwefelhöhlen</zone>
+      <zone id="347" type="Indoor">Lager des Dämonenlords</zone>
+      <zone id="348" type="Indoor">Kerker des Barons</zone>
+      <zone id="363" type="Indoor">Anataeus Heiligtum</zone>
+      <zone id="394" type="Indoor">König Constantines Thronsaal</zone>
+      -->
+    </expansion>
+
+    <expansion name="Foundations">
+      <zone id="013" type="Outdoor">Caerwent</zone>
+      <zone id="016" type="Outdoor">Old Sarum</zone>
+      <zone id="017" type="Outdoor">Rilan</zone>
+      <zone id="018" type="Outdoor">Dalton</zone>
+      <zone id="020" type="Outdoor">Brisworthy</zone>
+      <zone id="064" type="Outdoor">Aylesbury</zone>
+      <zone id="260" type="Outdoor">Chiltern</zone>
+      <zone id="261" type="Outdoor">Sherborne</zone>
+    </expansion>
+    
+  </realm>
+  
+  <realm name="Hibernia">
+  </realm>
+  <realm name="Midgard">
+  </realm>
+  
+</zones>
