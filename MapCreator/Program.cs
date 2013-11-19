@@ -18,14 +18,5 @@ namespace MapCreator
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }
-
-        private static void LoadMagickImage()
-        {
-            if (IntPtr.Size == 4)
-            {
-                Assembly assembly = Assembly.LoadFrom(string.Format("lib/{1}", Application.StartupPath, "Magick.NET-x86.dll"));
-            }
-        }
-
     }
 }

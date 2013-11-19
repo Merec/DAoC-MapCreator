@@ -22,7 +22,7 @@ namespace MapCreator
         /// <summary>
         /// Current Zone ID
         /// </summary>
-        private string m_zoneId = "084";
+        private string m_zoneId = "000";
 
         /// <summary>
         /// Current Zone ID
@@ -68,9 +68,6 @@ namespace MapCreator
             InitializeComponent();
             _self = this;
             Initialize();
-
-            MagickImage test = new MagickImage();
-            test.Dispose();
         }
 
         public void Initialize()
