@@ -301,7 +301,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>mkdir "$(TargetDir)lib"
+    <PreBuildEvent>rmdir /s /q "$(TargetDir)"
+mkdir "$(TargetDir)lib"
 
 echo."$(ConfigurationName)"|findstr /C:"x64" &gt;nul 2&gt;&amp;1
 if not errorlevel 1 (
@@ -309,6 +310,9 @@ if not errorlevel 1 (
 ) else (
     copy /Y "$(ProjectDir)lib\Magick.NET-x86.dll" "$(TargetDir)lib"
 )</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>"C:\Program Files\7-Zip\7z" a -tzip MapCreator-$(PlatformName).zip * -x!*.zip</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

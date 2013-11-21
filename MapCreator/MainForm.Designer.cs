@@ -692,9 +692,9 @@
             this.generateBoundsCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapGenerateBounds", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.generateBoundsCheckBox.Location = new System.Drawing.Point(9, 19);
             this.generateBoundsCheckBox.Name = "generateBoundsCheckBox";
-            this.generateBoundsCheckBox.Size = new System.Drawing.Size(109, 17);
+            this.generateBoundsCheckBox.Size = new System.Drawing.Size(108, 17);
             this.generateBoundsCheckBox.TabIndex = 0;
-            this.generateBoundsCheckBox.Text = "Generate Bounds";
+            this.generateBoundsCheckBox.Text = "Generate bounds";
             this.generateBoundsCheckBox.UseVisualStyleBackColor = true;
             // 
             // groupBox3
@@ -819,9 +819,9 @@
             this.generateRiversCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapGenerateRivers", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.generateRiversCheckBox.Location = new System.Drawing.Point(9, 19);
             this.generateRiversCheckBox.Name = "generateRiversCheckBox";
-            this.generateRiversCheckBox.Size = new System.Drawing.Size(103, 17);
+            this.generateRiversCheckBox.Size = new System.Drawing.Size(98, 17);
             this.generateRiversCheckBox.TabIndex = 0;
-            this.generateRiversCheckBox.Text = "Generate Rivers";
+            this.generateRiversCheckBox.Text = "Generate rivers";
             this.generateRiversCheckBox.UseVisualStyleBackColor = true;
             // 
             // logListBox
