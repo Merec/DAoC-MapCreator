@@ -85,7 +85,7 @@ namespace MapCreator
 
             // original size
             double orginalWidth = tileWidth * 8;
-            double resizeFactor = (zoneConfiguration.TargetMapSize / orginalWidth); // 0 - 1
+            double resizeFactor = (double)zoneConfiguration.TargetMapSize / (double)orginalWidth; // 0 - 1
 
             MainForm.Log(string.Format("Rendering background for zone {0}...", zoneConfiguration.ZoneId), MainForm.LogLevel.notice);
             MainForm.ProgressReset();
@@ -104,7 +104,8 @@ namespace MapCreator
 
                     using (MagickImage mapTile = new MagickImage(mpak.GetFile(filename).Data))
                     {
-                        mapTile.Resize(new Percentage(resizeFactor));
+                        int newSize = Convert.ToInt32(mapTile.Width * resizeFactor);
+                        mapTile.Resize(newSize, newSize);
                         map.Composite(mapTile, x, y, CompositeOperator.SrcOver);
 
                         // Calculate new y

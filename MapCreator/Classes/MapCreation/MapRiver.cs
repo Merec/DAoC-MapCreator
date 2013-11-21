@@ -148,6 +148,7 @@ namespace MapCreator
             MagickImage tex = new MagickImage(textureFile);
             tex.ColorSpace = ColorSpace.GRAY;
             double texResize = (1 - 256.0 / zoneConfiguration.TargetMapSize) * (zoneConfiguration.TargetMapSize * 0.0001);
+            if (texResize < 0) texResize = 0.1;
             tex.Resize(texResize);
 
             m_waterTexture = tex;
@@ -178,8 +179,8 @@ namespace MapCreator
             int riverCounter = 1;
             using (MagickImage heightmap = zoneConfiguration.Heightmap.GetHeightmap())
             {
+                double resizeFactor = (double)zoneConfiguration.TargetMapSize / (double)heightmap.Width;
                 heightmap.Resize(zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize);
-                double resizeFactor = zoneConfiguration.TargetMapSize / 256;
 
                 using (PixelCollection heightmapPixels = heightmap.GetReadOnlyPixels())
                 {
