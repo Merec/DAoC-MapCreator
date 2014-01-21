@@ -64,26 +64,6 @@ Initializes a new instance of the ColorMono class.
 <summary>
 Class that represents a monochrome color.
 </summary></member>
-        <member name="M:ImageMagick.ColorGray.FromMagickColor(ImageMagick.MagickColor)">
-==========================================================================================
-<summary>
-Converts the specified MagickColor to an instance of this type.
-</summary></member>
-        <member name="P:ImageMagick.ColorGray.Shade">
-==========================================================================================
-<summary>
-The shade of this color (value between 0.0 - 1.0).
-</summary></member>
-        <member name="M:ImageMagick.ColorGray.#ctor(System.Double)">
-==========================================================================================
-<summary>
-Initializes a new instance of the ColorGray class.
-</summary><param name="shade">Value between 0.0 - 1.0.</param></member>
-        <member name="T:ImageMagick.ColorGray">
-=============================================================================================
-<summary>
-Class that represents a gray color.
-</summary></member>
         <member name="M:ImageMagick.Percentage.ToString">
 ==========================================================================================
 <summary>
@@ -146,15 +126,25 @@ Creates a new DrawableDashArray instance.
 <summary>
 Encapsulation of the DrawableDashArray object.
 </summary></member>
-        <member name="M:ImageMagick.DrawablePopClipPath.#ctor">
+        <member name="M:ImageMagick.ColorGray.FromMagickColor(ImageMagick.MagickColor)">
 ==========================================================================================
 <summary>
-Creates a new DrawablePopClipPath instance.
+Converts the specified MagickColor to an instance of this type.
 </summary></member>
-        <member name="T:ImageMagick.DrawablePopClipPath">
+        <member name="P:ImageMagick.ColorGray.Shade">
+==========================================================================================
+<summary>
+The shade of this color (value between 0.0 - 1.0).
+</summary></member>
+        <member name="M:ImageMagick.ColorGray.#ctor(System.Double)">
+==========================================================================================
+<summary>
+Initializes a new instance of the ColorGray class.
+</summary><param name="shade">Value between 0.0 - 1.0.</param></member>
+        <member name="T:ImageMagick.ColorGray">
 =============================================================================================
 <summary>
-Encapsulation of the DrawablePopClipPath object.
+Class that represents a gray color.
 </summary></member>
         <member name="M:ImageMagick.DrawablePushGraphicContext.#ctor">
 ==========================================================================================
@@ -300,6 +290,21 @@ Creates a new DrawableTranslation instance.
 =============================================================================================
 <summary>
 Encapsulation of the DrawableTranslation object.
+</summary></member>
+        <member name="P:ImageMagick.DrawableTextKerning.Kerning">
+==========================================================================================
+<summary>
+Kerning to use.
+</summary></member>
+        <member name="M:ImageMagick.DrawableTextKerning.#ctor(System.Double)">
+==========================================================================================
+<summary>
+Creates a new DrawableTextKerning instance.
+</summary><param name="kerning">Kerning to use.</param></member>
+        <member name="T:ImageMagick.DrawableTextKerning">
+=============================================================================================
+<summary>
+Encapsulation of the DrawableTextKerning object.
 </summary></member>
         <member name="P:ImageMagick.DrawableStrokeWidth.Width">
 ==========================================================================================
@@ -466,6 +471,21 @@ Creates a new DrawablePoint instance.
 <summary>
 Encapsulation of the DrawablePoint object.
 </summary></member>
+        <member name="P:ImageMagick.DrawableMiterLimit.Miterlimit">
+==========================================================================================
+<summary>
+The miter limit.
+</summary></member>
+        <member name="M:ImageMagick.DrawableMiterLimit.#ctor(System.Int32)">
+==========================================================================================
+<summary>
+Creates a new DrawableMiterLimit instance.
+</summary><param name="miterlimit">The miter limit.</param></member>
+        <member name="T:ImageMagick.DrawableMiterLimit">
+=============================================================================================
+<summary>
+Encapsulation of the DrawableMiterLimit object.
+</summary></member>
         <member name="P:ImageMagick.DrawableFont.Family">
 ==========================================================================================
 <summary>
@@ -516,21 +536,6 @@ Creates a new DrawableFillRule instance.
 <summary>
 Encapsulation of the DrawableFillRule object.
 </summary></member>
-        <member name="P:ImageMagick.DrawableDashOffset.Offset">
-==========================================================================================
-<summary>
-The dash offset.
-</summary></member>
-        <member name="M:ImageMagick.DrawableDashOffset.#ctor(System.Double)">
-==========================================================================================
-<summary>
-Creates a new DrawableDashOffset instance.
-</summary><param name="offset">The dash offset.</param></member>
-        <member name="T:ImageMagick.DrawableDashOffset">
-=============================================================================================
-<summary>
-Encapsulation of the DrawableDashOffset object.
-</summary></member>
         <member name="P:ImageMagick.DrawableColor.Y">
 ==========================================================================================
 <summary>
@@ -570,6 +575,21 @@ Creates a new DrawableClipPath instance.
 =============================================================================================
 <summary>
 Encapsulation of the DrawableClipPath object.
+</summary></member>
+        <member name="P:ImageMagick.DrawableDashOffset.Offset">
+==========================================================================================
+<summary>
+The dash offset.
+</summary></member>
+        <member name="M:ImageMagick.DrawableDashOffset.#ctor(System.Double)">
+==========================================================================================
+<summary>
+Creates a new DrawableDashOffset instance.
+</summary><param name="offset">The dash offset.</param></member>
+        <member name="T:ImageMagick.DrawableDashOffset">
+=============================================================================================
+<summary>
+Encapsulation of the DrawableDashOffset object.
 </summary></member>
         <member name="P:ImageMagick.DrawableCircle.PerimeterY">
 ==========================================================================================
@@ -836,6 +856,21 @@ Creates a new DrawableStrokeLineCap instance.
 <summary>
 Encapsulation of the DrawableStrokeLineCap object.
 </summary></member>
+        <member name="P:ImageMagick.Quantum.Max">
+==========================================================================================
+<summary>
+Returns the maximum value of the quantum.
+</summary></member>
+        <member name="P:ImageMagick.Quantum.Depth">
+==========================================================================================
+<summary>
+Returns the Quantum depth.
+</summary></member>
+        <member name="T:ImageMagick.Quantum">
+=============================================================================================
+<summary>
+Class that can be used to acquire information about the Quantum.
+</summary></member>
         <member name="P:ImageMagick.DrawablePointSize.PointSize">
 ==========================================================================================
 <summary>
@@ -1015,6 +1050,16 @@ Initializes a new instance of the PathSmoothCurvetoAbs class.
 =============================================================================================
 <summary>
 Encapsulation of the PathSmoothCurvetoAbs object.
+</summary></member>
+        <member name="M:ImageMagick.DrawablePopClipPath.#ctor">
+==========================================================================================
+<summary>
+Creates a new DrawablePopClipPath instance.
+</summary></member>
+        <member name="T:ImageMagick.DrawablePopClipPath">
+=============================================================================================
+<summary>
+Encapsulation of the DrawablePopClipPath object.
 </summary></member>
         <member name="M:ImageMagick.PathQuadraticCurvetoRel.#ctor(System.Collections.Generic.IEnumerable`1{ImageMagick.PathQuadraticCurveto})">
 ==========================================================================================
@@ -1200,6 +1245,21 @@ Initializes a new instance of the PathCurvetoAbs class.
 =============================================================================================
 <summary>
 Encapsulation of the PathCurvetoAbs object.
+</summary></member>
+        <member name="P:ImageMagick.DrawableTextInterwordSpacing.Spacing">
+==========================================================================================
+<summary>
+Spacing to use.
+</summary></member>
+        <member name="M:ImageMagick.DrawableTextInterwordSpacing.#ctor(System.Double)">
+==========================================================================================
+<summary>
+Creates a new DrawableTextInterwordSpacing instance.
+</summary><param name="spacing">Spacing to use.</param></member>
+        <member name="T:ImageMagick.DrawableTextInterwordSpacing">
+=============================================================================================
+<summary>
+Encapsulation of the DrawableTextInterwordSpacing object.
 </summary></member>
         <member name="P:ImageMagick.DrawableRotation.Angle">
 ==========================================================================================
@@ -1452,6 +1512,11 @@ Returns an enumerator that can iterate through the collection.
 <summary>
 Returns an enumerator that can iterate through the collection.
 </summary></member>
+        <member name="M:ImageMagick.MagickImageCollection.Fx(System.String)">
+==========================================================================================
+<summary>
+Applies a mathematical expression to the images.
+</summary><param name="expression">The expression to apply.</param><exception cref="T:ImageMagick.MagickException" /></member>
         <member name="M:ImageMagick.MagickImageCollection.Flatten">
 ==========================================================================================
 <summary>
@@ -1524,6 +1589,11 @@ Adds an image with the specified file name to the collection.
 <summary>
 Adds an image to the collection.
 </summary><param name="item">The image to add.</param></member>
+        <member name="E:ImageMagick.MagickImageCollection.Warning">
+==========================================================================================
+<summary>
+Event that will we raised when a warning is thrown by ImageMagick.
+</summary></member>
         <member name="P:ImageMagick.MagickImageCollection.ReadWarning">
 ==========================================================================================
 <summary>
@@ -1593,6 +1663,31 @@ Represents the collection of images.
 =============================================================================================
 <summary>
 The method of selecting the size of the initial canvas.
+</summary></member>
+        <member name="P:ImageMagick.DrawableMatte.Y">
+==========================================================================================
+<summary>
+The Y coordinate.
+</summary></member>
+        <member name="P:ImageMagick.DrawableMatte.X">
+==========================================================================================
+<summary>
+The X coordinate.
+</summary></member>
+        <member name="P:ImageMagick.DrawableMatte.PaintMethod">
+==========================================================================================
+<summary>
+The PaintMethod to use.
+</summary></member>
+        <member name="M:ImageMagick.DrawableMatte.#ctor(System.Double,System.Double,ImageMagick.PaintMethod)">
+==========================================================================================
+<summary>
+Creates a new DrawableMatte instance.
+</summary><param name="x">The X coordinate.</param><param name="y">The Y coordinate.</param><param name="paintMethod">The paint method to use.</param></member>
+        <member name="T:ImageMagick.DrawableMatte">
+=============================================================================================
+<summary>
+Encapsulation of the DrawableMatte object.
 </summary></member>
         <member name="M:ImageMagick.PathClosePath.#ctor">
 ==========================================================================================
@@ -1745,30 +1840,20 @@ Initializes a new instance of the PathMovetoAbs class.
 <summary>
 Encapsulation of the PathMovetoAbs object.
 </summary></member>
-        <member name="P:ImageMagick.DrawableMatte.Y">
+        <member name="P:ImageMagick.DrawableTextInterlineSpacing.Spacing">
 ==========================================================================================
 <summary>
-The Y coordinate.
+Spacing to use.
 </summary></member>
-        <member name="P:ImageMagick.DrawableMatte.X">
+        <member name="M:ImageMagick.DrawableTextInterlineSpacing.#ctor(System.Double)">
 ==========================================================================================
 <summary>
-The X coordinate.
-</summary></member>
-        <member name="P:ImageMagick.DrawableMatte.PaintMethod">
-==========================================================================================
-<summary>
-The PaintMethod to use.
-</summary></member>
-        <member name="M:ImageMagick.DrawableMatte.#ctor(System.Double,System.Double,ImageMagick.PaintMethod)">
-==========================================================================================
-<summary>
-Creates a new DrawableMatte instance.
-</summary><param name="x">The X coordinate.</param><param name="y">The Y coordinate.</param><param name="paintMethod">The paint method to use.</param></member>
-        <member name="T:ImageMagick.DrawableMatte">
+Creates a new DrawableTextInterlineSpacing instance.
+</summary><param name="spacing">Spacing to use.</param></member>
+        <member name="T:ImageMagick.DrawableTextInterlineSpacing">
 =============================================================================================
 <summary>
-Encapsulation of the DrawableMatte object.
+Encapsulation of the DrawableTextInterlineSpacing object.
 </summary></member>
         <member name="M:ImageMagick.ColorRGB.FromMagickColor(ImageMagick.MagickColor)">
 ==========================================================================================
@@ -2104,6 +2189,26 @@ Converts this instance to a bitmap using ImageFormat.Bitmap.
 <summary>
 Converts this instance to a base64 string.
 </summary></member>
+        <member name="M:ImageMagick.MagickImage.Thumbnail(ImageMagick.Percentage,ImageMagick.Percentage)">
+==========================================================================================
+<summary>
+Resize image to thumbnail size.
+</summary><param name="percentageWidth">The percentage of the width.</param><param name="percentageHeight">The percentage of the height.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Thumbnail(ImageMagick.Percentage)">
+==========================================================================================
+<summary>
+Resize image to thumbnail size.
+</summary><param name="percentage">The percentage.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Thumbnail(ImageMagick.MagickGeometry)">
+==========================================================================================
+<summary>
+Resize image to thumbnail size.
+</summary><param name="geometry">The geometry to use.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Thumbnail(System.Int32,System.Int32)">
+==========================================================================================
+<summary>
+Resize image to thumbnail size.
+</summary><param name="width">The new width.</param><param name="height">The new height.</param><exception cref="T:ImageMagick.MagickException" /></member>
         <member name="M:ImageMagick.MagickImage.Threshold(System.Double)">
 ==========================================================================================
 <summary>
@@ -2348,6 +2453,26 @@ Resize image to specified geometry.
 ==========================================================================================
 <summary>
 Resize image to specified size.
+</summary><param name="width">The new width.</param><param name="height">The new height.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Resample(ImageMagick.Percentage,ImageMagick.Percentage)">
+==========================================================================================
+<summary>
+Resize image in terms of its pixel size with the specified percentage.
+</summary><param name="percentageWidth">The percentage of the width.</param><param name="percentageHeight">The percentage of the height.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Resample(ImageMagick.Percentage)">
+==========================================================================================
+<summary>
+Resize image in terms of its pixel size with the specified percentage.
+</summary><param name="percentage">The percentage.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Resample(ImageMagick.MagickGeometry)">
+==========================================================================================
+<summary>
+Resize image in terms of its pixel size.
+</summary><param name="geometry">The geometry to use.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Resample(System.Int32,System.Int32)">
+==========================================================================================
+<summary>
+Resize image in terms of its pixel size.
 </summary><param name="width">The new width.</param><param name="height">The new height.</param><exception cref="T:ImageMagick.MagickException" /></member>
         <member name="M:ImageMagick.MagickImage.RemoveProfile(System.String)">
 ==========================================================================================
@@ -2790,6 +2915,11 @@ Frame image with the specified geometry.
 <summary>
 Frame image with the default geometry (25x25+6+6).
 </summary><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.FormatExpression(System.String)">
+==========================================================================================
+<summary>
+Formats the specified expression, more info here: http://www.imagemagick.org/script/escape.php.
+</summary><exception cref="T:ImageMagick.MagickException" /></member>
         <member name="M:ImageMagick.MagickImage.FontTypeMetrics(System.String)">
 ==========================================================================================
 <summary>
@@ -2913,6 +3043,11 @@ Determines whether the specified object is equal to the current image.
 ==========================================================================================
 <summary>
 Applies a histogram equalization to the image.
+</summary><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Enhance">
+==========================================================================================
+<summary>
+Applies a digital filter that improves the quality of a noisy image.
 </summary><exception cref="T:ImageMagick.MagickException" /></member>
         <member name="M:ImageMagick.MagickImage.EncodingGeometry">
 ==========================================================================================
@@ -3322,6 +3457,11 @@ the threshold unchanged.
 Forces all pixels below the threshold into black while leaving all pixels at or above
 the threshold unchanged.
 </summary><param name="threshold">The threshold to use.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.BitDepth(System.Int32)">
+==========================================================================================
+<summary>
+Set the bit depth (bits allocated to red/green/blue components).
+</summary><param name="value">The depth.</param><exception cref="T:ImageMagick.MagickException" /></member>
         <member name="M:ImageMagick.MagickImage.BitDepth(ImageMagick.Channels,System.Int32)">
 ==========================================================================================
 <summary>
@@ -3471,6 +3611,11 @@ Adaptive-blur image with specified blur factor.
 <summary>
 Adaptive-blur image with the default blur factor (0x1).
 </summary><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="E:ImageMagick.MagickImage.Warning">
+==========================================================================================
+<summary>
+Event that will we raised when a warning is thrown by ImageMagick.
+</summary></member>
         <member name="P:ImageMagick.MagickImage.Width">
 ==========================================================================================
 <summary>
@@ -3498,10 +3643,25 @@ Number of colors in the image.
 <summary>
 Tile name.
 </summary></member>
+        <member name="P:ImageMagick.MagickImage.TextKerning">
+==========================================================================================
+<summary>
+Text inter-character kerning.
+</summary></member>
+        <member name="P:ImageMagick.MagickImage.TextInterwordSpacing">
+==========================================================================================
+<summary>
+Text inter-word spacing.
+</summary></member>
+        <member name="P:ImageMagick.MagickImage.TextInterlineSpacing">
+==========================================================================================
+<summary>
+Text inter-line spacing.
+</summary></member>
         <member name="P:ImageMagick.MagickImage.TextEncoding">
 ==========================================================================================
 <summary>
-Annotation text encoding (e.g. "UTF-16")
+Annotation text encoding (e.g. "UTF-16").
 </summary></member>
         <member name="P:ImageMagick.MagickImage.StrokeWidth">
 ==========================================================================================
@@ -3621,12 +3781,6 @@ Preferred size and location of an image canvas.
 <summary>
 Photo orientation of the image.
 </summary></member>
-        <member name="P:ImageMagick.MagickImage.ModulusDepth">
-==========================================================================================
-<summary>
-Image modulus depth (minimum number of bits required to support red/green/blue components
-without loss of accuracy).
-</summary></member>
         <member name="P:ImageMagick.MagickImage.MatteColor">
 ==========================================================================================
 <summary>
@@ -3641,6 +3795,11 @@ The label of the image.
 ==========================================================================================
 <summary>
 Transform image to black and white.
+</summary></member>
+        <member name="P:ImageMagick.MagickImage.Interpolate">
+==========================================================================================
+<summary>
+Pixel color interpolate method to use.
 </summary></member>
         <member name="P:ImageMagick.MagickImage.Interlace">
 ==========================================================================================
@@ -4117,10 +4276,35 @@ Initializes a new instance of the PixelStorageSettings class.
 <summary>
 Class that contains setting for pixel storage.
 </summary></member>
+        <member name="P:ImageMagick.ColorProfile.USWebCoatedSWOP">
+==========================================================================================
+<summary>
+The USWebCoatedSWOP profile.
+</summary></member>
         <member name="P:ImageMagick.ColorProfile.SRGB">
 ==========================================================================================
 <summary>
-The sRGB icm profile.
+The sRGB profile.
+</summary></member>
+        <member name="P:ImageMagick.ColorProfile.ColorMatchRGB">
+==========================================================================================
+<summary>
+The ColorMatchRGB profile.
+</summary></member>
+        <member name="P:ImageMagick.ColorProfile.CoatedFOGRA39">
+==========================================================================================
+<summary>
+The CoatedFOGRA39 profile.
+</summary></member>
+        <member name="P:ImageMagick.ColorProfile.AppleRGB">
+==========================================================================================
+<summary>
+The AppleRGB profile.
+</summary></member>
+        <member name="P:ImageMagick.ColorProfile.AdobeRGB1998">
+==========================================================================================
+<summary>
+The AdobeRGB1998 profile.
 </summary></member>
         <member name="M:ImageMagick.ColorProfile.#ctor(System.String)">
 ==========================================================================================
@@ -4142,6 +4326,21 @@ Initializes a new instance of the ColorProfile class.
 <summary>
 Class that contains an ICM/ICC color profile.
 </summary></member>
+        <member name="M:ImageMagick.IptcProfile.SetValue(ImageMagick.IptcTag,System.String)">
+==========================================================================================
+<summary>
+Sets the value of the specified tag.
+</summary><param name="tag">The tag of the iptc value.</param><param name="value">The value.</param></member>
+        <member name="M:ImageMagick.IptcProfile.SetValue(ImageMagick.IptcTag,System.Text.Encoding,System.String)">
+==========================================================================================
+<summary>
+Sets the value of the specified tag.
+</summary><param name="tag">The tag of the iptc value.</param><param name="encoding">The encoding to use when storing the bytes.</param><param name="value">The value.</param></member>
+        <member name="M:ImageMagick.IptcProfile.SetEncoding(System.Text.Encoding)">
+==========================================================================================
+<summary>
+Changes the encoding for all the values,
+</summary><param name="encoding">The encoding to use when storing the bytes.</param></member>
         <member name="P:ImageMagick.IptcProfile.Values">
 ==========================================================================================
 <summary>
@@ -4167,6 +4366,11 @@ Initializes a new instance of the IptcProfile class.
 =============================================================================================
 <summary>
 Class that can be used to access an Iptc profile.
+</summary></member>
+        <member name="M:ImageMagick.IptcValue.ToString(System.Text.Encoding)">
+==========================================================================================
+<summary>
+Returns a string that represents the current value with the specified encoding.
 </summary></member>
         <member name="M:ImageMagick.IptcValue.ToString">
 ==========================================================================================
@@ -4201,6 +4405,11 @@ The value.
         <member name="P:ImageMagick.IptcValue.Tag">
             <summary>
 The tag of the iptc value.
+</summary>
+        </member>
+        <member name="P:ImageMagick.IptcValue.Encoding">
+            <summary>
+The encoding to use for the Value.
 </summary>
         </member>
         <member name="T:ImageMagick.IptcValue">
@@ -4360,25 +4569,53 @@ Class that contains an image profile.
 <summary>
 Writes the pixels to the image.
 </summary></member>
+        <member name="M:ImageMagick.WritablePixelCollection.Set(System.Int16[])">
+==========================================================================================
+<summary>
+Changes the values of the specified pixels. Make sure to call Write after modifying all the
+pixels to ensure the image is updated.
+</summary><param name="values">The values of the pixels (RGBA).</param></member>
         <member name="M:ImageMagick.WritablePixelCollection.Set(System.Single[])">
 ==========================================================================================
 <summary>
-Changes the values of the specified pixels.
-</summary><param name="values">The values of the pixels.</param></member>
+Changes the values of the specified pixels. Make sure to call Write after modifying all the
+pixels to ensure the image is updated.
+</summary><param name="values">The values of the pixels (RGBA).</param></member>
+        <member name="M:ImageMagick.WritablePixelCollection.Set(System.Int32[])">
+==========================================================================================
+<summary>
+Changes the values of the specified pixels. Make sure to call Write after modifying all the
+pixels to ensure the image is updated.
+</summary><param name="values">The values of the pixels (RGBA).</param></member>
+        <member name="M:ImageMagick.WritablePixelCollection.Set(System.Double[])">
+==========================================================================================
+<summary>
+Changes the values of the specified pixels. Make sure to call Write after modifying all the
+pixels to ensure the image is updated.
+</summary><param name="values">The values of the pixels (RGBA).</param></member>
+        <member name="M:ImageMagick.WritablePixelCollection.Set(System.Byte[])">
+==========================================================================================
+<summary>
+Changes the values of the specified pixels. Make sure to call Write after modifying all the
+pixels to ensure the image is updated.
+</summary><param name="values">The values of the pixels (RGBA).</param></member>
         <member name="M:ImageMagick.WritablePixelCollection.Set(System.Int32,System.Int32,System.Single[])">
 ==========================================================================================
 <summary>
-Changes the value of the specified pixel.
-</summary><param name="x">The X coordinate of the pixel.</param><param name="y">The Y coordinate of the pixel.</param><param name="value">The value the pixel.</param></member>
+Changes the value of the specified pixel. Make sure to call Write after modifying all the
+pixels to ensure the image is updated.
+</summary><param name="x">The X coordinate of the pixel.</param><param name="y">The Y coordinate of the pixel.</param><param name="value">The value the pixel (RGBA).</param></member>
         <member name="M:ImageMagick.WritablePixelCollection.Set(System.Collections.Generic.IEnumerable`1{ImageMagick.Pixel})">
 ==========================================================================================
 <summary>
-Changes the value of the specified pixels.
+Changes the value of the specified pixels. Make sure to call Write after modifying all the
+pixels to ensure the image is updated.
 </summary><param name="pixels">The pixels to set.</param></member>
         <member name="M:ImageMagick.WritablePixelCollection.Set(ImageMagick.Pixel)">
 ==========================================================================================
 <summary>
-Changes the value of the specified pixel.
+Changes the value of the specified pixel. Make sure to call Write after modifying all the
+pixels to ensure the image is updated.
 </summary><param name="pixel">The pixel to set.</param></member>
         <member name="T:ImageMagick.WritablePixelCollection">
 =============================================================================================
@@ -4565,6 +4802,11 @@ The mean error per pixel computed when an image is color reduced.
 <summary>
 Encapsulates the error information.
 </summary></member>
+        <member name="T:ImageMagick.WarningEventArgs">
+=============================================================================================
+<summary>
+Arguments for the Warning event.
+</summary></member>
         <member name="T:ImageMagick.VirtualPixelMethod">
 =============================================================================================
 <summary>
@@ -4584,6 +4826,11 @@ Specifies the type of rendering intent.
 =============================================================================================
 <summary>
 Units of image resolution.
+</summary></member>
+        <member name="T:ImageMagick.PixelInterpolateMethod">
+=============================================================================================
+<summary>
+Pixel color interpolate methods.
 </summary></member>
         <member name="T:ImageMagick.PaintMethod">
 =============================================================================================
@@ -4820,11 +5067,6 @@ Encapsulation of the ImageMagick WarningBlob exception object.
 <summary>
 Encapsulation of the ImageMagick Warning exception object.
 </summary></member>
-        <member name="T:ImageMagick.MagickException">
-=============================================================================================
-<summary>
-Encapsulation of the ImageMagick exception object.
-</summary></member>
         <member name="T:ImageMagick.ColorSpace">
 =============================================================================================
 <summary>
@@ -4957,6 +5199,11 @@ Resize if image is less than size (&lt;)
 <summary>
 True if width and height are expressed as percentages.
 </summary></member>
+        <member name="P:ImageMagick.MagickGeometry.IgnoreAspectRatio">
+==========================================================================================
+<summary>
+Resize without preserving aspect ratio (!)
+</summary></member>
         <member name="P:ImageMagick.MagickGeometry.Height">
 ==========================================================================================
 <summary>
@@ -4973,11 +5220,6 @@ Resize if image is greater than size (&gt;)
 ==========================================================================================
 <summary>
 Resize the image based on the smallest fitting dimension (^).
-</summary></member>
-        <member name="P:ImageMagick.MagickGeometry.Aspect">
-==========================================================================================
-<summary>
-Resize without preserving aspect ratio (!)
 </summary></member>
         <member name="M:ImageMagick.MagickGeometry.#ctor(System.String)">
 ==========================================================================================
@@ -5114,9 +5356,9 @@ pixel cache.
         <member name="M:ImageMagick.MagickNET.SetLogEvents(ImageMagick.LogEvents)">
 ==========================================================================================
 <summary>
-Set the events that will be written to the log. The log will be written to the console and
-the debug window in VisualStudio. To change the log settings you must use a custom log.xml
-file.
+Set the events that will be written to the log. The log will be written to the Log event
+and the debug window in VisualStudio. To change the log settings you must use a custom
+log.xml file.
 </summary><param name="events">The events that will be logged.</param></member>
         <member name="M:ImageMagick.MagickNET.SetCacheThreshold(System.UInt64)">
 ==========================================================================================
@@ -5145,10 +5387,26 @@ Returns the version of Magick.NET.
 <summary>
 Returns information about the supported formats.
 </summary></member>
+        <member name="E:ImageMagick.MagickNET.Log">
+==========================================================================================
+</member>
+        <member name="P:ImageMagick.MagickNET.Features">
+==========================================================================================
+<summary>
+Returns the features reported by ImageMagick.
+</summary></member>
         <member name="T:ImageMagick.MagickNET">
 =============================================================================================
 <summary>
 Class that can be used to initialize Magick.NET.
+</summary></member>
+        <member name="T:ImageMagick.MagickLogFuncDelegate">
+=============================================================================================
+</member>
+        <member name="M:ImageMagick.MagickFormatInfo.Unregister">
+==========================================================================================
+<summary>
+Unregisters this format.
 </summary></member>
         <member name="M:ImageMagick.MagickFormatInfo.ToString">
 ==========================================================================================
@@ -5195,6 +5453,26 @@ Class that contains information about an image format.
 <summary>
 Specifies the different file formats that are supported by ImageMagick.
 </summary></member>
+        <member name="P:ImageMagick.LogEventArgs.EventType">
+==========================================================================================
+<summary>
+Type of the log message.
+</summary></member>
+        <member name="P:ImageMagick.LogEventArgs.Message">
+==========================================================================================
+<summary>
+Type of the log message.
+</summary></member>
+        <member name="T:ImageMagick.LogEventArgs">
+=============================================================================================
+<summary>
+EventArgs for Log events.
+</summary></member>
+        <member name="T:ImageMagick.MagickException">
+=============================================================================================
+<summary>
+Encapsulation of the ImageMagick exception object.
+</summary></member>
         <member name="T:ImageMagick.LogEvents">
 =============================================================================================
 <summary>
@@ -5234,21 +5512,6 @@ Creates a new DrawableText instance.
 =============================================================================================
 <summary>
 Encapsulation of the DrawableCompositeImage object.
-</summary></member>
-        <member name="P:ImageMagick.DrawableMiterLimit.Miterlimit">
-==========================================================================================
-<summary>
-The miter limit.
-</summary></member>
-        <member name="M:ImageMagick.DrawableMiterLimit.#ctor(System.Int32)">
-==========================================================================================
-<summary>
-Creates a new DrawableMiterLimit instance.
-</summary><param name="miterlimit">The miter limit.</param></member>
-        <member name="T:ImageMagick.DrawableMiterLimit">
-=============================================================================================
-<summary>
-Encapsulation of the DrawableMiterLimit object.
 </summary></member>
         <member name="M:ImageMagick.Coordinate.GetHashCode">
 ==========================================================================================

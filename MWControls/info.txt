@@ -1,0 +1,4 @@
+http://www.gotdotnet.com/team/changeinfo/Backwards1.0to1.1/default.aspx#00000057 
+In .NET Framework version 1.0, when the left mouse button is depressed and held, the TreeView
+control raises MouseDown and then immediately MouseUp events. This has been fixed so that the
+TreeView only raises the MouseUp event after the mouse button is released.

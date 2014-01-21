@@ -50,5 +50,11 @@
     <Setting Name="mapWidth" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">2048</Value>
     </Setting>
+    <Setting Name="mapDrawBuildings" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="mapDrawTrees" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

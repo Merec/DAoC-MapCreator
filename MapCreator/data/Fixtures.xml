@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<fixtures>
+  <categories>
+    <category default="1">
+      <name>buildings</name>
+      <render>shaded</render>
+      <outline>1</outline>
+    </category>
+    <category>
+      <name>trees</name>
+      <render>tree</render>
+      <outline>0</outline>
+    </category>
+    <category>
+      <name>decor</name>
+      <render>flat</render>
+      <outline>1</outline>
+    </category>
+  </categories>
+
+  <!-- Trees -->
+  <fixture>
+    <name>Tree - .*</name>
+    <category>tree</category>
+  </fixture>
+
+  <!-- Decor -->
+  <fixture>
+    <name>nile_rock[0-9]+</name>
+    <category>decor</category>
+  </fixture>
+  
+</fixtures>

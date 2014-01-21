@@ -1,0 +1,70 @@
+Changes made to v1.0.3.0
+MWTreeView
+========================
+Added new TreeViewMultiSelect members
+	Classic
+	MultiPathToParent
+	MultiPathToParents
+	SinglePathToParent
+	SinglePathToParents
+Removed unused variable iDefaultItemHeight.
+Added variables
+	bAllowRubberbandSelect
+	tnMouseDown
+	ptMouseDown
+	ptMouseDownOrig
+	ptMouseDownScreen
+	ptMouseMoveScreen
+	bRubberbandHasBeenPainted
+	bPaintFocusRectAndHottracking
+	strLabelEditRegEx
+	strDisallowLabelEditRegEx
+Changed method BeforeSelectMethod so that TreeViewMultiSelect.MultiSameLevel works better.
+Changed method OnMouseDown so that HighlightNode is called for all MouseButtons not just non-Left but not for TreeViewMultiSelect.NoMulti.
+Added new overridden EventHandlers OnMouseMove and OnMouseLeave.
+Added property AllowRubberbandSelect and its EventHandlers.
+New method MoveRubberbandStart to help OnMouseMove paint the rubberband properly.
+Changed method SelectNode for TreeViewMultiSelect.NoMulti so that a bug was fixed where TreeNodes were Highlighted without being selected.
+Changed method ChangeSelNode so that TreeNodes are not made visible while rubberband selecting even if they are selected.
+Added three new overloads to the ClearSelNodes method where all TreeNodes are cleared but the one passed in or the range passed in.
+Changed EventHandlers OnBeforeSelect and OnMouseMove to deal with Hottracking.
+New methods IsTreeNodeSelected and IsTreeNodeChecked used throughout.
+Property SelNodes changed to handle switching from TreeViewMultiSelect.Multi to another multi select method. Images were not retained before.
+Property SelNodeInt changed to fix label editing being broken.
+Property SelNodeInt changed to add painting of the focus rectangle.
+Added new property IsMouseMoveSelect to help determine if a mouse move should start selecting TreeNodes or if the mouse move is too small.
+	This property is used for rubberband selections.
+Modified EventHandler OnAfterLabelEdit to handle LabelEditRegEx.
+Added new overridden EventHandler OnBeforeLabelEdit.
+Added new browsable properties and their EventHandlers: LabelEditRegEx and DisallowLabelEditRegEx.
+Added new help methods IsLabelEditRegExSatisfied and IsDisallowLabelEditRegExSatisfied.
+Changed EventHandler OnMouseUp to call LowLightNode on tnMouseDown, not tn.
+Methods HighlightNode and LowlightNode changed so that colors are only set if they are different to present colors.
+Added 'overridden' (new with calls to base) property HideSelection.
+Added new method ActivateOrDeactivateSelNodes.
+Added new method ForceDeactivateSelNodes to help the HideSelection property.
+Changed EventHandler OnMouseMove and methods BeforeSelectMethod, SelectNode and DeselectNode to handle TreeViewMultiSelect.MultiPathToParent,
+	TreeViewMultiSelect.MultiPathToParents, TreeViewMultiSelect.SinglePathToParent and TreeViewMultiSelect.SinglePathToParents.
+Modified property MultiSelect: added support for TreeViewMultiSelect.Classic, TreeViewMultiSelect.MultiPathToParent,
+	TreeViewMultiSelect.MultiPathToParents, TreeViewMultiSelect.SinglePathToParent and TreeViewMultiSelect.SinglePathToParents.
+Modified property MultiSelect so that if SelNode gets deselected by changing the MultiSelect property another selected TreeNode becomes SelNode.
+Modified property SelNodeInt to handle TreeViewMultiSelect.Classic.
+Added method IsAnyChildTreeNodeSelected.
+Methods HighlightNode and LowlightNode now only sets the colors if they are different to what is already there.
+Modified method DeselectNode so that the last TreeNode cannot be deselected if the AllowNoSelNode property is set to false (instead of picking
+	the topmost TreeNode as before).
+Added new method DeselectAllParentNodes (not really used though).
+Added new method ClearSelBranch that only clears one branch of selected TreeNodes not all selected TreeNodes.
+Modified EventHandlers OnBeforeCheck and OnKeyDown and method BeforeCheckMethod: fixed keyboard checking (space key).
+Modified property AllowMultiCheck and methods CheckNode, UncheckNode, ToggleCheckNode, CheckBranch (both), UncheckBranch (both),
+	ToggleCheckBranch (both), CheckAllNodes (both) to fix keyboard checking.
+New properties strSelectNodeRegEx, strCheckNodeRegEx and bForceCheckNode.
+Modified EventHandler OnBeforeCheck and method CheckNode to handle CheckNodeRegEx
+Modified Property SelNodeInt and method SelectNode to handle SelectNodeRegEx
+Added new browsable Properties and their EventHandlers: SelectNodeRegEx and CheckNodeRegEx.
+Added new help methods IsSelectNodeRegExSatisfied and IsCheckNodeRegExSatisfied.
+Added new help methods EnsureAllSelectedNodesAreAllowed and EnsureAllCheckedNodesAreAllowed.
+Modified Properties CheckedNodes and SelNodes to handle SelectNodeRegEx and CheckNodeRegEx.
+Modified the following methods etc to handle nulls: OnBeforeCheck, OnMouseDown, AllowMultiCheck, SelNodes, CheckedNodes, IsTreeNodeSelected,
+	IsTreeNodeChecked, EnsureSelNodeNotNull, SelectNode, ClearSelNodes, EnsureAllSelectedNodesAreAllowed and EnsureAllCheckedNodesAreAllowed.
+Added new methods RemoveNode, DeleteNode and RemoveNodes.

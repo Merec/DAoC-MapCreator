@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.30319</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9986C595-9BF5-42B1-935E-C1203108248D}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon />
+    <AssemblyKeyContainerName />
+    <AssemblyName>MWControls</AssemblyName>
+    <AssemblyOriginatorKeyFile />
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MWControls</RootNamespace>
+    <StartupObject />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile />
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile />
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug x86|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug x86\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\MWControls.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release x86|AnyCPU'">
+    <OutputPath>bin\Release x86\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\MWControls.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MWCommon">
+      <Name>MWCommon</Name>
+      <HintPath>..\MWCommon\bin\Debug\MWCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditorTextDir.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditorTextDirUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MWCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MWLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MWScrollLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MWTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Content Include="info.txt" />
+    <Content Include="MWControls_Changelog.txt" />
+    <EmbeddedResource Include="EditorTextDirUI.resx">
+      <DependentUpon>EditorTextDirUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MWCheckBox.resx">
+      <DependentUpon>MWCheckBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MWLabel.resx">
+      <DependentUpon>MWLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MWScrollLabel.resx">
+      <DependentUpon>MWScrollLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MWTreeView.resx">
+      <DependentUpon>MWTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
 [assembly: AssemblyTitle("MapCreator")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Create maps for Dark Age of Camelot")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MapCreator")]

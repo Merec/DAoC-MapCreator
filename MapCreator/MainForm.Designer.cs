@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainStatus = new System.Windows.Forms.StatusStrip();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -39,16 +40,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.heightTextBox = new System.Windows.Forms.NumericUpDown();
             this.widthTextBox = new System.Windows.Forms.NumericUpDown();
-            this.typesComboBox = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.expansionsComboBox = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.realmsComboBox = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.zonesComboBox = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.generateLightmapCheckBox = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -63,9 +56,13 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.heightmapLightMinTextBox = new System.Windows.Forms.NumericUpDown();
-            this.renderButton = new System.Windows.Forms.Button();
             this.mapPreview = new System.Windows.Forms.PictureBox();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.selectMapsButton = new System.Windows.Forms.Button();
+            this.selectedMapsListBox = new System.Windows.Forms.ListBox();
+            this.selecetedMapsResetButton = new System.Windows.Forms.Button();
+            this.selectedMapsCounterLabel = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -92,6 +89,14 @@
             this.drawMapBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.riversColorColorDialog = new System.Windows.Forms.ColorDialog();
             this.boundsColorDialog = new System.Windows.Forms.ColorDialog();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.drawFixturesCheckBox = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.renderButton = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.mainStatus.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -105,14 +110,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.heightmapLightMaxTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapLightMinTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mapPreview)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mapBoundsOpacityTextBox)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mapRiversOpacityTextBox)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainStatus
@@ -120,9 +134,9 @@
             this.mainStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusProgressBar,
             this.statusLabel});
-            this.mainStatus.Location = new System.Drawing.Point(0, 786);
+            this.mainStatus.Location = new System.Drawing.Point(0, 720);
             this.mainStatus.Name = "mainStatus";
-            this.mainStatus.Size = new System.Drawing.Size(698, 22);
+            this.mainStatus.Size = new System.Drawing.Size(984, 22);
             this.mainStatus.TabIndex = 0;
             this.mainStatus.Text = "statusStrip1";
             // 
@@ -144,7 +158,7 @@
             this.settingsToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(698, 24);
+            this.mainMenu.Size = new System.Drawing.Size(984, 24);
             this.mainMenu.TabIndex = 1;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -184,20 +198,12 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.heightTextBox);
             this.groupBox1.Controls.Add(this.widthTextBox);
-            this.groupBox1.Controls.Add(this.typesComboBox);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.expansionsComboBox);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.realmsComboBox);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.zonesComboBox);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 3);
-            this.groupBox1.MinimumSize = new System.Drawing.Size(306, 0);
+            this.groupBox1.Location = new System.Drawing.Point(0, 126);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(409, 161);
+            this.groupBox1.Size = new System.Drawing.Size(350, 50);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Map settings";
@@ -205,7 +211,7 @@
             // heightTextBox
             // 
             this.heightTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::MapCreator.Properties.Settings.Default, "mapWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.heightTextBox.Location = new System.Drawing.Point(220, 129);
+            this.heightTextBox.Location = new System.Drawing.Point(186, 17);
             this.heightTextBox.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -225,7 +231,7 @@
             // widthTextBox
             // 
             this.widthTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::MapCreator.Properties.Settings.Default, "mapWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.widthTextBox.Location = new System.Drawing.Point(70, 129);
+            this.widthTextBox.Location = new System.Drawing.Point(68, 17);
             this.widthTextBox.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -237,77 +243,14 @@
             0,
             0});
             this.widthTextBox.Name = "widthTextBox";
-            this.widthTextBox.Size = new System.Drawing.Size(100, 20);
+            this.widthTextBox.Size = new System.Drawing.Size(68, 20);
             this.widthTextBox.TabIndex = 13;
             this.widthTextBox.Value = global::MapCreator.Properties.Settings.Default.mapWidth;
-            // 
-            // typesComboBox
-            // 
-            this.typesComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.typesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.typesComboBox.FormattingEnabled = true;
-            this.typesComboBox.Location = new System.Drawing.Point(70, 73);
-            this.typesComboBox.Name = "typesComboBox";
-            this.typesComboBox.Size = new System.Drawing.Size(333, 21);
-            this.typesComboBox.TabIndex = 12;
-            this.typesComboBox.SelectedIndexChanged += new System.EventHandler(this.typesComboBox_SelectedIndexChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 76);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(31, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Type";
-            // 
-            // expansionsComboBox
-            // 
-            this.expansionsComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.expansionsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.expansionsComboBox.FormattingEnabled = true;
-            this.expansionsComboBox.Location = new System.Drawing.Point(70, 46);
-            this.expansionsComboBox.Name = "expansionsComboBox";
-            this.expansionsComboBox.Size = new System.Drawing.Size(333, 21);
-            this.expansionsComboBox.TabIndex = 10;
-            this.expansionsComboBox.SelectedIndexChanged += new System.EventHandler(this.expansionsComboBox_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 49);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Expansion";
-            // 
-            // realmsComboBox
-            // 
-            this.realmsComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.realmsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.realmsComboBox.FormattingEnabled = true;
-            this.realmsComboBox.Location = new System.Drawing.Point(70, 19);
-            this.realmsComboBox.Name = "realmsComboBox";
-            this.realmsComboBox.Size = new System.Drawing.Size(333, 21);
-            this.realmsComboBox.TabIndex = 8;
-            this.realmsComboBox.SelectedIndexChanged += new System.EventHandler(this.realmsComboBox_SelectedIndexChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 22);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Realm";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(176, 131);
+            this.label3.Location = new System.Drawing.Point(142, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 4;
@@ -316,32 +259,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 131);
+            this.label2.Location = new System.Drawing.Point(6, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Width";
-            // 
-            // zonesComboBox
-            // 
-            this.zonesComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.zonesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.zonesComboBox.FormattingEnabled = true;
-            this.zonesComboBox.Location = new System.Drawing.Point(70, 100);
-            this.zonesComboBox.Name = "zonesComboBox";
-            this.zonesComboBox.Size = new System.Drawing.Size(333, 21);
-            this.zonesComboBox.TabIndex = 1;
-            this.zonesComboBox.SelectedIndexChanged += new System.EventHandler(this.zonesComboBox_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 103);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Zone";
             // 
             // groupBox2
             // 
@@ -360,9 +282,10 @@
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.heightmapLightMinTextBox);
-            this.groupBox2.Location = new System.Drawing.Point(12, 170);
+            this.groupBox2.Location = new System.Drawing.Point(0, 179);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(409, 133);
+            this.groupBox2.Size = new System.Drawing.Size(350, 149);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Background";
@@ -383,7 +306,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(193, 50);
+            this.label13.Location = new System.Drawing.Point(116, 65);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(198, 13);
             this.label13.TabIndex = 24;
@@ -392,7 +315,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(88, 77);
+            this.label12.Location = new System.Drawing.Point(88, 95);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(24, 13);
             this.label12.TabIndex = 23;
@@ -407,7 +330,7 @@
             0,
             0,
             65536});
-            this.heightmapZVector3TextBox.Location = new System.Drawing.Point(268, 98);
+            this.heightmapZVector3TextBox.Location = new System.Drawing.Point(268, 116);
             this.heightmapZVector3TextBox.Minimum = new decimal(new int[] {
             100,
             0,
@@ -427,7 +350,7 @@
             0,
             0,
             65536});
-            this.heightmapZVector2TextBox.Location = new System.Drawing.Point(193, 98);
+            this.heightmapZVector2TextBox.Location = new System.Drawing.Point(193, 116);
             this.heightmapZVector2TextBox.Minimum = new decimal(new int[] {
             100,
             0,
@@ -447,7 +370,7 @@
             0,
             0,
             65536});
-            this.heightmapZVector1TextBox.Location = new System.Drawing.Point(118, 98);
+            this.heightmapZVector1TextBox.Location = new System.Drawing.Point(118, 116);
             this.heightmapZVector1TextBox.Minimum = new decimal(new int[] {
             100,
             0,
@@ -461,7 +384,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 101);
+            this.label11.Location = new System.Drawing.Point(6, 119);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(106, 13);
             this.label11.TabIndex = 19;
@@ -471,7 +394,7 @@
             // 
             this.heightmapZScaleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::MapCreator.Properties.Settings.Default, "mapHeightmapZScale", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.heightmapZScaleTextBox.DecimalPlaces = 2;
-            this.heightmapZScaleTextBox.Location = new System.Drawing.Point(118, 48);
+            this.heightmapZScaleTextBox.Location = new System.Drawing.Point(118, 42);
             this.heightmapZScaleTextBox.Name = "heightmapZScaleTextBox";
             this.heightmapZScaleTextBox.Size = new System.Drawing.Size(69, 20);
             this.heightmapZScaleTextBox.TabIndex = 18;
@@ -480,7 +403,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 51);
+            this.label10.Location = new System.Drawing.Point(6, 45);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(44, 13);
             this.label10.TabIndex = 17;
@@ -495,7 +418,7 @@
             0,
             0,
             65536});
-            this.heightmapLightMaxTextBox.Location = new System.Drawing.Point(226, 74);
+            this.heightmapLightMaxTextBox.Location = new System.Drawing.Point(226, 92);
             this.heightmapLightMaxTextBox.Name = "heightmapLightMaxTextBox";
             this.heightmapLightMaxTextBox.Size = new System.Drawing.Size(69, 20);
             this.heightmapLightMaxTextBox.TabIndex = 16;
@@ -504,7 +427,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(193, 77);
+            this.label9.Location = new System.Drawing.Point(193, 95);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(27, 13);
             this.label9.TabIndex = 15;
@@ -513,7 +436,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 77);
+            this.label8.Location = new System.Drawing.Point(6, 95);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(76, 13);
             this.label8.TabIndex = 14;
@@ -528,61 +451,92 @@
             0,
             0,
             65536});
-            this.heightmapLightMinTextBox.Location = new System.Drawing.Point(118, 74);
+            this.heightmapLightMinTextBox.Location = new System.Drawing.Point(118, 92);
             this.heightmapLightMinTextBox.Name = "heightmapLightMinTextBox";
             this.heightmapLightMinTextBox.Size = new System.Drawing.Size(69, 20);
             this.heightmapLightMinTextBox.TabIndex = 13;
             this.heightmapLightMinTextBox.Value = global::MapCreator.Properties.Settings.Default.mapHeightmapMinLight;
             // 
-            // renderButton
-            // 
-            this.renderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.renderButton.Location = new System.Drawing.Point(300, 525);
-            this.renderButton.Name = "renderButton";
-            this.renderButton.Size = new System.Drawing.Size(115, 23);
-            this.renderButton.TabIndex = 6;
-            this.renderButton.Text = "Render";
-            this.renderButton.UseVisualStyleBackColor = true;
-            this.renderButton.Click += new System.EventHandler(this.renderButton_Click);
-            // 
             // mapPreview
             // 
-            this.mapPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.mapPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mapPreview.Location = new System.Drawing.Point(10, 22);
+            this.mapPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapPreview.Location = new System.Drawing.Point(0, 16);
             this.mapPreview.Margin = new System.Windows.Forms.Padding(10);
             this.mapPreview.Name = "mapPreview";
-            this.mapPreview.Size = new System.Drawing.Size(250, 737);
+            this.mapPreview.Size = new System.Drawing.Size(258, 530);
             this.mapPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.mapPreview.TabIndex = 3;
             this.mapPreview.TabStop = false;
             // 
-            // splitContainer1
+            // groupBox5
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
-            this.splitContainer1.Name = "splitContainer1";
+            this.groupBox5.Controls.Add(this.selectMapsButton);
+            this.groupBox5.Controls.Add(this.selectedMapsListBox);
+            this.groupBox5.Controls.Add(this.selecetedMapsResetButton);
+            this.groupBox5.Controls.Add(this.selectedMapsCounterLabel);
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Location = new System.Drawing.Point(0, 0);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(350, 123);
+            this.groupBox5.TabIndex = 5;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Maps";
             // 
-            // splitContainer1.Panel1
+            // selectMapsButton
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox4);
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox3);
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
-            this.splitContainer1.Panel1.Controls.Add(this.logListBox);
-            this.splitContainer1.Panel1.Controls.Add(this.renderButton);
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
-            this.splitContainer1.Panel1MinSize = 424;
+            this.selectMapsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectMapsButton.Location = new System.Drawing.Point(277, 92);
+            this.selectMapsButton.Name = "selectMapsButton";
+            this.selectMapsButton.Size = new System.Drawing.Size(67, 25);
+            this.selectMapsButton.TabIndex = 5;
+            this.selectMapsButton.Text = "select";
+            this.selectMapsButton.UseVisualStyleBackColor = true;
+            this.selectMapsButton.Click += new System.EventHandler(this.selectMapsButton_Click);
             // 
-            // splitContainer1.Panel2
+            // selectedMapsListBox
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.label7);
-            this.splitContainer1.Panel2.Controls.Add(this.mapPreview);
-            this.splitContainer1.Size = new System.Drawing.Size(698, 762);
-            this.splitContainer1.SplitterDistance = 424;
-            this.splitContainer1.TabIndex = 4;
+            this.selectedMapsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectedMapsListBox.IntegralHeight = false;
+            this.selectedMapsListBox.Location = new System.Drawing.Point(6, 19);
+            this.selectedMapsListBox.Name = "selectedMapsListBox";
+            this.selectedMapsListBox.Size = new System.Drawing.Size(338, 67);
+            this.selectedMapsListBox.Sorted = true;
+            this.selectedMapsListBox.TabIndex = 4;
+            // 
+            // selecetedMapsResetButton
+            // 
+            this.selecetedMapsResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.selecetedMapsResetButton.Location = new System.Drawing.Point(225, 92);
+            this.selecetedMapsResetButton.Name = "selecetedMapsResetButton";
+            this.selecetedMapsResetButton.Size = new System.Drawing.Size(42, 25);
+            this.selecetedMapsResetButton.TabIndex = 3;
+            this.selecetedMapsResetButton.Text = "reset";
+            this.selecetedMapsResetButton.UseVisualStyleBackColor = true;
+            this.selecetedMapsResetButton.Click += new System.EventHandler(this.selecetedMapsResetButton_Click);
+            // 
+            // selectedMapsCounterLabel
+            // 
+            this.selectedMapsCounterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.selectedMapsCounterLabel.AutoSize = true;
+            this.selectedMapsCounterLabel.Location = new System.Drawing.Point(93, 98);
+            this.selectedMapsCounterLabel.Name = "selectedMapsCounterLabel";
+            this.selectedMapsCounterLabel.Size = new System.Drawing.Size(13, 13);
+            this.selectedMapsCounterLabel.TabIndex = 2;
+            this.selectedMapsCounterLabel.Text = "0";
+            // 
+            // label22
+            // 
+            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 98);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(81, 13);
+            this.label22.TabIndex = 1;
+            this.label22.Text = "Selected Maps:";
             // 
             // groupBox4
             // 
@@ -597,9 +551,10 @@
             this.groupBox4.Controls.Add(this.mapBoundsColorPreview);
             this.groupBox4.Controls.Add(this.label21);
             this.groupBox4.Controls.Add(this.generateBoundsCheckBox);
-            this.groupBox4.Location = new System.Drawing.Point(12, 415);
+            this.groupBox4.Location = new System.Drawing.Point(0, 331);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(409, 100);
+            this.groupBox4.Size = new System.Drawing.Size(350, 100);
             this.groupBox4.TabIndex = 30;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Bounds";
@@ -616,7 +571,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(180, 73);
+            this.label19.Location = new System.Drawing.Point(195, 72);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(15, 13);
             this.label19.TabIndex = 27;
@@ -625,7 +580,7 @@
             // mapBoundsOpacityTextBox
             // 
             this.mapBoundsOpacityTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::MapCreator.Properties.Settings.Default, "mapBoundsOpacity", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.mapBoundsOpacityTextBox.Location = new System.Drawing.Point(109, 70);
+            this.mapBoundsOpacityTextBox.Location = new System.Drawing.Point(124, 69);
             this.mapBoundsOpacityTextBox.Minimum = new decimal(new int[] {
             1,
             0,
@@ -711,9 +666,10 @@
             this.groupBox3.Controls.Add(this.riversColorPreview);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.generateRiversCheckBox);
-            this.groupBox3.Location = new System.Drawing.Point(12, 309);
+            this.groupBox3.Location = new System.Drawing.Point(0, 434);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(409, 100);
+            this.groupBox3.Size = new System.Drawing.Size(350, 100);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Rivers";
@@ -743,7 +699,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(180, 73);
+            this.label16.Location = new System.Drawing.Point(195, 73);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(15, 13);
             this.label16.TabIndex = 27;
@@ -752,7 +708,7 @@
             // mapRiversOpacityTextBox
             // 
             this.mapRiversOpacityTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::MapCreator.Properties.Settings.Default, "mapRiverOpacity", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.mapRiversOpacityTextBox.Location = new System.Drawing.Point(109, 70);
+            this.mapRiversOpacityTextBox.Location = new System.Drawing.Point(124, 70);
             this.mapRiversOpacityTextBox.Minimum = new decimal(new int[] {
             1,
             0,
@@ -826,24 +782,28 @@
             // 
             // logListBox
             // 
-            this.logListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.logListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.logListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.logListBox.FormattingEnabled = true;
             this.logListBox.IntegralHeight = false;
-            this.logListBox.Location = new System.Drawing.Point(12, 554);
+            this.logListBox.Location = new System.Drawing.Point(3, 3);
             this.logListBox.Name = "logListBox";
             this.logListBox.ScrollAlwaysVisible = true;
-            this.logListBox.Size = new System.Drawing.Size(409, 205);
+            this.logListBox.Size = new System.Drawing.Size(258, 134);
             this.logListBox.TabIndex = 3;
             this.logListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.logListBox_DrawItem);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 3);
+            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label7.Location = new System.Drawing.Point(0, 0);
+            this.label7.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(45, 13);
+            this.label7.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label7.Size = new System.Drawing.Size(45, 16);
             this.label7.TabIndex = 4;
             this.label7.Text = "Preview";
             // 
@@ -855,19 +815,133 @@
             // 
             this.riversColorColorDialog.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.AutoSize = true;
+            this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel1.Controls.Add(this.groupBox5);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox1);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox2);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox4);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox3);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox6);
+            this.flowLayoutPanel1.Controls.Add(this.panel1);
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(706, 537);
+            this.flowLayoutPanel1.TabIndex = 33;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.drawFixturesCheckBox);
+            this.groupBox6.Location = new System.Drawing.Point(353, 0);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(350, 118);
+            this.groupBox6.TabIndex = 31;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Fixtures";
+            // 
+            // drawFixturesCheckBox
+            // 
+            this.drawFixturesCheckBox.AutoSize = true;
+            this.drawFixturesCheckBox.Checked = global::MapCreator.Properties.Settings.Default.mapDrawBuildings;
+            this.drawFixturesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.drawFixturesCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapDrawBuildings", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.drawFixturesCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.drawFixturesCheckBox.Name = "drawFixturesCheckBox";
+            this.drawFixturesCheckBox.Size = new System.Drawing.Size(87, 17);
+            this.drawFixturesCheckBox.TabIndex = 0;
+            this.drawFixturesCheckBox.Text = "Draw fixtures";
+            this.drawFixturesCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.renderButton);
+            this.panel1.Location = new System.Drawing.Point(356, 124);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(347, 55);
+            this.panel1.TabIndex = 34;
+            // 
+            // renderButton
+            // 
+            this.renderButton.Location = new System.Drawing.Point(211, 11);
+            this.renderButton.Name = "renderButton";
+            this.renderButton.Size = new System.Drawing.Size(133, 33);
+            this.renderButton.TabIndex = 33;
+            this.renderButton.Text = "Render";
+            this.renderButton.UseVisualStyleBackColor = true;
+            this.renderButton.Click += new System.EventHandler(this.renderButton_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.mapPreview);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(258, 546);
+            this.panel2.TabIndex = 4;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.flowLayoutPanel1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Size = new System.Drawing.Size(984, 696);
+            this.splitContainer1.SplitterDistance = 716;
+            this.splitContainer1.TabIndex = 6;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.panel2);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.logListBox);
+            this.splitContainer2.Size = new System.Drawing.Size(264, 696);
+            this.splitContainer2.SplitterDistance = 552;
+            this.splitContainer2.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 808);
+            this.ClientSize = new System.Drawing.Size(984, 742);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mainStatus);
             this.Controls.Add(this.mainMenu);
+            this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
+            this.MinimumSize = new System.Drawing.Size(1000, 780);
             this.Name = "MainForm";
             this.Text = "MapCreator";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.mainStatus.ResumeLayout(false);
             this.mainStatus.PerformLayout();
             this.mainMenu.ResumeLayout(false);
@@ -885,17 +959,29 @@
             ((System.ComponentModel.ISupportInitialize)(this.heightmapLightMaxTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapLightMinTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mapPreview)).EndInit();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mapBoundsOpacityTextBox)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mapRiversOpacityTextBox)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -912,20 +998,10 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox zonesComboBox;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox mapPreview;
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListBox logListBox;
         private System.Windows.Forms.ToolStripProgressBar statusProgressBar;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-        private System.Windows.Forms.Button renderButton;
-        private System.Windows.Forms.ComboBox typesComboBox;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox expansionsComboBox;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox realmsComboBox;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label7;
         private System.ComponentModel.BackgroundWorker drawMapBackgroundWorker;
         private System.Windows.Forms.Label label8;
@@ -967,6 +1043,20 @@
         private System.Windows.Forms.ColorDialog boundsColorDialog;
         private System.Windows.Forms.NumericUpDown heightTextBox;
         private System.Windows.Forms.NumericUpDown widthTextBox;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button selecetedMapsResetButton;
+        private System.Windows.Forms.Label selectedMapsCounterLabel;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.ListBox selectedMapsListBox;
+        private System.Windows.Forms.Button selectMapsButton;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.CheckBox drawFixturesCheckBox;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button renderButton;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }
 

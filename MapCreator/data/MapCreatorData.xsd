@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MapCreatorData" targetNamespace="http://tempuri.org/MapCreator.xsd" xmlns:mstns="http://tempuri.org/MapCreator.xsd" xmlns="http://tempuri.org/MapCreator.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="MapCreatorData" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="MapCreatorData" msprop:Generator_UserDSName="MapCreatorData">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ZoneSelectionPresets" msprop:Generator_TableClassName="ZoneSelectionPresetsDataTable" msprop:Generator_TableVarName="tableZoneSelectionPresets" msprop:Generator_TablePropName="ZoneSelectionPresets" msprop:Generator_RowDeletingName="ZoneSelectionPresetsRowDeleting" msprop:Generator_UserTableName="ZoneSelectionPresets" msprop:Generator_RowChangingName="ZoneSelectionPresetsRowChanging" msprop:Generator_RowEvHandlerName="ZoneSelectionPresetsRowChangeEventHandler" msprop:Generator_RowDeletedName="ZoneSelectionPresetsRowDeleted" msprop:Generator_RowEvArgName="ZoneSelectionPresetsRowChangeEvent" msprop:Generator_RowChangedName="ZoneSelectionPresetsRowChanged" msprop:Generator_RowClassName="ZoneSelectionPresetsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Zones" msprop:Generator_ColumnVarNameInTable="columnZones" msprop:Generator_ColumnPropNameInRow="Zones" msprop:Generator_ColumnPropNameInTable="ZonesColumn" msprop:Generator_UserColumnName="Zones" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ModelCategory" msprop:Generator_TableClassName="ModelCategoryDataTable" msprop:Generator_TableVarName="tableModelCategory" msprop:Generator_TablePropName="ModelCategory" msprop:Generator_RowDeletingName="ModelCategoryRowDeleting" msprop:Generator_UserTableName="ModelCategory" msprop:Generator_RowChangingName="ModelCategoryRowChanging" msprop:Generator_RowEvHandlerName="ModelCategoryRowChangeEventHandler" msprop:Generator_RowDeletedName="ModelCategoryRowDeleted" msprop:Generator_RowEvArgName="ModelCategoryRowChangeEvent" msprop:Generator_RowChangedName="ModelCategoryRowChanged" msprop:Generator_RowClassName="ModelCategoryRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" />
+              <xs:element name="renderer" msprop:Generator_ColumnVarNameInTable="columnrenderer" msprop:Generator_ColumnPropNameInRow="renderer" msprop:Generator_ColumnPropNameInTable="rendererColumn" msprop:Generator_UserColumnName="renderer" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="outline" msprop:Generator_ColumnVarNameInTable="columnoutline" msprop:Generator_ColumnPropNameInRow="outline" msprop:Generator_ColumnPropNameInTable="outlineColumn" msprop:Generator_UserColumnName="outline" type="xs:boolean" default="true" minOccurs="0" />
+              <xs:element name="is_default" msprop:Generator_ColumnVarNameInTable="columnis_default" msprop:Generator_ColumnPropNameInRow="is_default" msprop:Generator_ColumnPropNameInTable="is_defaultColumn" msprop:Generator_UserColumnName="is_default" type="xs:boolean" default="false" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Model" msprop:Generator_TableClassName="ModelDataTable" msprop:Generator_TableVarName="tableModel" msprop:Generator_TablePropName="Model" msprop:Generator_RowDeletingName="ModelRowDeleting" msprop:Generator_UserTableName="Model" msprop:Generator_RowChangingName="ModelRowChanging" msprop:Generator_RowEvHandlerName="ModelRowChangeEventHandler" msprop:Generator_RowDeletedName="ModelRowDeleted" msprop:Generator_RowEvArgName="ModelRowChangeEvent" msprop:Generator_RowChangedName="ModelRowChanged" msprop:Generator_RowClassName="ModelRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="pattern" msprop:Generator_ColumnVarNameInTable="columnpattern" msprop:Generator_ColumnPropNameInRow="pattern" msprop:Generator_ColumnPropNameInTable="patternColumn" msprop:Generator_UserColumnName="pattern" type="xs:string" minOccurs="0" />
+              <xs:element name="category" msprop:Generator_ColumnVarNameInTable="columncategory" msprop:Generator_ColumnPropNameInRow="category" msprop:Generator_ColumnPropNameInTable="categoryColumn" msprop:Generator_UserColumnName="category" type="xs:string" minOccurs="0" />
+              <xs:element name="renderer" msprop:Generator_ColumnVarNameInTable="columnrenderer" msprop:Generator_ColumnPropNameInRow="renderer" msprop:Generator_ColumnPropNameInTable="rendererColumn" msprop:Generator_UserColumnName="renderer" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="outline" msprop:Generator_ColumnVarNameInTable="columnoutline" msprop:Generator_ColumnPropNameInRow="outline" msprop:Generator_ColumnPropNameInTable="outlineColumn" msprop:Generator_UserColumnName="outline" type="xs:string" default="" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ZoneSelectionPresets" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="ModelCategory_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ModelCategory" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="Model_ModelCategory" msdata:parent="ModelCategory" msdata:child="Model" msdata:parentkey="id" msdata:childkey="category" msprop:Generator_UserChildTable="Model" msprop:Generator_ChildPropName="GetModelRows" msprop:Generator_UserParentTable="ModelCategory" msprop:Generator_UserRelationName="Model_ModelCategory" msprop:Generator_RelationVarName="relationModel_ModelCategory" msprop:Generator_ParentPropName="ModelCategoryRow" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

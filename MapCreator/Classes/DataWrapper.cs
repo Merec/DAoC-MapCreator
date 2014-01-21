@@ -6,12 +6,150 @@ using System.Xml.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using MapCreator.data;
 
 namespace MapCreator
 {
     static class DataWrapper
     {
-        private static XDocument m_xml = null;
+        private static bool initialized = false;
+
+        private static XDocument zonesXml = null;
+
+        private static string presetsDataFile;
+        private static string fixturesDataFile;
+
+        private static MapCreatorData mapCreatorData = new MapCreatorData();
+        public static MapCreatorData MapCreatorData
+        {
+            get { return DataWrapper.mapCreatorData; }
+            set { DataWrapper.mapCreatorData = value; }
+        }
+
+        private static MapCreatorData modelsData = new MapCreatorData();
+        public static MapCreatorData ModelsData
+        {
+            get { return DataWrapper.modelsData; }
+            set { DataWrapper.modelsData = value; }
+        }
+
+        public static void Initialize()
+        {
+            if (initialized) return;
+
+            // Read Zones
+            zonesXml = XDocument.Load(string.Format("{0}\\data\\zones.xml", Application.StartupPath));
+
+            // Create/Read data xml file
+            presetsDataFile = string.Format("{0}\\presets.xml", Application.StartupPath);
+            if (!File.Exists(presetsDataFile))
+            {
+                mapCreatorData.ZoneSelectionPresets.WriteXml(presetsDataFile);
+            }
+            else
+            {
+                mapCreatorData.ZoneSelectionPresets.ReadXml(presetsDataFile);
+            }
+
+            fixturesDataFile = string.Format("{0}\\models.xml", Application.StartupPath);
+            File.Delete(fixturesDataFile);
+
+            if (!File.Exists(fixturesDataFile))
+            {
+                GenerateDefaultModelValues();
+                modelsData.WriteXml(fixturesDataFile);
+            }
+            else
+            {
+                modelsData.ReadXml(fixturesDataFile);
+            }
+
+            initialized = true;
+        }
+
+        #region MapCreatorData Presets
+
+        public static void LoadPresets()
+        {
+            Initialize();
+
+            mapCreatorData.ZoneSelectionPresets.Clear();
+            mapCreatorData.ZoneSelectionPresets.ReadXml(presetsDataFile);
+        }
+
+        public static void SavePresets()
+        {
+            Initialize();
+
+            mapCreatorData.ZoneSelectionPresets.WriteXml(presetsDataFile);
+        }
+
+        public static void AddPresetRow(string name, List<string> zoneIds)
+        {
+            Initialize();
+
+            MapCreatorData.ZoneSelectionPresetsRow row = mapCreatorData.ZoneSelectionPresets.NewZoneSelectionPresetsRow();
+            row.Name = name;
+            row.Zones = String.Join(",", zoneIds);
+            mapCreatorData.ZoneSelectionPresets.AddZoneSelectionPresetsRow(row);
+            SavePresets();
+        }
+
+        public static void RemovePreset(MapCreatorData.ZoneSelectionPresetsRow row)
+        {
+            Initialize();
+
+            mapCreatorData.ZoneSelectionPresets.RemoveZoneSelectionPresetsRow(row);
+            SavePresets();
+        }
+
+        public static MapCreatorData.ZoneSelectionPresetsRow[] GetPresetRows()
+        {
+            Initialize();
+
+            return mapCreatorData.ZoneSelectionPresets.ToArray();
+        }
+
+        #endregion
+
+        #region Model/Fixtures
+
+        private static void GenerateDefaultModelValues()
+        {
+            // Categories
+            var noneCategory = modelsData.ModelCategory.AddModelCategoryRow("None", "None", false, false);
+            var structuresCategory = modelsData.ModelCategory.AddModelCategoryRow("Buildings", "Shaded", true, true);
+            var decorCategory = modelsData.ModelCategory.AddModelCategoryRow("Decor", "Flat", true, false);
+            var treesCategory = modelsData.ModelCategory.AddModelCategoryRow("Trees", "Tree", false, false);
+
+            // Knwon Non-Drawabls
+            //modelsData.Model.AddModelRow("", noneCategory, "", "");
+
+            //
+            // Known Trees
+            //
+            modelsData.Model.AddModelRow("elm[0-9]", treesCategory, "", "");
+            modelsData.Model.AddModelRow("bpinea", treesCategory, "", "");
+            modelsData.Model.AddModelRow("bwillow", treesCategory, "", "");
+            modelsData.Model.AddModelRow("oak[0-9]+", treesCategory, "", "");
+            modelsData.Model.AddModelRow("appletree", treesCategory, "", "");
+            modelsData.Model.AddModelRow("olivetree", treesCategory, "", "");
+            modelsData.Model.AddModelRow("Hdeadtree", treesCategory, "", "");
+            modelsData.Model.AddModelRow("pintre[0-9]+", treesCategory, "", "");
+
+            //
+            // Known decor (rocks and other)
+            //
+            modelsData.Model.AddModelRow("b-fence[0-9]+", decorCategory, "", "");
+            modelsData.Model.AddModelRow("stone[0-9]+", decorCategory, "", "");
+            modelsData.Model.AddModelRow("NF_b-fence[0-9]+", decorCategory, "", "");
+
+
+        }
+
+        #endregion
+
+        #region Zones.xml
 
         /// <summary>
         /// Gets all realms
@@ -19,12 +157,9 @@ namespace MapCreator
         /// <returns></returns>
         public static List<string> GetRealms()
         {
-            if (m_xml == null)
-            {
-                m_xml = XDocument.Load(string.Format("{0}\\data\\zones.xml", Application.StartupPath));
-            }
+            Initialize();
 
-            return m_xml.Descendants("realm").Attributes("name").Select(x => x.Value).ToList();
+            return zonesXml.Descendants("realm").Attributes("name").Select(x => x.Value).ToList();
         }
 
         /// <summary>
@@ -34,12 +169,9 @@ namespace MapCreator
         /// <returns></returns>
         public static List<string> GetExpansionsByRealm(string realm)
         {
-            if (m_xml == null)
-            {
-                XDocument xml = XDocument.Load(string.Format("{0}\\data\\zones.xml", Application.StartupPath));
-            }
+            Initialize();
 
-            List<string> expansions = m_xml.Descendants("expansion")
+            List<string> expansions = zonesXml.Descendants("expansion")
                 .Where(r => r.Parent.Attribute("name").Value == realm)
                 .Select(e => e.Attribute("name").Value)
                 .ToList();
@@ -55,15 +187,12 @@ namespace MapCreator
         /// <returns></returns>
         public static List<string> GetZoneTypesByRealmAndExpansion(string realm, string expansion)
         {
-            if (m_xml == null)
-            {
-                XDocument xml = XDocument.Load(string.Format("{0}\\data\\zones.xml", Application.StartupPath));
-            }
+            Initialize();
 
             if (string.IsNullOrEmpty(realm)) return new List<string>();
             if (string.IsNullOrEmpty(expansion)) return new List<string>();
 
-            var zoneTypes = m_xml.Descendants("zone")
+            var zoneTypes = zonesXml.Descendants("zone")
                 .Where(r => r.Parent.Attribute("name").Value == expansion && r.Parent.Parent.Attribute("name").Value == realm)
                 .OrderBy(e => e.Attribute("type").Value)
                 .Select(e => e.Attribute("type").Value)
@@ -82,16 +211,13 @@ namespace MapCreator
         /// <returns></returns>
         public static Dictionary<string, string> GetZonesByRealmAndExpansionAndType(string realm, string expansion, string type)
         {
-            if (m_xml == null)
-            {
-                XDocument xml = XDocument.Load(string.Format("{0}\\data\\zones.xml", Application.StartupPath));
-            }
+            Initialize();
 
             if (string.IsNullOrEmpty(realm)) return new Dictionary<string, string>();
             if (string.IsNullOrEmpty(expansion)) return new Dictionary<string, string>();
             if (string.IsNullOrEmpty(type)) return new Dictionary<string, string>();
 
-            var zones = m_xml.Descendants("zone")
+            var zones = zonesXml.Descendants("zone")
                 .Where(r => r.Parent.Attribute("name").Value == expansion && r.Parent.Parent.Attribute("name").Value == realm && r.Attribute("type").Value == type)
                 .OrderBy(e => e.Attribute("id").Value)
                 .ToDictionary(e => e.Attribute("id").Value, e => e.Value);
@@ -106,12 +232,9 @@ namespace MapCreator
         /// <returns></returns>
         public static GameExpansion GetExpansionByZone(string zoneId)
         {
-            if (m_xml == null)
-            {
-                XDocument xml = XDocument.Load(string.Format("{0}\\data\\zones.xml", Application.StartupPath));
-            }
+            Initialize();
 
-            var results = m_xml.Descendants("zone").Where(z => z.Attribute("id").Value == zoneId).Select(e => e.Parent.Attribute("name").Value);
+            var results = zonesXml.Descendants("zone").Where(z => z.Attribute("id").Value == zoneId).Select(e => e.Parent.Attribute("name").Value);
 
             if (results.Count() > 0)
             {
@@ -120,6 +243,10 @@ namespace MapCreator
 
             return GameExpansion.Unknown;
         }
+
+        #endregion
+
+        #region Values from Dat-Files
 
         /// <summary>
         /// Gets a value from a sector.dat in an MPK file
@@ -178,6 +305,24 @@ namespace MapCreator
 
             return "";
         }
+
+        public static List<string> GetFileContent(string mpkFile, string filename)
+        {
+            List<string> lines = new List<string>();
+
+            using (StreamReader csv = MpkWrapper.GetFileFromMpk(mpkFile, filename))
+            {
+                string row;
+                while ((row = csv.ReadLine()) != null)
+                {
+                    lines.Add(row);
+                }
+            }
+
+            return lines;
+        }
+
+        #endregion
 
     }
 }

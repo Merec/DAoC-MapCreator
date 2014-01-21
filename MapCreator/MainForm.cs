@@ -20,17 +20,17 @@ namespace MapCreator
         private static MainForm _self = null;
 
         /// <summary>
-        /// Current Zone ID
+        /// The Zones to draw
         /// </summary>
-        private string m_zoneId = "000";
+        private List<ZoneSelection> m_selectedZones = new List<ZoneSelection>();
 
         /// <summary>
-        /// Current Zone ID
+        /// The Zones to draw
         /// </summary>
-        public string ZoneId
+        public List<ZoneSelection> SelectedZones
         {
-            get { return m_zoneId; }
-            set { m_zoneId = value; }
+            get { return m_selectedZones; }
+            set { m_selectedZones = value; }
         }
 
         /// <summary>
@@ -65,23 +65,58 @@ namespace MapCreator
         /// </summary>
         public MainForm()
         {
+            // Language settings
+            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("en-US");
+            System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+
             InitializeComponent();
             _self = this;
             Initialize();
+
+            // Add camlot hills by default
+            //SelectedZones.Add(new ZoneSelection("082", "Autuum"));
+            SelectedZones.Add(new ZoneSelection("000", "Cam Hills"));
         }
 
         public void Initialize()
         {
-            List<string> realms = DataWrapper.GetRealms();
-            realmsComboBox.DataSource = new BindingSource(realms, null);
-
             // Set river color
             Color mapRiversColor = Properties.Settings.Default.mapRiverColor;
             mapRiversColorTextBox.Text = string.Format("{0}{1}{2}", mapRiversColor.R.ToString("X2"), mapRiversColor.G.ToString("X2"), mapRiversColor.B.ToString("X2"));
 
             Color mapBoundsColor = Properties.Settings.Default.mapBoundsColor;
             mapBoundsColorTextBox.Text = string.Format("{0}{1}{2}", mapBoundsColor.R.ToString("X2"), mapBoundsColor.G.ToString("X2"), mapBoundsColor.B.ToString("X2"));
+        }
 
+        /// <summary>
+        /// Zone Selector
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void selectMapsButton_Click(object sender, EventArgs e)
+        {
+            SelectMapsForm form = new SelectMapsForm();
+            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                SelectedZones = form.SelectedZones.ToList();
+                selectedMapsListBox.DataSource = null;
+                selectedMapsListBox.DataSource = SelectedZones;
+                selectedMapsCounterLabel.Text = SelectedZones.Count.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Reset selected zones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void selecetedMapsResetButton_Click(object sender, EventArgs e)
+        {
+            SelectedZones.Clear();
+            selectedMapsListBox.DataSource = null;
+            selectedMapsListBox.DataSource = SelectedZones;
+            selectedMapsCounterLabel.Text = SelectedZones.Count.ToString();
         }
 
         #region Logging
@@ -401,45 +436,51 @@ namespace MapCreator
 
         #endregion
 
-        private delegate void SetZoneListDelegate(Dictionary<int, string> zones);
-
         /// <summary>
-        /// Add Zones to ComboBox
+        /// Start rendering the zone(s)
         /// </summary>
-        /// <param name="zones"></param>
-        private void SetZoneList(Dictionary<int, string> zones)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new SetZoneListDelegate(SetZoneList), zones);
-                return;
-            }
-
-            zonesComboBox.Items.Clear();
-            try
-            {
-                zonesComboBox.DataSource = new BindingSource(zones, null);
-                zonesComboBox.ValueMember = "Key";
-                zonesComboBox.DisplayMember = "Value";
-            }
-            catch
-            {
-                zonesComboBox.DataSource = null;
-                zonesComboBox.Items.Add("empty");
-            } 
-        }
-
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void renderButton_Click(object sender, EventArgs e)
         {
             if (MpkWrapper.CheckGamePath())
             {
-                renderButton.Enabled = false;
-                drawMapBackgroundWorker.RunWorkerAsync();
+                Log("Game found...", LogLevel.notice);
+
+                if (SelectedZones.Count == 0)
+                {
+                    Log("Please select at least one Zone to render.", LogLevel.error);
+                }
+                else
+                {
+                    HandleRenderButton(false);
+
+                    foreach (ZoneSelection zone in SelectedZones)
+                    {
+                        Log(string.Format("Rendering {0} ({1})...", zone.Name, zone.Id), LogLevel.notice);
+                        drawMapBackgroundWorker.RunWorkerAsync(zone.Id);
+
+                        while (drawMapBackgroundWorker.IsBusy)
+                        {
+                            Application.DoEvents();
+                        }
+                    }
+
+                    HandleRenderButton(true);
+                }
             }
         }
 
+        /// <summary>
+        /// Load Image Delegate
+        /// </summary>
+        /// <param name="filename"></param>
         private delegate void LoadImageDelegate(string filename);
 
+        /// <summary>
+        /// Loads an image to the preview
+        /// </summary>
+        /// <param name="filename"></param>
         private void LoadImage(string filename)
         {
             if (this.InvokeRequired)
@@ -451,78 +492,24 @@ namespace MapCreator
             mapPreview.ImageLocation = filename;
         }
 
-        private void realmsComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // reset in reverse order
-            zonesComboBox.DataSource = null;
-            typesComboBox.DataSource = null;
-
-            BindingSource source = new BindingSource(
-                DataWrapper.GetExpansionsByRealm((string)realmsComboBox.SelectedValue),
-                null
-            );
-            expansionsComboBox.DataSource = source;
-        }
-
-        private void expansionsComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // reset in reverse order
-            zonesComboBox.DataSource = null;
-
-            BindingSource source = new BindingSource(
-                DataWrapper.GetZoneTypesByRealmAndExpansion((string)realmsComboBox.SelectedValue, (string)expansionsComboBox.SelectedValue),
-                null
-            );
-            typesComboBox.DataSource = source;
-
-            // Set the current expansion
-            string selectedValue = ((string)expansionsComboBox.SelectedItem).ToLower().Replace(" ", string.Empty);
-            foreach (string expansion in Enum.GetNames(typeof(GameExpansion)))
-            {
-                if (selectedValue == expansion.ToLower())
-                {
-                    Expansion = (GameExpansion)Enum.Parse(typeof(GameExpansion), expansion, true);
-                }
-            }
-
-        }
-
-        private void typesComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (typesComboBox.SelectedValue == null)
-            {
-                zonesComboBox.DataSource = null;
-            }
-
-            Dictionary<string, string> zones = DataWrapper.GetZonesByRealmAndExpansionAndType(
-                (string)realmsComboBox.SelectedValue,
-                (string)expansionsComboBox.SelectedValue, 
-                (string)typesComboBox.SelectedValue
-            );
-
-            zonesComboBox.DataSource = new BindingSource(zones, null);
-            zonesComboBox.ValueMember = "Key";
-            zonesComboBox.DisplayMember = "Value";
-        }
-
-        private void zonesComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (zonesComboBox.SelectedValue != null && zonesComboBox.SelectedValue is string)
-            {
-                ZoneId = (string)zonesComboBox.SelectedValue;
-            }
-        }
-
+        /// <summary>
+        /// Render selected Zones as Background Worker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void drawMapBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            string ZoneId = (string)e.Argument;
+
+            // Start BackgroundWorker
+            Log(string.Format("Start creating map for zone {0} ...", ZoneId), LogLevel.notice);
+
             // The Target File
-            FileInfo mapFile = new FileInfo(string.Format("{0}\\maps\\zone{1}.jpg", Application.StartupPath, ZoneId));
+            FileInfo mapFile = new FileInfo(string.Format("{0}\\maps\\zone{1}_{2}.jpg", Application.StartupPath, ZoneId, TargetMapSize));
             if (!Directory.Exists(mapFile.DirectoryName))
             {
                 Directory.CreateDirectory(mapFile.DirectoryName);
             }
-
-            Log(string.Format("Start creating map for zone {0} ...", ZoneId), LogLevel.notice);
 
             bool lightmap = generateLightmapCheckBox.Checked;
             double lightmapZScale = Convert.ToDouble(heightmapZScaleTextBox.Value);
@@ -538,6 +525,8 @@ namespace MapCreator
             bool bounds = generateBoundsCheckBox.Checked;
             Color boundsColor = Properties.Settings.Default.mapBoundsColor;
             int boundsOpacity = Convert.ToInt32(mapBoundsOpacityTextBox.Text);
+
+            bool fixtures = drawFixturesCheckBox.Checked;
 
             // Generate the map
             using (ZoneConfiguration conf = new ZoneConfiguration(ZoneId, TargetMapSize))
@@ -561,14 +550,34 @@ namespace MapCreator
                             lightmapGenerator.Draw(map);
                         }
 
+                        // We need this for fixtures
+                        MapRiver river = new MapRiver(conf);
+
+                        MapFixtures fixturesGenerator = null;
+                        if (fixtures)
+                        {
+                            fixturesGenerator = new MapFixtures(conf, river.Rivers);
+                        }
+
+                        // Draw Fixtures below water
+                        if (fixtures)
+                        {
+                            fixturesGenerator.Draw(map, true);
+                        }
+
                         // Create Rivers
                         if (rivers)
                         {
-                            MapRiver river = new MapRiver(conf);
                             river.RiverColor = riversColor;
                             river.RiverOpacity = riverOpacity;
                             river.UseDefaultColors = riversUseDefaultColor;
                             river.Draw(map);
+                        }
+
+                        // Draw Fixtures above water
+                        if (fixtures)
+                        {
+                            fixturesGenerator.Draw(map, false);
                         }
 
                         // Create bounds
@@ -597,9 +606,16 @@ namespace MapCreator
             {
                 Log("Errors during progress!", LogLevel.error);
             }
+        }
 
-            HandleRenderButton(true);
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (flowLayoutPanel1.Width < 800)
+            {
+                splitContainer1.SplitterDistance = flowLayoutPanel1.Width;
+            }
         }
 
     }
+
 }

@@ -214,5 +214,29 @@ namespace MapCreator.Properties {
                 this["mapWidth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool mapDrawBuildings {
+            get {
+                return ((bool)(this["mapDrawBuildings"]));
+            }
+            set {
+                this["mapDrawBuildings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool mapDrawTrees {
+            get {
+                return ((bool)(this["mapDrawTrees"]));
+            }
+            set {
+                this["mapDrawTrees"] = value;
+            }
+        }
     }
 }

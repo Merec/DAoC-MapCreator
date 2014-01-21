@@ -13,6 +13,10 @@ namespace MapCreator
         private ZoneConfiguration zoneConfiguration;
 
         private List<RiverConfiguration> m_rivers = new List<RiverConfiguration>();
+        internal List<RiverConfiguration> Rivers
+        {
+            get { return m_rivers; }
+        }
 
         private Color m_riverColor;
         public Color RiverColor
@@ -176,97 +180,94 @@ namespace MapCreator
             MainForm.Log("Drawing rivers ...", MainForm.LogLevel.notice);
             MainForm.ProgressStart("Drawing rivers ...");
 
-            int riverCounter = 1;
-            using (MagickImage heightmap = zoneConfiguration.Heightmap.GetHeightmap())
+            // Get the heightmap
+            MagickImage heightmap = zoneConfiguration.Heightmap.HeightmapScaled;
+            double resizeFactor = (double)zoneConfiguration.TargetMapSize / (double)zoneConfiguration.Heightmap.Heightmap.Width;
+
+            using (PixelCollection heightmapPixels = heightmap.GetReadOnlyPixels())
             {
-                double resizeFactor = (double)zoneConfiguration.TargetMapSize / (double)heightmap.Width;
-                heightmap.Resize(zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize);
-
-                using (PixelCollection heightmapPixels = heightmap.GetReadOnlyPixels())
+                int riverCounter = 1;
+                foreach (RiverConfiguration river in m_rivers)
                 {
+                    MainForm.Log("Draw " + river.Name, MainForm.LogLevel.notice);
 
-                    foreach (RiverConfiguration river in m_rivers)
+                    using (MagickImage currentRiverMap = new MagickImage(Color.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
                     {
-                        MainForm.Log("Draw " + river.Name, MainForm.LogLevel.notice);
+                        List<Coordinate> riverCoordinates = new List<Coordinate>();
 
-                        using (MagickImage currentRiverMap = new MagickImage(Color.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
+                        foreach (Coordinate lCoords in river.LeftCoordinates)
                         {
-                            List<Coordinate> riverCoordinates = new List<Coordinate>();
+                            riverCoordinates.Add(new Coordinate(lCoords.X * resizeFactor, lCoords.Y * resizeFactor));
+                        }
+                        foreach (Coordinate rCoords in river.RightCoordinates.Reverse<Coordinate>())
+                        {
+                            riverCoordinates.Add(new Coordinate(rCoords.X * resizeFactor, rCoords.Y * resizeFactor));
+                        }
 
-                            foreach (Coordinate lCoords in river.LeftCoordinates)
-                            {
-                                riverCoordinates.Add(new Coordinate(lCoords.X * resizeFactor, lCoords.Y * resizeFactor));
-                            }
-                            foreach (Coordinate rCoords in river.RightCoordinates.Reverse<Coordinate>())
-                            {
-                                riverCoordinates.Add(new Coordinate(rCoords.X * resizeFactor, rCoords.Y * resizeFactor));
-                            }
+                        // Get the min/max bounds
+                        int min_x = (int)riverCoordinates.Min(r => r.X);
+                        int max_x = (int)riverCoordinates.Max(r => r.X);
+                        if (max_x > heightmap.Width) max_x = heightmap.Width - 1;
+                        int min_y = (int)riverCoordinates.Min(r => r.Y);
+                        int max_y = (int)riverCoordinates.Max(r => r.Y);
+                        if (max_y > heightmap.Height) max_y = heightmap.Height - 1;
 
-                            // Get the min/max bounds
-                            int min_x = (int)riverCoordinates.Min(r => r.X);
-                            int max_x = (int)riverCoordinates.Max(r => r.X);
-                            if (max_x > heightmap.Width) max_x = heightmap.Width - 1;
-                            int min_y = (int)riverCoordinates.Min(r => r.Y);
-                            int max_y = (int)riverCoordinates.Max(r => r.Y);
-                            if (max_y > heightmap.Height) max_y = heightmap.Height - 1;
+                        int alpha = (255 * m_riverOpacity / 100);
+                        if (river.Type.ToLower() == "lava") alpha = 200;
 
-                            int alpha = (255 * m_riverOpacity / 100);
-                            if (river.Type.ToLower() == "lava") alpha = 200;
+                        if (m_useDefaultColors)
+                        {
+                            currentRiverMap.FillColor = Color.FromArgb(alpha, river.Color);
+                        }
+                        else
+                        {
+                            currentRiverMap.FillColor = Color.FromArgb(alpha, m_riverColor);
+                        }
 
-                            if (m_useDefaultColors)
-                            {
-                                currentRiverMap.FillColor = Color.FromArgb(alpha, river.Color);
-                            }
-                            else
-                            {
-                                currentRiverMap.FillColor = Color.FromArgb(alpha, m_riverColor);
-                            }
+                        using (DrawablePolygon poly = new DrawablePolygon(riverCoordinates))
+                        {
+                            currentRiverMap.Draw(poly);
+                        }
 
-                            using (DrawablePolygon poly = new DrawablePolygon(riverCoordinates))
+                        using (WritablePixelCollection riverPixelCollection = currentRiverMap.GetWritablePixels())
+                        {
+                            for (int x = min_x; x < max_x; x++)
                             {
-                                currentRiverMap.Draw(poly);
-                            }
-
-                            using (WritablePixelCollection riverPixelCollection = currentRiverMap.GetWritablePixels())
-                            {
-                                for (int x = min_x; x < max_x; x++)
+                                for (int y = min_y; y < max_y; y++)
                                 {
-                                    for (int y = min_y; y < max_y; y++)
+                                    double pixelHeight = heightmapPixels.GetPixel(x, y).GetChannel(0);
+                                    if (pixelHeight > river.Height)
                                     {
-                                        double pixelHeight = heightmapPixels.GetPixel(x, y).GetChannel(0);
-                                        if (pixelHeight > river.Height)
-                                        {
-                                            Pixel newPixel = new Pixel(x, y, new float[] { 0, 0, 0, 65536 });
-                                            riverPixelCollection.Set(newPixel);
-                                        }
+                                        Pixel newPixel = new Pixel(x, y, new float[] { 0, 0, 0, 65536 });
+                                        riverPixelCollection.Set(newPixel);
                                     }
                                 }
                             }
-
-                            // Add texture
-                            using (MagickImage texture = new MagickImage(Color.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
-                            {
-                                if (river.Type.ToLower() == "lava")
-                                {
-                                    texture.Texture(GetLavaTexture());
-                                }
-                                else
-                                {
-                                    texture.Texture(GetWateryTexture());
-                                }
-
-                                texture.Composite(currentRiverMap, 0, 0, CompositeOperator.DstIn);
-                                texture.Composite(currentRiverMap, 0, 0, CompositeOperator.ColorDodge);
-                                texture.GaussianBlur(1, 2);
-                                map.Composite(texture, 0, 0, CompositeOperator.SrcOver);
-                            }
-
-                            MainForm.ProgressUpdate(riverCounter * 100 / m_rivers.Count);
                         }
 
-                        MainForm.ProgressUpdate(100 * riverCounter / m_rivers.Count);
-                        riverCounter++;
+                        // Add texture
+                        using (MagickImage texture = new MagickImage(Color.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
+                        {
+                            if (river.Type.ToLower() == "lava")
+                            {
+                                texture.Texture(GetLavaTexture());
+                            }
+                            else
+                            {
+                                texture.Texture(GetWateryTexture());
+                            }
+
+                            texture.Composite(currentRiverMap, 0, 0, CompositeOperator.DstIn);
+                            texture.Composite(currentRiverMap, 0, 0, CompositeOperator.ColorDodge);
+                            texture.GaussianBlur(1, 2);
+                            map.Composite(texture, 0, 0, CompositeOperator.SrcOver);
+                        }
+
+                        MainForm.ProgressUpdate(riverCounter * 100 / m_rivers.Count);
                     }
+
+                    MainForm.ProgressUpdate(100 * riverCounter / m_rivers.Count);
+                    riverCounter++;
                 }
             }
 
