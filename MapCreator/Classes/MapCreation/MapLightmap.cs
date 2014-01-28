@@ -111,7 +111,7 @@ namespace MapCreator
                                 double m_normal = (double)Math.Sqrt(nx * nx + ny * ny + nz_2);
                                 double ndotl = (nx * lightVector[0] + ny * lightVector[1] + nzlz) / m_normal;
 
-                                double pixelValue = lightBase - ndotl * lightScale * 256;
+                                double pixelValue = lightBase - ndotl * lightScale * 255;
                                 lightmapPixels.Set(x, y, new float[] { (float)pixelValue, (float)pixelValue, (float)pixelValue, 0 });
                             }
 

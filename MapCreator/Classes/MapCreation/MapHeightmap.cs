@@ -104,6 +104,13 @@ namespace MapCreator
         {
             int x = Convert.ToInt32(zoneConfiguration.LocToPixel(loc_x));
             int y = Convert.ToInt32(zoneConfiguration.LocToPixel(loc_y));
+            
+            if (x == zoneConfiguration.TargetMapSize) x -= 1;
+            else if (x < 0) x = 0;
+            
+            if (y == zoneConfiguration.TargetMapSize) y -= 1;
+            else if (y < 0) y = 0;
+
             return m_heightmapScaled.GetReadOnlyPixels().GetPixel(x, y).GetChannel(0);
         }
 

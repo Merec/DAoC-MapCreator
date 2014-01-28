@@ -8,6 +8,7 @@ namespace MapCreator
 {
     public class ZoneConfiguration : IDisposable
     {
+        public const int ColorMultiplier = 1;
         const double maxLoc = 65536.0;
 
         private string m_zoneId;

@@ -1795,6 +1795,27 @@ Creates a new DrawableTextAntialias instance.
 <summary>
 Encapsulation of the DrawableTextAntialias object.
 </summary></member>
+        <member name="P:ImageMagick.ResourceLimits.Thread">
+==========================================================================================
+<summary>
+Limits the number of threads used in multithreaded operations.
+</summary></member>
+        <member name="P:ImageMagick.ResourceLimits.Memory">
+==========================================================================================
+<summary>
+Pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
+operations are to/from disk.
+</summary></member>
+        <member name="P:ImageMagick.ResourceLimits.Disk">
+==========================================================================================
+<summary>
+Pixel cache limit in bytes. Requests for memory above this limit will fail.
+</summary></member>
+        <member name="T:ImageMagick.ResourceLimits">
+=============================================================================================
+<summary>
+Class that can be used to set the limits to the resources that are being used.
+</summary></member>
         <member name="M:ImageMagick.DrawablePath.#ctor(System.Collections.Generic.IEnumerable`1{ImageMagick.PathBase})">
 ==========================================================================================
 <summary>
@@ -4677,6 +4698,11 @@ Returns the pixel at the specified coordinate.
 <summary>
 Base class that can be used to access the individual pixels of an image.
 </summary></member>
+        <member name="M:ImageMagick.Pixel.ToColor">
+==========================================================================================
+<summary>
+Converts the pixel to a color. Assumes the pixel is RGBA.
+</summary></member>
         <member name="M:ImageMagick.Pixel.SetChannel(System.Int32,System.Single)">
 ==========================================================================================
 <summary>
@@ -5360,12 +5386,6 @@ Set the events that will be written to the log. The log will be written to the L
 and the debug window in VisualStudio. To change the log settings you must use a custom
 log.xml file.
 </summary><param name="events">The events that will be logged.</param></member>
-        <member name="M:ImageMagick.MagickNET.SetCacheThreshold(System.UInt64)">
-==========================================================================================
-<summary>
-Pixel cache threshold in bytes. Once this memory threshold is exceeded, all subsequent
-pixels cache operations are to/from disk. This setting is shared by all MagickImage objects.
-</summary><param name="threshold">The threshold in bytes.</param></member>
         <member name="M:ImageMagick.MagickNET.Initialize(System.String)">
 ==========================================================================================
 <summary>
@@ -5381,6 +5401,11 @@ Returns the format information of the specified format.
 ==========================================================================================
 <summary>
 Returns the version of Magick.NET.
+</summary></member>
+        <member name="P:ImageMagick.MagickNET.UseOpenCL">
+==========================================================================================
+<summary>
+Gets or sets the use of OpenCL.
 </summary></member>
         <member name="P:ImageMagick.MagickNET.SupportedFormats">
 ==========================================================================================

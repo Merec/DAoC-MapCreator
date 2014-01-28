@@ -238,5 +238,17 @@ namespace MapCreator.Properties {
                 this["mapDrawTrees"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("000")]
+        public string lastCreatedMaps {
+            get {
+                return ((string)(this["lastCreatedMaps"]));
+            }
+            set {
+                this["lastCreatedMaps"] = value;
+            }
+        }
     }
 }

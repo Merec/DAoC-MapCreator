@@ -74,9 +74,22 @@ namespace MapCreator
             _self = this;
             Initialize();
 
-            // Add camlot hills by default
-            //SelectedZones.Add(new ZoneSelection("082", "Autuum"));
-            SelectedZones.Add(new ZoneSelection("000", "Cam Hills"));
+            // Load last selected zones
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.lastCreatedMaps))
+            {
+                foreach (string zoneId in Properties.Settings.Default.lastCreatedMaps.Split(','))
+                {
+                    try
+                    {
+                        SelectedZones.Add(DataWrapper.GetZoneSelectionByZoneId(zoneId));
+                    }
+                    catch { }
+                }
+
+                selectedMapsListBox.DataSource = null;
+                selectedMapsListBox.DataSource = SelectedZones;
+                selectedMapsCounterLabel.Text = SelectedZones.Count.ToString();
+            }
         }
 
         public void Initialize()
@@ -103,6 +116,9 @@ namespace MapCreator
                 selectedMapsListBox.DataSource = null;
                 selectedMapsListBox.DataSource = SelectedZones;
                 selectedMapsCounterLabel.Text = SelectedZones.Count.ToString();
+
+                Properties.Settings.Default.lastCreatedMaps = string.Join(",", SelectedZones.Select(z => z.Id));
+                Properties.Settings.Default.Save();
             }
         }
 

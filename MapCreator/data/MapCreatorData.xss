@@ -7,14 +7,14 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="0" ViewPortY="0" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:ZoneSelectionPresets" ZOrder="4" X="109" Y="90" Height="86" Width="189" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="82" />
-    <Shape ID="DesignTable:ModelCategory" ZOrder="3" X="481" Y="81" Height="105" Width="155" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="101" />
-    <Shape ID="DesignTable:Model" ZOrder="2" X="716" Y="80" Height="105" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="101" />
+    <Shape ID="DesignTable:FixtureFilterCategory" ZOrder="2" X="417" Y="81" Height="200" Width="189" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="196" />
+    <Shape ID="DesignTable:FixtureFilter" ZOrder="1" X="716" Y="80" Height="200" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="196" />
   </Shapes>
   <Connectors>
-    <Connector ID="DesignRelation:Model_ModelCategory" ZOrder="1" LineWidth="11">
+    <Connector ID="DesignRelation:Model_ModelCategory" ZOrder="3" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>636</X>
+          <X>606</X>
           <Y>133</Y>
         </Point>
         <Point>

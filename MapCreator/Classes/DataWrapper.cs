@@ -10,14 +10,11 @@ using MapCreator.data;
 
 namespace MapCreator
 {
-    static class DataWrapper
+    class DataWrapper
     {
-        private static bool initialized = false;
-
         private static XDocument zonesXml = null;
 
         private static string presetsDataFile;
-        private static string fixturesDataFile;
 
         private static MapCreatorData mapCreatorData = new MapCreatorData();
         public static MapCreatorData MapCreatorData
@@ -26,17 +23,8 @@ namespace MapCreator
             set { DataWrapper.mapCreatorData = value; }
         }
 
-        private static MapCreatorData modelsData = new MapCreatorData();
-        public static MapCreatorData ModelsData
+        static DataWrapper()
         {
-            get { return DataWrapper.modelsData; }
-            set { DataWrapper.modelsData = value; }
-        }
-
-        public static void Initialize()
-        {
-            if (initialized) return;
-
             // Read Zones
             zonesXml = XDocument.Load(string.Format("{0}\\data\\zones.xml", Application.StartupPath));
 
@@ -50,44 +38,23 @@ namespace MapCreator
             {
                 mapCreatorData.ZoneSelectionPresets.ReadXml(presetsDataFile);
             }
-
-            fixturesDataFile = string.Format("{0}\\models.xml", Application.StartupPath);
-            File.Delete(fixturesDataFile);
-
-            if (!File.Exists(fixturesDataFile))
-            {
-                GenerateDefaultModelValues();
-                modelsData.WriteXml(fixturesDataFile);
-            }
-            else
-            {
-                modelsData.ReadXml(fixturesDataFile);
-            }
-
-            initialized = true;
         }
 
         #region MapCreatorData Presets
 
         public static void LoadPresets()
         {
-            Initialize();
-
             mapCreatorData.ZoneSelectionPresets.Clear();
             mapCreatorData.ZoneSelectionPresets.ReadXml(presetsDataFile);
         }
 
         public static void SavePresets()
         {
-            Initialize();
-
             mapCreatorData.ZoneSelectionPresets.WriteXml(presetsDataFile);
         }
 
         public static void AddPresetRow(string name, List<string> zoneIds)
         {
-            Initialize();
-
             MapCreatorData.ZoneSelectionPresetsRow row = mapCreatorData.ZoneSelectionPresets.NewZoneSelectionPresetsRow();
             row.Name = name;
             row.Zones = String.Join(",", zoneIds);
@@ -97,54 +64,13 @@ namespace MapCreator
 
         public static void RemovePreset(MapCreatorData.ZoneSelectionPresetsRow row)
         {
-            Initialize();
-
             mapCreatorData.ZoneSelectionPresets.RemoveZoneSelectionPresetsRow(row);
             SavePresets();
         }
 
         public static MapCreatorData.ZoneSelectionPresetsRow[] GetPresetRows()
         {
-            Initialize();
-
             return mapCreatorData.ZoneSelectionPresets.ToArray();
-        }
-
-        #endregion
-
-        #region Model/Fixtures
-
-        private static void GenerateDefaultModelValues()
-        {
-            // Categories
-            var noneCategory = modelsData.ModelCategory.AddModelCategoryRow("None", "None", false, false);
-            var structuresCategory = modelsData.ModelCategory.AddModelCategoryRow("Buildings", "Shaded", true, true);
-            var decorCategory = modelsData.ModelCategory.AddModelCategoryRow("Decor", "Flat", true, false);
-            var treesCategory = modelsData.ModelCategory.AddModelCategoryRow("Trees", "Tree", false, false);
-
-            // Knwon Non-Drawabls
-            //modelsData.Model.AddModelRow("", noneCategory, "", "");
-
-            //
-            // Known Trees
-            //
-            modelsData.Model.AddModelRow("elm[0-9]", treesCategory, "", "");
-            modelsData.Model.AddModelRow("bpinea", treesCategory, "", "");
-            modelsData.Model.AddModelRow("bwillow", treesCategory, "", "");
-            modelsData.Model.AddModelRow("oak[0-9]+", treesCategory, "", "");
-            modelsData.Model.AddModelRow("appletree", treesCategory, "", "");
-            modelsData.Model.AddModelRow("olivetree", treesCategory, "", "");
-            modelsData.Model.AddModelRow("Hdeadtree", treesCategory, "", "");
-            modelsData.Model.AddModelRow("pintre[0-9]+", treesCategory, "", "");
-
-            //
-            // Known decor (rocks and other)
-            //
-            modelsData.Model.AddModelRow("b-fence[0-9]+", decorCategory, "", "");
-            modelsData.Model.AddModelRow("stone[0-9]+", decorCategory, "", "");
-            modelsData.Model.AddModelRow("NF_b-fence[0-9]+", decorCategory, "", "");
-
-
         }
 
         #endregion
@@ -157,8 +83,6 @@ namespace MapCreator
         /// <returns></returns>
         public static List<string> GetRealms()
         {
-            Initialize();
-
             return zonesXml.Descendants("realm").Attributes("name").Select(x => x.Value).ToList();
         }
 
@@ -169,8 +93,6 @@ namespace MapCreator
         /// <returns></returns>
         public static List<string> GetExpansionsByRealm(string realm)
         {
-            Initialize();
-
             List<string> expansions = zonesXml.Descendants("expansion")
                 .Where(r => r.Parent.Attribute("name").Value == realm)
                 .Select(e => e.Attribute("name").Value)
@@ -187,8 +109,6 @@ namespace MapCreator
         /// <returns></returns>
         public static List<string> GetZoneTypesByRealmAndExpansion(string realm, string expansion)
         {
-            Initialize();
-
             if (string.IsNullOrEmpty(realm)) return new List<string>();
             if (string.IsNullOrEmpty(expansion)) return new List<string>();
 
@@ -211,8 +131,6 @@ namespace MapCreator
         /// <returns></returns>
         public static Dictionary<string, string> GetZonesByRealmAndExpansionAndType(string realm, string expansion, string type)
         {
-            Initialize();
-
             if (string.IsNullOrEmpty(realm)) return new Dictionary<string, string>();
             if (string.IsNullOrEmpty(expansion)) return new Dictionary<string, string>();
             if (string.IsNullOrEmpty(type)) return new Dictionary<string, string>();
@@ -232,8 +150,6 @@ namespace MapCreator
         /// <returns></returns>
         public static GameExpansion GetExpansionByZone(string zoneId)
         {
-            Initialize();
-
             var results = zonesXml.Descendants("zone").Where(z => z.Attribute("id").Value == zoneId).Select(e => e.Parent.Attribute("name").Value);
 
             if (results.Count() > 0)
@@ -242,6 +158,20 @@ namespace MapCreator
             }
 
             return GameExpansion.Unknown;
+        }
+
+        public static ZoneSelection GetZoneSelectionByZoneId(string zoneId)
+        {
+            var results = zonesXml.Descendants("zone").Where(z => z.Attribute("id").Value == zoneId).Select(e => e.Value);
+
+            if (results.Count() > 0)
+            {
+                return new ZoneSelection(zoneId, results.First());
+            }
+            else
+            {
+                throw new Exception("Unable to resolve zone.");
+            }
         }
 
         #endregion

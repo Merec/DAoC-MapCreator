@@ -26,9 +26,9 @@ namespace MapCreator.data {
         
         private ZoneSelectionPresetsDataTable tableZoneSelectionPresets;
         
-        private ModelCategoryDataTable tableModelCategory;
+        private FixtureFilterCategoryDataTable tableFixtureFilterCategory;
         
-        private ModelDataTable tableModel;
+        private FixtureFilterDataTable tableFixtureFilter;
         
         private global::System.Data.DataRelation relationModel_ModelCategory;
         
@@ -63,11 +63,11 @@ namespace MapCreator.data {
                 if ((ds.Tables["ZoneSelectionPresets"] != null)) {
                     base.Tables.Add(new ZoneSelectionPresetsDataTable(ds.Tables["ZoneSelectionPresets"]));
                 }
-                if ((ds.Tables["ModelCategory"] != null)) {
-                    base.Tables.Add(new ModelCategoryDataTable(ds.Tables["ModelCategory"]));
+                if ((ds.Tables["FixtureFilterCategory"] != null)) {
+                    base.Tables.Add(new FixtureFilterCategoryDataTable(ds.Tables["FixtureFilterCategory"]));
                 }
-                if ((ds.Tables["Model"] != null)) {
-                    base.Tables.Add(new ModelDataTable(ds.Tables["Model"]));
+                if ((ds.Tables["FixtureFilter"] != null)) {
+                    base.Tables.Add(new FixtureFilterDataTable(ds.Tables["FixtureFilter"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -101,9 +101,9 @@ namespace MapCreator.data {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ModelCategoryDataTable ModelCategory {
+        public FixtureFilterCategoryDataTable FixtureFilterCategory {
             get {
-                return this.tableModelCategory;
+                return this.tableFixtureFilterCategory;
             }
         }
         
@@ -111,9 +111,9 @@ namespace MapCreator.data {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ModelDataTable Model {
+        public FixtureFilterDataTable FixtureFilter {
             get {
-                return this.tableModel;
+                return this.tableFixtureFilter;
             }
         }
         
@@ -187,11 +187,11 @@ namespace MapCreator.data {
                 if ((ds.Tables["ZoneSelectionPresets"] != null)) {
                     base.Tables.Add(new ZoneSelectionPresetsDataTable(ds.Tables["ZoneSelectionPresets"]));
                 }
-                if ((ds.Tables["ModelCategory"] != null)) {
-                    base.Tables.Add(new ModelCategoryDataTable(ds.Tables["ModelCategory"]));
+                if ((ds.Tables["FixtureFilterCategory"] != null)) {
+                    base.Tables.Add(new FixtureFilterCategoryDataTable(ds.Tables["FixtureFilterCategory"]));
                 }
-                if ((ds.Tables["Model"] != null)) {
-                    base.Tables.Add(new ModelDataTable(ds.Tables["Model"]));
+                if ((ds.Tables["FixtureFilter"] != null)) {
+                    base.Tables.Add(new FixtureFilterDataTable(ds.Tables["FixtureFilter"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -232,16 +232,16 @@ namespace MapCreator.data {
                     this.tableZoneSelectionPresets.InitVars();
                 }
             }
-            this.tableModelCategory = ((ModelCategoryDataTable)(base.Tables["ModelCategory"]));
+            this.tableFixtureFilterCategory = ((FixtureFilterCategoryDataTable)(base.Tables["FixtureFilterCategory"]));
             if ((initTable == true)) {
-                if ((this.tableModelCategory != null)) {
-                    this.tableModelCategory.InitVars();
+                if ((this.tableFixtureFilterCategory != null)) {
+                    this.tableFixtureFilterCategory.InitVars();
                 }
             }
-            this.tableModel = ((ModelDataTable)(base.Tables["Model"]));
+            this.tableFixtureFilter = ((FixtureFilterDataTable)(base.Tables["FixtureFilter"]));
             if ((initTable == true)) {
-                if ((this.tableModel != null)) {
-                    this.tableModel.InitVars();
+                if ((this.tableFixtureFilter != null)) {
+                    this.tableFixtureFilter.InitVars();
                 }
             }
             this.relationModel_ModelCategory = this.Relations["Model_ModelCategory"];
@@ -257,13 +257,13 @@ namespace MapCreator.data {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableZoneSelectionPresets = new ZoneSelectionPresetsDataTable();
             base.Tables.Add(this.tableZoneSelectionPresets);
-            this.tableModelCategory = new ModelCategoryDataTable();
-            base.Tables.Add(this.tableModelCategory);
-            this.tableModel = new ModelDataTable();
-            base.Tables.Add(this.tableModel);
+            this.tableFixtureFilterCategory = new FixtureFilterCategoryDataTable();
+            base.Tables.Add(this.tableFixtureFilterCategory);
+            this.tableFixtureFilter = new FixtureFilterDataTable();
+            base.Tables.Add(this.tableFixtureFilter);
             this.relationModel_ModelCategory = new global::System.Data.DataRelation("Model_ModelCategory", new global::System.Data.DataColumn[] {
-                        this.tableModelCategory.idColumn}, new global::System.Data.DataColumn[] {
-                        this.tableModel.categoryColumn}, false);
+                        this.tableFixtureFilterCategory.idColumn}, new global::System.Data.DataColumn[] {
+                        this.tableFixtureFilter.categoryColumn}, false);
             this.Relations.Add(this.relationModel_ModelCategory);
         }
         
@@ -275,13 +275,13 @@ namespace MapCreator.data {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeModelCategory() {
+        private bool ShouldSerializeFixtureFilterCategory() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeModel() {
+        private bool ShouldSerializeFixtureFilter() {
             return false;
         }
         
@@ -344,10 +344,10 @@ namespace MapCreator.data {
         public delegate void ZoneSelectionPresetsRowChangeEventHandler(object sender, ZoneSelectionPresetsRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ModelCategoryRowChangeEventHandler(object sender, ModelCategoryRowChangeEvent e);
+        public delegate void FixtureFilterCategoryRowChangeEventHandler(object sender, FixtureFilterCategoryRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ModelRowChangeEventHandler(object sender, ModelRowChangeEvent e);
+        public delegate void FixtureFilterRowChangeEventHandler(object sender, FixtureFilterRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -642,11 +642,21 @@ namespace MapCreator.data {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ModelCategoryDataTable : global::System.Data.TypedTableBase<ModelCategoryRow> {
+        public partial class FixtureFilterCategoryDataTable : global::System.Data.TypedTableBase<FixtureFilterCategoryRow> {
             
             private global::System.Data.DataColumn columnid;
             
             private global::System.Data.DataColumn columnrenderer;
+            
+            private global::System.Data.DataColumn columnlight_min;
+            
+            private global::System.Data.DataColumn columnlight_max;
+            
+            private global::System.Data.DataColumn columnlight_vector;
+            
+            private global::System.Data.DataColumn columncolor;
+            
+            private global::System.Data.DataColumn columntransparency;
             
             private global::System.Data.DataColumn columnoutline;
             
@@ -654,8 +664,8 @@ namespace MapCreator.data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelCategoryDataTable() {
-                this.TableName = "ModelCategory";
+            public FixtureFilterCategoryDataTable() {
+                this.TableName = "FixtureFilterCategory";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -663,7 +673,7 @@ namespace MapCreator.data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ModelCategoryDataTable(global::System.Data.DataTable table) {
+            internal FixtureFilterCategoryDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -680,7 +690,7 @@ namespace MapCreator.data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected ModelCategoryDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected FixtureFilterCategoryDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -698,6 +708,46 @@ namespace MapCreator.data {
             public global::System.Data.DataColumn rendererColumn {
                 get {
                     return this.columnrenderer;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn light_minColumn {
+                get {
+                    return this.columnlight_min;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn light_maxColumn {
+                get {
+                    return this.columnlight_max;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn light_vectorColumn {
+                get {
+                    return this.columnlight_vector;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn colorColumn {
+                get {
+                    return this.columncolor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn transparencyColumn {
+                get {
+                    return this.columntransparency;
                 }
             }
             
@@ -728,55 +778,60 @@ namespace MapCreator.data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelCategoryRow this[int index] {
+            public FixtureFilterCategoryRow this[int index] {
                 get {
-                    return ((ModelCategoryRow)(this.Rows[index]));
+                    return ((FixtureFilterCategoryRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ModelCategoryRowChangeEventHandler ModelCategoryRowChanging;
+            public event FixtureFilterCategoryRowChangeEventHandler FixtureFilterCategoryRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ModelCategoryRowChangeEventHandler ModelCategoryRowChanged;
+            public event FixtureFilterCategoryRowChangeEventHandler FixtureFilterCategoryRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ModelCategoryRowChangeEventHandler ModelCategoryRowDeleting;
+            public event FixtureFilterCategoryRowChangeEventHandler FixtureFilterCategoryRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ModelCategoryRowChangeEventHandler ModelCategoryRowDeleted;
+            public event FixtureFilterCategoryRowChangeEventHandler FixtureFilterCategoryRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddModelCategoryRow(ModelCategoryRow row) {
+            public void AddFixtureFilterCategoryRow(FixtureFilterCategoryRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelCategoryRow AddModelCategoryRow(string id, string renderer, bool outline, bool is_default) {
-                ModelCategoryRow rowModelCategoryRow = ((ModelCategoryRow)(this.NewRow()));
+            public FixtureFilterCategoryRow AddFixtureFilterCategoryRow(string id, string renderer, double light_min, double light_max, string light_vector, string color, int transparency, bool outline, bool is_default) {
+                FixtureFilterCategoryRow rowFixtureFilterCategoryRow = ((FixtureFilterCategoryRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
                         renderer,
+                        light_min,
+                        light_max,
+                        light_vector,
+                        color,
+                        transparency,
                         outline,
                         is_default};
-                rowModelCategoryRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowModelCategoryRow);
-                return rowModelCategoryRow;
+                rowFixtureFilterCategoryRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowFixtureFilterCategoryRow);
+                return rowFixtureFilterCategoryRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelCategoryRow FindByid(string id) {
-                return ((ModelCategoryRow)(this.Rows.Find(new object[] {
+            public FixtureFilterCategoryRow FindByid(string id) {
+                return ((FixtureFilterCategoryRow)(this.Rows.Find(new object[] {
                             id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ModelCategoryDataTable cln = ((ModelCategoryDataTable)(base.Clone()));
+                FixtureFilterCategoryDataTable cln = ((FixtureFilterCategoryDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -784,7 +839,7 @@ namespace MapCreator.data {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ModelCategoryDataTable();
+                return new FixtureFilterCategoryDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -792,6 +847,11 @@ namespace MapCreator.data {
             internal void InitVars() {
                 this.columnid = base.Columns["id"];
                 this.columnrenderer = base.Columns["renderer"];
+                this.columnlight_min = base.Columns["light_min"];
+                this.columnlight_max = base.Columns["light_max"];
+                this.columnlight_vector = base.Columns["light_vector"];
+                this.columncolor = base.Columns["color"];
+                this.columntransparency = base.Columns["transparency"];
                 this.columnoutline = base.Columns["outline"];
                 this.columnis_default = base.Columns["is_default"];
             }
@@ -803,6 +863,16 @@ namespace MapCreator.data {
                 base.Columns.Add(this.columnid);
                 this.columnrenderer = new global::System.Data.DataColumn("renderer", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnrenderer);
+                this.columnlight_min = new global::System.Data.DataColumn("light_min", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlight_min);
+                this.columnlight_max = new global::System.Data.DataColumn("light_max", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlight_max);
+                this.columnlight_vector = new global::System.Data.DataColumn("light_vector", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlight_vector);
+                this.columncolor = new global::System.Data.DataColumn("color", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncolor);
+                this.columntransparency = new global::System.Data.DataColumn("transparency", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntransparency);
                 this.columnoutline = new global::System.Data.DataColumn("outline", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnoutline);
                 this.columnis_default = new global::System.Data.DataColumn("is_default", typeof(bool), null, global::System.Data.MappingType.Element);
@@ -819,28 +889,28 @@ namespace MapCreator.data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelCategoryRow NewModelCategoryRow() {
-                return ((ModelCategoryRow)(this.NewRow()));
+            public FixtureFilterCategoryRow NewFixtureFilterCategoryRow() {
+                return ((FixtureFilterCategoryRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ModelCategoryRow(builder);
+                return new FixtureFilterCategoryRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ModelCategoryRow);
+                return typeof(FixtureFilterCategoryRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ModelCategoryRowChanged != null)) {
-                    this.ModelCategoryRowChanged(this, new ModelCategoryRowChangeEvent(((ModelCategoryRow)(e.Row)), e.Action));
+                if ((this.FixtureFilterCategoryRowChanged != null)) {
+                    this.FixtureFilterCategoryRowChanged(this, new FixtureFilterCategoryRowChangeEvent(((FixtureFilterCategoryRow)(e.Row)), e.Action));
                 }
             }
             
@@ -848,8 +918,8 @@ namespace MapCreator.data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ModelCategoryRowChanging != null)) {
-                    this.ModelCategoryRowChanging(this, new ModelCategoryRowChangeEvent(((ModelCategoryRow)(e.Row)), e.Action));
+                if ((this.FixtureFilterCategoryRowChanging != null)) {
+                    this.FixtureFilterCategoryRowChanging(this, new FixtureFilterCategoryRowChangeEvent(((FixtureFilterCategoryRow)(e.Row)), e.Action));
                 }
             }
             
@@ -857,8 +927,8 @@ namespace MapCreator.data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ModelCategoryRowDeleted != null)) {
-                    this.ModelCategoryRowDeleted(this, new ModelCategoryRowChangeEvent(((ModelCategoryRow)(e.Row)), e.Action));
+                if ((this.FixtureFilterCategoryRowDeleted != null)) {
+                    this.FixtureFilterCategoryRowDeleted(this, new FixtureFilterCategoryRowChangeEvent(((FixtureFilterCategoryRow)(e.Row)), e.Action));
                 }
             }
             
@@ -866,14 +936,14 @@ namespace MapCreator.data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ModelCategoryRowDeleting != null)) {
-                    this.ModelCategoryRowDeleting(this, new ModelCategoryRowChangeEvent(((ModelCategoryRow)(e.Row)), e.Action));
+                if ((this.FixtureFilterCategoryRowDeleting != null)) {
+                    this.FixtureFilterCategoryRowDeleting(this, new FixtureFilterCategoryRowChangeEvent(((FixtureFilterCategoryRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveModelCategoryRow(ModelCategoryRow row) {
+            public void RemoveFixtureFilterCategoryRow(FixtureFilterCategoryRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -900,7 +970,7 @@ namespace MapCreator.data {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ModelCategoryDataTable";
+                attribute2.FixedValue = "FixtureFilterCategoryDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -946,7 +1016,7 @@ namespace MapCreator.data {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ModelDataTable : global::System.Data.TypedTableBase<ModelRow> {
+        public partial class FixtureFilterDataTable : global::System.Data.TypedTableBase<FixtureFilterRow> {
             
             private global::System.Data.DataColumn columnpattern;
             
@@ -954,12 +1024,22 @@ namespace MapCreator.data {
             
             private global::System.Data.DataColumn columnrenderer;
             
+            private global::System.Data.DataColumn columnlight_min;
+            
+            private global::System.Data.DataColumn columnlight_max;
+            
+            private global::System.Data.DataColumn columnlight_vector;
+            
+            private global::System.Data.DataColumn columncolor;
+            
+            private global::System.Data.DataColumn columntransparency;
+            
             private global::System.Data.DataColumn columnoutline;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelDataTable() {
-                this.TableName = "Model";
+            public FixtureFilterDataTable() {
+                this.TableName = "FixtureFilter";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -967,7 +1047,7 @@ namespace MapCreator.data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ModelDataTable(global::System.Data.DataTable table) {
+            internal FixtureFilterDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -984,7 +1064,7 @@ namespace MapCreator.data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected ModelDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected FixtureFilterDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -1015,6 +1095,46 @@ namespace MapCreator.data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn light_minColumn {
+                get {
+                    return this.columnlight_min;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn light_maxColumn {
+                get {
+                    return this.columnlight_max;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn light_vectorColumn {
+                get {
+                    return this.columnlight_vector;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn colorColumn {
+                get {
+                    return this.columncolor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn transparencyColumn {
+                get {
+                    return this.columntransparency;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn outlineColumn {
                 get {
                     return this.columnoutline;
@@ -1032,51 +1152,56 @@ namespace MapCreator.data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelRow this[int index] {
+            public FixtureFilterRow this[int index] {
                 get {
-                    return ((ModelRow)(this.Rows[index]));
+                    return ((FixtureFilterRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ModelRowChangeEventHandler ModelRowChanging;
+            public event FixtureFilterRowChangeEventHandler FixtureFilterRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ModelRowChangeEventHandler ModelRowChanged;
+            public event FixtureFilterRowChangeEventHandler FixtureFilterRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ModelRowChangeEventHandler ModelRowDeleting;
+            public event FixtureFilterRowChangeEventHandler FixtureFilterRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ModelRowChangeEventHandler ModelRowDeleted;
+            public event FixtureFilterRowChangeEventHandler FixtureFilterRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddModelRow(ModelRow row) {
+            public void AddFixtureFilterRow(FixtureFilterRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelRow AddModelRow(string pattern, ModelCategoryRow parentModelCategoryRowByModel_ModelCategory, string renderer, string outline) {
-                ModelRow rowModelRow = ((ModelRow)(this.NewRow()));
+            public FixtureFilterRow AddFixtureFilterRow(string pattern, FixtureFilterCategoryRow parentFixtureFilterCategoryRowByModel_ModelCategory, string renderer, double light_min, double light_max, string light_vector, string color, int transparency, bool outline) {
+                FixtureFilterRow rowFixtureFilterRow = ((FixtureFilterRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         pattern,
                         null,
                         renderer,
+                        light_min,
+                        light_max,
+                        light_vector,
+                        color,
+                        transparency,
                         outline};
-                if ((parentModelCategoryRowByModel_ModelCategory != null)) {
-                    columnValuesArray[1] = parentModelCategoryRowByModel_ModelCategory[0];
+                if ((parentFixtureFilterCategoryRowByModel_ModelCategory != null)) {
+                    columnValuesArray[1] = parentFixtureFilterCategoryRowByModel_ModelCategory[0];
                 }
-                rowModelRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowModelRow);
-                return rowModelRow;
+                rowFixtureFilterRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowFixtureFilterRow);
+                return rowFixtureFilterRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ModelDataTable cln = ((ModelDataTable)(base.Clone()));
+                FixtureFilterDataTable cln = ((FixtureFilterDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -1084,7 +1209,7 @@ namespace MapCreator.data {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ModelDataTable();
+                return new FixtureFilterDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1093,6 +1218,11 @@ namespace MapCreator.data {
                 this.columnpattern = base.Columns["pattern"];
                 this.columncategory = base.Columns["category"];
                 this.columnrenderer = base.Columns["renderer"];
+                this.columnlight_min = base.Columns["light_min"];
+                this.columnlight_max = base.Columns["light_max"];
+                this.columnlight_vector = base.Columns["light_vector"];
+                this.columncolor = base.Columns["color"];
+                this.columntransparency = base.Columns["transparency"];
                 this.columnoutline = base.Columns["outline"];
             }
             
@@ -1105,36 +1235,50 @@ namespace MapCreator.data {
                 base.Columns.Add(this.columncategory);
                 this.columnrenderer = new global::System.Data.DataColumn("renderer", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnrenderer);
-                this.columnoutline = new global::System.Data.DataColumn("outline", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnlight_min = new global::System.Data.DataColumn("light_min", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlight_min);
+                this.columnlight_max = new global::System.Data.DataColumn("light_max", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlight_max);
+                this.columnlight_vector = new global::System.Data.DataColumn("light_vector", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlight_vector);
+                this.columncolor = new global::System.Data.DataColumn("color", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncolor);
+                this.columntransparency = new global::System.Data.DataColumn("transparency", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntransparency);
+                this.columnoutline = new global::System.Data.DataColumn("outline", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnoutline);
                 this.columnrenderer.DefaultValue = ((string)(""));
-                this.columnoutline.DefaultValue = ((string)(""));
+                this.columnlight_min.DefaultValue = ((double)(5D));
+                this.columnlight_max.DefaultValue = ((double)(1D));
+                this.columnlight_vector.DefaultValue = ((string)("\"\""));
+                this.columncolor.DefaultValue = ((string)("\"\""));
+                this.columnoutline.DefaultValue = ((bool)(false));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelRow NewModelRow() {
-                return ((ModelRow)(this.NewRow()));
+            public FixtureFilterRow NewFixtureFilterRow() {
+                return ((FixtureFilterRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ModelRow(builder);
+                return new FixtureFilterRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ModelRow);
+                return typeof(FixtureFilterRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ModelRowChanged != null)) {
-                    this.ModelRowChanged(this, new ModelRowChangeEvent(((ModelRow)(e.Row)), e.Action));
+                if ((this.FixtureFilterRowChanged != null)) {
+                    this.FixtureFilterRowChanged(this, new FixtureFilterRowChangeEvent(((FixtureFilterRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1142,8 +1286,8 @@ namespace MapCreator.data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ModelRowChanging != null)) {
-                    this.ModelRowChanging(this, new ModelRowChangeEvent(((ModelRow)(e.Row)), e.Action));
+                if ((this.FixtureFilterRowChanging != null)) {
+                    this.FixtureFilterRowChanging(this, new FixtureFilterRowChangeEvent(((FixtureFilterRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1151,8 +1295,8 @@ namespace MapCreator.data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ModelRowDeleted != null)) {
-                    this.ModelRowDeleted(this, new ModelRowChangeEvent(((ModelRow)(e.Row)), e.Action));
+                if ((this.FixtureFilterRowDeleted != null)) {
+                    this.FixtureFilterRowDeleted(this, new FixtureFilterRowChangeEvent(((FixtureFilterRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1160,14 +1304,14 @@ namespace MapCreator.data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ModelRowDeleting != null)) {
-                    this.ModelRowDeleting(this, new ModelRowChangeEvent(((ModelRow)(e.Row)), e.Action));
+                if ((this.FixtureFilterRowDeleting != null)) {
+                    this.FixtureFilterRowDeleting(this, new FixtureFilterRowChangeEvent(((FixtureFilterRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveModelRow(ModelRow row) {
+            public void RemoveFixtureFilterRow(FixtureFilterRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -1194,7 +1338,7 @@ namespace MapCreator.data {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ModelDataTable";
+                attribute2.FixedValue = "FixtureFilterDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1320,25 +1464,25 @@ namespace MapCreator.data {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ModelCategoryRow : global::System.Data.DataRow {
+        public partial class FixtureFilterCategoryRow : global::System.Data.DataRow {
             
-            private ModelCategoryDataTable tableModelCategory;
+            private FixtureFilterCategoryDataTable tableFixtureFilterCategory;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ModelCategoryRow(global::System.Data.DataRowBuilder rb) : 
+            internal FixtureFilterCategoryRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableModelCategory = ((ModelCategoryDataTable)(this.Table));
+                this.tableFixtureFilterCategory = ((FixtureFilterCategoryDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string id {
                 get {
-                    return ((string)(this[this.tableModelCategory.idColumn]));
+                    return ((string)(this[this.tableFixtureFilterCategory.idColumn]));
                 }
                 set {
-                    this[this.tableModelCategory.idColumn] = value;
+                    this[this.tableFixtureFilterCategory.idColumn] = value;
                 }
             }
             
@@ -1347,14 +1491,94 @@ namespace MapCreator.data {
             public string renderer {
                 get {
                     try {
-                        return ((string)(this[this.tableModelCategory.rendererColumn]));
+                        return ((string)(this[this.tableFixtureFilterCategory.rendererColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte renderer in Tabelle ModelCategory ist DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte renderer in Tabelle FixtureFilterCategory ist DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableModelCategory.rendererColumn] = value;
+                    this[this.tableFixtureFilterCategory.rendererColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public double light_min {
+                get {
+                    try {
+                        return ((double)(this[this.tableFixtureFilterCategory.light_minColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte light_min in Tabelle FixtureFilterCategory ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFixtureFilterCategory.light_minColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public double light_max {
+                get {
+                    try {
+                        return ((double)(this[this.tableFixtureFilterCategory.light_maxColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte light_max in Tabelle FixtureFilterCategory ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFixtureFilterCategory.light_maxColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string light_vector {
+                get {
+                    try {
+                        return ((string)(this[this.tableFixtureFilterCategory.light_vectorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte light_vector in Tabelle FixtureFilterCategory ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFixtureFilterCategory.light_vectorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string color {
+                get {
+                    try {
+                        return ((string)(this[this.tableFixtureFilterCategory.colorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte color in Tabelle FixtureFilterCategory ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFixtureFilterCategory.colorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int transparency {
+                get {
+                    try {
+                        return ((int)(this[this.tableFixtureFilterCategory.transparencyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte transparency in Tabelle FixtureFilterCategory ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFixtureFilterCategory.transparencyColumn] = value;
                 }
             }
             
@@ -1363,14 +1587,14 @@ namespace MapCreator.data {
             public bool outline {
                 get {
                     try {
-                        return ((bool)(this[this.tableModelCategory.outlineColumn]));
+                        return ((bool)(this[this.tableFixtureFilterCategory.outlineColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte outline in Tabelle ModelCategory ist DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte outline in Tabelle FixtureFilterCategory ist DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableModelCategory.outlineColumn] = value;
+                    this[this.tableFixtureFilterCategory.outlineColumn] = value;
                 }
             }
             
@@ -1379,61 +1603,121 @@ namespace MapCreator.data {
             public bool is_default {
                 get {
                     try {
-                        return ((bool)(this[this.tableModelCategory.is_defaultColumn]));
+                        return ((bool)(this[this.tableFixtureFilterCategory.is_defaultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte is_default in Tabelle ModelCategory ist DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte is_default in Tabelle FixtureFilterCategory ist DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableModelCategory.is_defaultColumn] = value;
+                    this[this.tableFixtureFilterCategory.is_defaultColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsrendererNull() {
-                return this.IsNull(this.tableModelCategory.rendererColumn);
+                return this.IsNull(this.tableFixtureFilterCategory.rendererColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetrendererNull() {
-                this[this.tableModelCategory.rendererColumn] = global::System.Convert.DBNull;
+                this[this.tableFixtureFilterCategory.rendererColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Islight_minNull() {
+                return this.IsNull(this.tableFixtureFilterCategory.light_minColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setlight_minNull() {
+                this[this.tableFixtureFilterCategory.light_minColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Islight_maxNull() {
+                return this.IsNull(this.tableFixtureFilterCategory.light_maxColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setlight_maxNull() {
+                this[this.tableFixtureFilterCategory.light_maxColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Islight_vectorNull() {
+                return this.IsNull(this.tableFixtureFilterCategory.light_vectorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setlight_vectorNull() {
+                this[this.tableFixtureFilterCategory.light_vectorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IscolorNull() {
+                return this.IsNull(this.tableFixtureFilterCategory.colorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetcolorNull() {
+                this[this.tableFixtureFilterCategory.colorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IstransparencyNull() {
+                return this.IsNull(this.tableFixtureFilterCategory.transparencyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SettransparencyNull() {
+                this[this.tableFixtureFilterCategory.transparencyColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsoutlineNull() {
-                return this.IsNull(this.tableModelCategory.outlineColumn);
+                return this.IsNull(this.tableFixtureFilterCategory.outlineColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetoutlineNull() {
-                this[this.tableModelCategory.outlineColumn] = global::System.Convert.DBNull;
+                this[this.tableFixtureFilterCategory.outlineColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Isis_defaultNull() {
-                return this.IsNull(this.tableModelCategory.is_defaultColumn);
+                return this.IsNull(this.tableFixtureFilterCategory.is_defaultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setis_defaultNull() {
-                this[this.tableModelCategory.is_defaultColumn] = global::System.Convert.DBNull;
+                this[this.tableFixtureFilterCategory.is_defaultColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelRow[] GetModelRows() {
+            public FixtureFilterRow[] GetFixtureFilterRows() {
                 if ((this.Table.ChildRelations["Model_ModelCategory"] == null)) {
-                    return new ModelRow[0];
+                    return new FixtureFilterRow[0];
                 }
                 else {
-                    return ((ModelRow[])(base.GetChildRows(this.Table.ChildRelations["Model_ModelCategory"])));
+                    return ((FixtureFilterRow[])(base.GetChildRows(this.Table.ChildRelations["Model_ModelCategory"])));
                 }
             }
         }
@@ -1441,15 +1725,15 @@ namespace MapCreator.data {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ModelRow : global::System.Data.DataRow {
+        public partial class FixtureFilterRow : global::System.Data.DataRow {
             
-            private ModelDataTable tableModel;
+            private FixtureFilterDataTable tableFixtureFilter;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ModelRow(global::System.Data.DataRowBuilder rb) : 
+            internal FixtureFilterRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableModel = ((ModelDataTable)(this.Table));
+                this.tableFixtureFilter = ((FixtureFilterDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1457,14 +1741,14 @@ namespace MapCreator.data {
             public string pattern {
                 get {
                     try {
-                        return ((string)(this[this.tableModel.patternColumn]));
+                        return ((string)(this[this.tableFixtureFilter.patternColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte pattern in Tabelle Model ist DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte pattern in Tabelle FixtureFilter ist DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableModel.patternColumn] = value;
+                    this[this.tableFixtureFilter.patternColumn] = value;
                 }
             }
             
@@ -1473,14 +1757,14 @@ namespace MapCreator.data {
             public string category {
                 get {
                     try {
-                        return ((string)(this[this.tableModel.categoryColumn]));
+                        return ((string)(this[this.tableFixtureFilter.categoryColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte category in Tabelle Model ist DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte category in Tabelle FixtureFilter ist DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableModel.categoryColumn] = value;
+                    this[this.tableFixtureFilter.categoryColumn] = value;
                 }
             }
             
@@ -1489,38 +1773,118 @@ namespace MapCreator.data {
             public string renderer {
                 get {
                     try {
-                        return ((string)(this[this.tableModel.rendererColumn]));
+                        return ((string)(this[this.tableFixtureFilter.rendererColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte renderer in Tabelle Model ist DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte renderer in Tabelle FixtureFilter ist DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableModel.rendererColumn] = value;
+                    this[this.tableFixtureFilter.rendererColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string outline {
+            public double light_min {
                 get {
                     try {
-                        return ((string)(this[this.tableModel.outlineColumn]));
+                        return ((double)(this[this.tableFixtureFilter.light_minColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte outline in Tabelle Model ist DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte light_min in Tabelle FixtureFilter ist DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableModel.outlineColumn] = value;
+                    this[this.tableFixtureFilter.light_minColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelCategoryRow ModelCategoryRow {
+            public double light_max {
                 get {
-                    return ((ModelCategoryRow)(this.GetParentRow(this.Table.ParentRelations["Model_ModelCategory"])));
+                    try {
+                        return ((double)(this[this.tableFixtureFilter.light_maxColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte light_max in Tabelle FixtureFilter ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFixtureFilter.light_maxColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string light_vector {
+                get {
+                    try {
+                        return ((string)(this[this.tableFixtureFilter.light_vectorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte light_vector in Tabelle FixtureFilter ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFixtureFilter.light_vectorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string color {
+                get {
+                    try {
+                        return ((string)(this[this.tableFixtureFilter.colorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte color in Tabelle FixtureFilter ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFixtureFilter.colorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int transparency {
+                get {
+                    try {
+                        return ((int)(this[this.tableFixtureFilter.transparencyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte transparency in Tabelle FixtureFilter ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFixtureFilter.transparencyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool outline {
+                get {
+                    try {
+                        return ((bool)(this[this.tableFixtureFilter.outlineColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte outline in Tabelle FixtureFilter ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFixtureFilter.outlineColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public FixtureFilterCategoryRow ModelCategoryRow {
+                get {
+                    return ((FixtureFilterCategoryRow)(this.GetParentRow(this.Table.ParentRelations["Model_ModelCategory"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["Model_ModelCategory"]);
@@ -1530,49 +1894,109 @@ namespace MapCreator.data {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IspatternNull() {
-                return this.IsNull(this.tableModel.patternColumn);
+                return this.IsNull(this.tableFixtureFilter.patternColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetpatternNull() {
-                this[this.tableModel.patternColumn] = global::System.Convert.DBNull;
+                this[this.tableFixtureFilter.patternColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IscategoryNull() {
-                return this.IsNull(this.tableModel.categoryColumn);
+                return this.IsNull(this.tableFixtureFilter.categoryColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetcategoryNull() {
-                this[this.tableModel.categoryColumn] = global::System.Convert.DBNull;
+                this[this.tableFixtureFilter.categoryColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsrendererNull() {
-                return this.IsNull(this.tableModel.rendererColumn);
+                return this.IsNull(this.tableFixtureFilter.rendererColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetrendererNull() {
-                this[this.tableModel.rendererColumn] = global::System.Convert.DBNull;
+                this[this.tableFixtureFilter.rendererColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Islight_minNull() {
+                return this.IsNull(this.tableFixtureFilter.light_minColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setlight_minNull() {
+                this[this.tableFixtureFilter.light_minColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Islight_maxNull() {
+                return this.IsNull(this.tableFixtureFilter.light_maxColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setlight_maxNull() {
+                this[this.tableFixtureFilter.light_maxColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Islight_vectorNull() {
+                return this.IsNull(this.tableFixtureFilter.light_vectorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setlight_vectorNull() {
+                this[this.tableFixtureFilter.light_vectorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IscolorNull() {
+                return this.IsNull(this.tableFixtureFilter.colorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetcolorNull() {
+                this[this.tableFixtureFilter.colorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IstransparencyNull() {
+                return this.IsNull(this.tableFixtureFilter.transparencyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SettransparencyNull() {
+                this[this.tableFixtureFilter.transparencyColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsoutlineNull() {
-                return this.IsNull(this.tableModel.outlineColumn);
+                return this.IsNull(this.tableFixtureFilter.outlineColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetoutlineNull() {
-                this[this.tableModel.outlineColumn] = global::System.Convert.DBNull;
+                this[this.tableFixtureFilter.outlineColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1614,22 +2038,22 @@ namespace MapCreator.data {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ModelCategoryRowChangeEvent : global::System.EventArgs {
+        public class FixtureFilterCategoryRowChangeEvent : global::System.EventArgs {
             
-            private ModelCategoryRow eventRow;
+            private FixtureFilterCategoryRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelCategoryRowChangeEvent(ModelCategoryRow row, global::System.Data.DataRowAction action) {
+            public FixtureFilterCategoryRowChangeEvent(FixtureFilterCategoryRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelCategoryRow Row {
+            public FixtureFilterCategoryRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -1648,22 +2072,22 @@ namespace MapCreator.data {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ModelRowChangeEvent : global::System.EventArgs {
+        public class FixtureFilterRowChangeEvent : global::System.EventArgs {
             
-            private ModelRow eventRow;
+            private FixtureFilterRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelRowChangeEvent(ModelRow row, global::System.Data.DataRowAction action) {
+            public FixtureFilterRowChangeEvent(FixtureFilterRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ModelRow Row {
+            public FixtureFilterRow Row {
                 get {
                     return this.eventRow;
                 }

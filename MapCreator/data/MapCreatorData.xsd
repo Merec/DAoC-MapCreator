@@ -21,23 +21,33 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ModelCategory" msprop:Generator_TableClassName="ModelCategoryDataTable" msprop:Generator_TableVarName="tableModelCategory" msprop:Generator_TablePropName="ModelCategory" msprop:Generator_RowDeletingName="ModelCategoryRowDeleting" msprop:Generator_UserTableName="ModelCategory" msprop:Generator_RowChangingName="ModelCategoryRowChanging" msprop:Generator_RowEvHandlerName="ModelCategoryRowChangeEventHandler" msprop:Generator_RowDeletedName="ModelCategoryRowDeleted" msprop:Generator_RowEvArgName="ModelCategoryRowChangeEvent" msprop:Generator_RowChangedName="ModelCategoryRowChanged" msprop:Generator_RowClassName="ModelCategoryRow">
+        <xs:element name="FixtureFilterCategory" msprop:Generator_TableClassName="FixtureFilterCategoryDataTable" msprop:Generator_TableVarName="tableFixtureFilterCategory" msprop:Generator_TablePropName="FixtureFilterCategory" msprop:Generator_RowDeletingName="FixtureFilterCategoryRowDeleting" msprop:Generator_UserTableName="FixtureFilterCategory" msprop:Generator_RowChangingName="FixtureFilterCategoryRowChanging" msprop:Generator_RowEvHandlerName="FixtureFilterCategoryRowChangeEventHandler" msprop:Generator_RowDeletedName="FixtureFilterCategoryRowDeleted" msprop:Generator_RowEvArgName="FixtureFilterCategoryRowChangeEvent" msprop:Generator_RowChangedName="FixtureFilterCategoryRowChanged" msprop:Generator_RowClassName="FixtureFilterCategoryRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" />
               <xs:element name="renderer" msprop:Generator_ColumnVarNameInTable="columnrenderer" msprop:Generator_ColumnPropNameInRow="renderer" msprop:Generator_ColumnPropNameInTable="rendererColumn" msprop:Generator_UserColumnName="renderer" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="light_min" msprop:Generator_ColumnVarNameInTable="columnlight_min" msprop:Generator_ColumnPropNameInRow="light_min" msprop:Generator_ColumnPropNameInTable="light_minColumn" msprop:Generator_UserColumnName="light_min" type="xs:double" minOccurs="0" />
+              <xs:element name="light_max" msprop:Generator_ColumnVarNameInTable="columnlight_max" msprop:Generator_ColumnPropNameInRow="light_max" msprop:Generator_ColumnPropNameInTable="light_maxColumn" msprop:Generator_UserColumnName="light_max" type="xs:double" minOccurs="0" />
+              <xs:element name="light_vector" msprop:Generator_ColumnVarNameInTable="columnlight_vector" msprop:Generator_ColumnPropNameInRow="light_vector" msprop:Generator_ColumnPropNameInTable="light_vectorColumn" msprop:Generator_UserColumnName="light_vector" type="xs:string" minOccurs="0" />
+              <xs:element name="color" msprop:Generator_ColumnVarNameInTable="columncolor" msprop:Generator_ColumnPropNameInRow="color" msprop:Generator_ColumnPropNameInTable="colorColumn" msprop:Generator_UserColumnName="color" type="xs:string" minOccurs="0" />
+              <xs:element name="transparency" msprop:Generator_ColumnVarNameInTable="columntransparency" msprop:Generator_ColumnPropNameInRow="transparency" msprop:Generator_ColumnPropNameInTable="transparencyColumn" msprop:Generator_UserColumnName="transparency" type="xs:int" minOccurs="0" />
               <xs:element name="outline" msprop:Generator_ColumnVarNameInTable="columnoutline" msprop:Generator_ColumnPropNameInRow="outline" msprop:Generator_ColumnPropNameInTable="outlineColumn" msprop:Generator_UserColumnName="outline" type="xs:boolean" default="true" minOccurs="0" />
               <xs:element name="is_default" msprop:Generator_ColumnVarNameInTable="columnis_default" msprop:Generator_ColumnPropNameInRow="is_default" msprop:Generator_ColumnPropNameInTable="is_defaultColumn" msprop:Generator_UserColumnName="is_default" type="xs:boolean" default="false" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Model" msprop:Generator_TableClassName="ModelDataTable" msprop:Generator_TableVarName="tableModel" msprop:Generator_TablePropName="Model" msprop:Generator_RowDeletingName="ModelRowDeleting" msprop:Generator_UserTableName="Model" msprop:Generator_RowChangingName="ModelRowChanging" msprop:Generator_RowEvHandlerName="ModelRowChangeEventHandler" msprop:Generator_RowDeletedName="ModelRowDeleted" msprop:Generator_RowEvArgName="ModelRowChangeEvent" msprop:Generator_RowChangedName="ModelRowChanged" msprop:Generator_RowClassName="ModelRow">
+        <xs:element name="FixtureFilter" msprop:Generator_TableClassName="FixtureFilterDataTable" msprop:Generator_TableVarName="tableFixtureFilter" msprop:Generator_TablePropName="FixtureFilter" msprop:Generator_RowDeletingName="FixtureFilterRowDeleting" msprop:Generator_UserTableName="FixtureFilter" msprop:Generator_RowChangingName="FixtureFilterRowChanging" msprop:Generator_RowEvHandlerName="FixtureFilterRowChangeEventHandler" msprop:Generator_RowDeletedName="FixtureFilterRowDeleted" msprop:Generator_RowEvArgName="FixtureFilterRowChangeEvent" msprop:Generator_RowChangedName="FixtureFilterRowChanged" msprop:Generator_RowClassName="FixtureFilterRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="pattern" msprop:Generator_ColumnVarNameInTable="columnpattern" msprop:Generator_ColumnPropNameInRow="pattern" msprop:Generator_ColumnPropNameInTable="patternColumn" msprop:Generator_UserColumnName="pattern" type="xs:string" minOccurs="0" />
               <xs:element name="category" msprop:Generator_ColumnVarNameInTable="columncategory" msprop:Generator_ColumnPropNameInRow="category" msprop:Generator_ColumnPropNameInTable="categoryColumn" msprop:Generator_UserColumnName="category" type="xs:string" minOccurs="0" />
               <xs:element name="renderer" msprop:Generator_ColumnVarNameInTable="columnrenderer" msprop:Generator_ColumnPropNameInRow="renderer" msprop:Generator_ColumnPropNameInTable="rendererColumn" msprop:Generator_UserColumnName="renderer" type="xs:string" default="" minOccurs="0" />
-              <xs:element name="outline" msprop:Generator_ColumnVarNameInTable="columnoutline" msprop:Generator_ColumnPropNameInRow="outline" msprop:Generator_ColumnPropNameInTable="outlineColumn" msprop:Generator_UserColumnName="outline" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="light_min" msprop:Generator_ColumnVarNameInTable="columnlight_min" msprop:Generator_ColumnPropNameInRow="light_min" msprop:Generator_ColumnPropNameInTable="light_minColumn" msprop:Generator_UserColumnName="light_min" type="xs:double" default="5" minOccurs="0" />
+              <xs:element name="light_max" msprop:Generator_ColumnVarNameInTable="columnlight_max" msprop:Generator_ColumnPropNameInRow="light_max" msprop:Generator_ColumnPropNameInTable="light_maxColumn" msprop:Generator_UserColumnName="light_max" type="xs:double" default="1" minOccurs="0" />
+              <xs:element name="light_vector" msprop:Generator_ColumnVarNameInTable="columnlight_vector" msprop:Generator_ColumnPropNameInRow="light_vector" msprop:Generator_ColumnPropNameInTable="light_vectorColumn" msprop:Generator_UserColumnName="light_vector" type="xs:string" default="&quot;&quot;" minOccurs="0" />
+              <xs:element name="color" msprop:Generator_ColumnVarNameInTable="columncolor" msprop:Generator_ColumnPropNameInRow="color" msprop:Generator_ColumnPropNameInTable="colorColumn" msprop:Generator_UserColumnName="color" type="xs:string" default="&quot;&quot;" minOccurs="0" />
+              <xs:element name="transparency" msprop:Generator_ColumnVarNameInTable="columntransparency" msprop:Generator_ColumnPropNameInRow="transparency" msprop:Generator_ColumnPropNameInTable="transparencyColumn" msprop:Generator_UserColumnName="transparency" type="xs:int" minOccurs="0" />
+              <xs:element name="outline" msprop:Generator_ColumnVarNameInTable="columnoutline" msprop:Generator_ColumnPropNameInRow="outline" msprop:Generator_ColumnPropNameInTable="outlineColumn" msprop:Generator_UserColumnName="outline" type="xs:boolean" default="false" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -47,14 +57,14 @@
       <xs:selector xpath=".//mstns:ZoneSelectionPresets" />
       <xs:field xpath="mstns:Id" />
     </xs:unique>
-    <xs:unique name="ModelCategory_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:ModelCategory" />
+    <xs:unique name="FixtureFilterCategory_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:FixtureFilterCategory" />
       <xs:field xpath="mstns:id" />
     </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="Model_ModelCategory" msdata:parent="ModelCategory" msdata:child="Model" msdata:parentkey="id" msdata:childkey="category" msprop:Generator_UserChildTable="Model" msprop:Generator_ChildPropName="GetModelRows" msprop:Generator_UserParentTable="ModelCategory" msprop:Generator_UserRelationName="Model_ModelCategory" msprop:Generator_RelationVarName="relationModel_ModelCategory" msprop:Generator_ParentPropName="ModelCategoryRow" />
+      <msdata:Relationship name="Model_ModelCategory" msdata:parent="FixtureFilterCategory" msdata:child="FixtureFilter" msdata:parentkey="id" msdata:childkey="category" msprop:Generator_UserChildTable="FixtureFilter" msprop:Generator_ChildPropName="GetFixtureFilterRows" msprop:Generator_UserParentTable="FixtureFilterCategory" msprop:Generator_UserRelationName="Model_ModelCategory" msprop:Generator_RelationVarName="relationModel_ModelCategory" msprop:Generator_ParentPropName="ModelCategoryRow" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

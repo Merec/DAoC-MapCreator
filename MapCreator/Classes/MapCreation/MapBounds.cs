@@ -27,6 +27,11 @@ namespace MapCreator
         List<List<int[]>> m_bounds = new List<List<int[]>>();
 
         /// <summary>
+        /// Substraction bounds
+        /// </summary>
+        List<List<int[]>> m_boundsSubstraction = new List<List<int[]>>();
+
+        /// <summary>
         /// Background Color
         /// </summary>
         Color m_boundsColor = Color.Black;
@@ -151,7 +156,18 @@ namespace MapCreator
             }
 
             // Correct some coords
-            if (zoneConfiguration.ZoneId == "064")
+            if (zoneConfiguration.ZoneId == "000")
+            {
+                // overlapping bounds
+                pointLines[1].RemoveRange(0, 9);
+            }
+            if (zoneConfiguration.ZoneId == "003")
+            {
+                // overlapping bounds
+                pointLines[1].RemoveRange(66, 3);
+                pointLines[2].RemoveAt(1);
+            }
+            else if (zoneConfiguration.ZoneId == "064")
             {
                 // The first shape seems to be in counter clockwise order
                 pointLines[0].Reverse();
@@ -164,6 +180,20 @@ namespace MapCreator
                 pointLines.RemoveAt(4);
                 // the second gate shape is not closed
                 pointLines[4][0] = pointLines[4].Last();
+            }
+            else if (zoneConfiguration.ZoneId == "076")
+            {
+                // oceanus notos, join lines
+                pointLines[1].Reverse();
+                pointLines[0].AddRange(pointLines[1]);
+                pointLines[0].Add(pointLines[0].First());
+                pointLines.RemoveAt(1);
+            }
+            else if (zoneConfiguration.ZoneId == "081")
+            {
+                // Stygia Delta, substract zone
+                m_boundsSubstraction.Add(pointLines[0]);
+                pointLines.RemoveAt(0);
             }
 
             // We want to know to which side of the maps the first points need to be drawn to
@@ -256,82 +286,100 @@ namespace MapCreator
             MainForm.Log("Drawing bounds...", MainForm.LogLevel.notice);
             MainForm.ProgressStart("Drawing bounds...");
 
-            MagickImage boundMap = new MagickImage(Color.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize);
-
-            DirectoryInfo debugDirectory = new DirectoryInfo(string.Format("{0}\\data\\debug\\zone{1}", System.Windows.Forms.Application.StartupPath, zoneConfiguration.ZoneId));
-            if (debug)
+            using (MagickImage boundMap = new MagickImage(Color.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
             {
-                if (!debugDirectory.Exists) debugDirectory.Create();
-
-                //Remove old files
-                foreach (FileInfo file in debugDirectory.GetFiles(string.Format("bound{0}*", zoneConfiguration.ZoneId)))
+                int boundIndex = 0;
+                foreach (List<int[]> coords in m_bounds)
                 {
-                    file.Delete();
-                }
-            }
+                    List<Coordinate> coordinates = new List<Coordinate>();
+                    foreach (int[] ints in coords) coordinates.Add(new Coordinate(zoneConfiguration.LocToPixel(ints[0]), zoneConfiguration.LocToPixel(ints[1])));
 
-            int boundIndex = 0;
-            foreach (List<int[]> coords in m_bounds)
-            {
-                List<Coordinate> coordinates = new List<Coordinate>();
-                foreach (int[] ints in coords) coordinates.Add(new Coordinate(zoneConfiguration.LocToPixel(ints[0]), zoneConfiguration.LocToPixel(ints[1])));
-
-                using(DrawablePolygon poly = new DrawablePolygon(coordinates)) {
-
-                    boundMap.FillColor = Color.FromArgb((255 * m_boundsOpacity / 100), m_boundsColor);
-                    boundMap.Draw(poly);
-
-                    if (debug)
+                    using (DrawablePolygon poly = new DrawablePolygon(coordinates))
                     {
-                        using (MagickImage debugMap = new MagickImage(Color.White, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
+                        boundMap.FillColor = Color.FromArgb((255 * m_boundsOpacity / 100), m_boundsColor);
+                        boundMap.Draw(poly);
+
+                        if (debug)
                         {
-                            debugMap.FillColor = Color.FromArgb(60, 255, 0, 0);
-                            debugMap.Draw(poly);
+                            DirectoryInfo debugDirectory = new DirectoryInfo(string.Format("{0}\\data\\debug\\zone{1}", System.Windows.Forms.Application.StartupPath, zoneConfiguration.ZoneId));
+                            if (!debugDirectory.Exists) debugDirectory.Create();
 
-                            // Print the point index
-                            for (int i = 0; i < coordinates.Count; i++)
+                            //Remove old files
+                            foreach (FileInfo file in debugDirectory.GetFiles(string.Format("bound{0}*", zoneConfiguration.ZoneId)))
                             {
-                                double x, y;
-
-                                if (coordinates[i].X > zoneConfiguration.TargetMapSize/2) x = coordinates[i].X - 15;
-                                else x = coordinates[i].X + 1;
-
-                                if (coordinates[i].Y < zoneConfiguration.TargetMapSize/2) y = coordinates[i].Y + 15;
-                                else y = coordinates[i].Y - 1;
-
-                                debugMap.FontPointsize = 14.0;
-                                debugMap.FillColor = Color.Black;
-                                using (DrawableText text = new DrawableText(x, y, string.Format("{0} ({1}/{2})", i, coords[i][0], coords[i][1])))
-                                {
-                                    debugMap.Draw(text);
-                                }
-
-                                using (WritablePixelCollection pixels = debugMap.GetWritablePixels())
-                                {
-                                    int x2, y2;
-                                    if (coordinates[i].X == zoneConfiguration.TargetMapSize) x2 = zoneConfiguration.TargetMapSize - 1;
-                                    else x2 = (int)coordinates[i].X;
-                                    if (coordinates[i].Y == zoneConfiguration.TargetMapSize) y2 = zoneConfiguration.TargetMapSize - 1;
-                                    else y2 = (int)coordinates[i].Y;
-
-                                    pixels.Set(x2, y2, new float[] { 0, 0, 65536, 0 });
-                                }
+                                file.Delete();
                             }
 
-                            debugMap.Quality = 100;
+                            using (MagickImage debugMap = new MagickImage(Color.White, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
+                            {
+                                debugMap.FillColor = Color.FromArgb(60, 255, 0, 0);
+                                debugMap.Draw(poly);
 
-                            // Debug file
-                            FileInfo debugFile = new FileInfo(string.Format("{0}\\bound{1}_{2}.jpg", debugDirectory.FullName, zoneConfiguration.ZoneId, boundIndex));
-                            debugMap.Write(debugFile.FullName);
+                                // Print the point index
+                                for (int i = 0; i < coordinates.Count; i++)
+                                {
+                                    double x, y;
+
+                                    if (coordinates[i].X > zoneConfiguration.TargetMapSize/2) x = coordinates[i].X - 15;
+                                    else x = coordinates[i].X + 1;
+
+                                    if (coordinates[i].Y < zoneConfiguration.TargetMapSize/2) y = coordinates[i].Y + 15;
+                                    else y = coordinates[i].Y - 1;
+
+                                    debugMap.FontPointsize = 14.0;
+                                    debugMap.FillColor = Color.Black;
+                                    using (DrawableText text = new DrawableText(x, y, string.Format("{0} ({1}/{2})", i, coords[i][0], coords[i][1])))
+                                    {
+                                        debugMap.Draw(text);
+                                    }
+
+                                    using (WritablePixelCollection pixels = debugMap.GetWritablePixels())
+                                    {
+                                        int x2, y2;
+                                        if (coordinates[i].X == zoneConfiguration.TargetMapSize) x2 = zoneConfiguration.TargetMapSize - 1;
+                                        else x2 = (int)coordinates[i].X;
+                                        if (coordinates[i].Y == zoneConfiguration.TargetMapSize) y2 = zoneConfiguration.TargetMapSize - 1;
+                                        else y2 = (int)coordinates[i].Y;
+
+                                        pixels.Set(x2, y2, new float[] { 0, 0, 65536, 0 });
+                                    }
+                                }
+
+                                debugMap.Quality = 100;
+
+                                // Debug file
+                                FileInfo debugFile = new FileInfo(string.Format("{0}\\bound{1}_{2}.jpg", debugDirectory.FullName, zoneConfiguration.ZoneId, boundIndex));
+                                debugMap.Write(debugFile.FullName);
+                            }
                         }
                     }
+
+                    MainForm.ProgressUpdate(100 * boundIndex / m_bounds.Count - 10);
+                    boundIndex++;
                 }
 
-                MainForm.ProgressUpdate(100 * boundIndex / m_bounds.Count - 10);
-                boundIndex++;
-            }
+                if (m_boundsSubstraction.Count > 0)
+                {
+                    using (MagickImage substract = new MagickImage(Color.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
+                    {
+                        substract.FillColor = Color.FromArgb((255 * m_boundsOpacity / 100), m_boundsColor);
+
+                        foreach (List<int[]> coords in m_boundsSubstraction)
+                        {
+                            List<Coordinate> coordinates = new List<Coordinate>();
+                            foreach (int[] ints in coords) coordinates.Add(new Coordinate(zoneConfiguration.LocToPixel(ints[0]), zoneConfiguration.LocToPixel(ints[1])));
+
+                            using (DrawablePolygon poly = new DrawablePolygon(coordinates))
+                            {
+                                substract.Draw(poly);
+                            }
+                        }
+                        boundMap.Composite(substract, 0, 0, CompositeOperator.DstOut);
+                    }
+                }
             
-            map.Composite(boundMap, 0, 0, CompositeOperator.SrcOver);
+                map.Composite(boundMap, 0, 0, CompositeOperator.SrcOver);
+            }
 
             MainForm.ProgressUpdate(100);
             MainForm.Log("Finished bounds!", MainForm.LogLevel.success);

@@ -36,7 +36,7 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DebugSymbols>true</DebugSymbols>
@@ -221,11 +221,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Constants.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\FixtureDrawMultiple.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\FixtureModel.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\FixtureRenderer.cs" />
+    <Compile Include="Classes\MapCreation\MapFixtures.cs" />
     <Compile Include="Classes\MapCreation\MapBackground.cs" />
     <Compile Include="Classes\DataWrapper.cs" />
     <Compile Include="Classes\MagickWrapper.cs" />
     <Compile Include="Classes\MapCreation\MapBounds.cs" />
-    <Compile Include="Classes\MapCreation\MapFixtures.cs" />
+    <Compile Include="Classes\MapCreation\MapFixtures_old.cs" />
     <Compile Include="Classes\MapCreation\MapHeightmap.cs" />
     <Compile Include="Classes\MapCreation\MapLightmap.cs" />
     <Compile Include="Classes\MapCreation\MapRiver.cs" />
@@ -393,19 +397,22 @@
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\MapCreation\Fixtures\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>rem rmdir /s /q "$(TargetDir)"
-mkdir "$(TargetDir)lib"
+    <PreBuildEvent>IF "$(ConfigurationName)" == "Release" (
+    rmdir /s /q "$(TargetDir)"
+)
 
+mkdir "$(TargetDir)lib"
 copy /Y "$(ProjectDir)lib\Magick.NET-$(PlatformName).dll" "$(TargetDir)lib"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>move "$(TargetDir)\*.dll" "$(TargetDir)\lib\"
-"C:\Program Files\7-Zip\7z" a -tzip MapCreator-$(PlatformName).zip * -x!*.zip</PostBuildEvent>
+
+if "$(ConfigurationName)" == "Release" (
+    "C:\Program Files\7-Zip\7z" a -tzip MapCreator-$(PlatformName).zip * -x!*.zip
+)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
