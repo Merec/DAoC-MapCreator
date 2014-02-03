@@ -221,9 +221,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Constants.cs" />
-    <Compile Include="Classes\MapCreation\Fixtures\FixtureDrawMultiple.cs" />
     <Compile Include="Classes\MapCreation\Fixtures\FixtureModel.cs" />
     <Compile Include="Classes\MapCreation\Fixtures\FixtureRenderer.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\FixtureRow.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\Model.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\TreeModel.cs" />
     <Compile Include="Classes\MapCreation\MapFixtures.cs" />
     <Compile Include="Classes\MapCreation\MapBackground.cs" />
     <Compile Include="Classes\DataWrapper.cs" />
@@ -327,11 +329,17 @@
     <None Include="data\MapNifs.xss">
       <DependentUpon>MapNifs.xsd</DependentUpon>
     </None>
+    <None Include="data\textures\elmleaves_rt_1.dds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="data\textures\lava.dds">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="data\textures\watery.dds">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="fixtures.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -346,10 +354,46 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\Fixtures.xml" />
+    <Content Include="data\prerendered\appletree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\ash.png" />
+    <Content Include="data\prerendered\beech.png" />
+    <Content Include="data\prerendered\Beech_gnarl.png" />
+    <Content Include="data\prerendered\BigHibTree.png" />
+    <Content Include="data\prerendered\bigtree.png" />
+    <Content Include="data\prerendered\bpinea.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\Bpinetree.png" />
+    <Content Include="data\prerendered\BVRGRN1.png" />
+    <Content Include="data\prerendered\bwillow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\B_HTOAK1.png" />
+    <Content Include="data\prerendered\B_HTOAKB.png" />
+    <Content Include="data\prerendered\cedar.png" />
+    <Content Include="data\prerendered\chestnut.png" />
+    <Content Include="data\prerendered\elm1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\elm2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\hazel.png" />
+    <Content Include="data\prerendered\HBirchSingle.png" />
+    <Content Include="data\prerendered\HBirchtree.png" />
+    <Content Include="data\prerendered\Hdeadtree.png" />
+    <Content Include="data\prerendered\HElm2.png" />
+    <Content Include="data\prerendered\HElm2tan.png" />
+    <Content Include="data\prerendered\HOaktree.png" />
+    <Content Include="data\prerendered\hollytree.png" />
+    <Content Include="data\prerendered\maple.png" />
     <Content Include="data\Zones.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="fixtures.xml" />
     <Content Include="lib\ICSharpCode.SharpZipLib.dll" />
     <Content Include="lib\Magick.NET-x64.dll" />
     <Content Include="lib\Magick.NET-x64.xml" />

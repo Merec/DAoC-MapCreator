@@ -51,6 +51,14 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="TreeGroups" msprop:Generator_TableClassName="TreeGroupsDataTable" msprop:Generator_TableVarName="tableTreeGroups" msprop:Generator_TablePropName="TreeGroups" msprop:Generator_RowDeletingName="TreeGroupsRowDeleting" msprop:Generator_UserTableName="TreeGroups" msprop:Generator_RowChangingName="TreeGroupsRowChanging" msprop:Generator_RowEvHandlerName="TreeGroupsRowChangeEventHandler" msprop:Generator_RowDeletedName="TreeGroupsRowDeleted" msprop:Generator_RowEvArgName="TreeGroupsRowChangeEvent" msprop:Generator_RowChangedName="TreeGroupsRowChanged" msprop:Generator_RowClassName="TreeGroupsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" minOccurs="0" />
+              <xs:element name="use" msprop:Generator_ColumnVarNameInTable="columnuse" msprop:Generator_ColumnPropNameInRow="use" msprop:Generator_ColumnPropNameInTable="useColumn" msprop:Generator_UserColumnName="use" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -64,7 +72,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="Model_ModelCategory" msdata:parent="FixtureFilterCategory" msdata:child="FixtureFilter" msdata:parentkey="id" msdata:childkey="category" msprop:Generator_UserChildTable="FixtureFilter" msprop:Generator_ChildPropName="GetFixtureFilterRows" msprop:Generator_UserParentTable="FixtureFilterCategory" msprop:Generator_UserRelationName="Model_ModelCategory" msprop:Generator_RelationVarName="relationModel_ModelCategory" msprop:Generator_ParentPropName="ModelCategoryRow" />
+      <msdata:Relationship name="Model_ModelCategory" msdata:parent="FixtureFilterCategory" msdata:child="FixtureFilter" msdata:parentkey="id" msdata:childkey="category" msprop:Generator_UserChildTable="FixtureFilter" msprop:Generator_ChildPropName="GetFixtureFilterRows" msprop:Generator_ParentPropName="ModelCategoryRow" msprop:Generator_UserRelationName="Model_ModelCategory" msprop:Generator_RelationVarName="relationModel_ModelCategory" msprop:Generator_UserParentTable="FixtureFilterCategory" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

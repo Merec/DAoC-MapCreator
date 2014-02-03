@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace MapCreator
 {
-    class FixtureModel
+    class FixtureModel : Model
     {
         private double m_x;
         public double X

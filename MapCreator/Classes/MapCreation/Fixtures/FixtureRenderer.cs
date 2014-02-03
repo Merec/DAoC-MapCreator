@@ -14,13 +14,16 @@ namespace MapCreator
         None,
         Shaded,
         Flat,
-        Tree
+        Tree,
+        TreeImage
     }
 
     class FixtureRenderer
     {
-
+        [Obsolete("Replced XSD table")]
         private static MapCreatorData fixtureFilterData = new MapCreatorData();
+
+        [Obsolete("Replced XSD table")]
         public static MapCreatorData FixtureFilterData
         {
             get { return FixtureRenderer.fixtureFilterData; }
@@ -29,7 +32,10 @@ namespace MapCreator
         /// <summary>
         /// Model Renderer Configurations
         /// </summary>
+        [Obsolete("Replaced RendererConfiguration")]
         private static Dictionary<string, FixtureRendererConfiguration> fixtureRendererConfigurations = new Dictionary<string, FixtureRendererConfiguration>();
+
+        [Obsolete("Replaced RendererConfiguration")]
         private static FixtureRendererConfiguration defaultFixtureRendererConfiguration;
 
         /// <summary>
@@ -63,13 +69,16 @@ namespace MapCreator
                 "None", FixtureRendererType.None.ToString(), 0, 0, "1,1,-1", "#FFFFFF", 0, false, false
             );
             var structuresCategory = fixtureFilterData.FixtureFilterCategory.AddFixtureFilterCategoryRow(
-                "Buildings", FixtureRendererType.Shaded.ToString(), 0.7, 1.0, "1,1,-1", "#FFFFFF", 0, true, true
+                "Building", FixtureRendererType.Shaded.ToString(), 0.6, 0.9, "1,1,-1", "#FFFFFF", 0, true, true
             );
             var decorCategory = fixtureFilterData.FixtureFilterCategory.AddFixtureFilterCategoryRow(
-                "Decor", FixtureRendererType.Flat.ToString(), 0, 0, "1,1,-1", "#FFFFFF", 0, true, false
+                "Decoration", FixtureRendererType.Flat.ToString(), 0, 0, "1,1,-1", "#FFFFFF", 0, true, false
             );
             var treesCategory = fixtureFilterData.FixtureFilterCategory.AddFixtureFilterCategoryRow(
-                "Trees", FixtureRendererType.Tree.ToString(), 0.8, 1.0, "1,1,-1", "#003800", 75, false, false
+                "Trees", FixtureRendererType.Tree.ToString(), 0.6, 0.9, "1,1,-1", "#405924", 20, false, false
+            );
+            var treeImagesCategory = fixtureFilterData.FixtureFilterCategory.AddFixtureFilterCategoryRow(
+                "TreeImage", FixtureRendererType.TreeImage.ToString(), 0.7, 1.0, "1,1,-1", "#FFFFFF", 15, false, false
             );
 
             // Knwon Non-Drawabls
@@ -81,7 +90,7 @@ namespace MapCreator
             List<string> trees = new List<string>()
             {
                 // Albion
-                "B_HTOAK[0-9]+", "Bmtntre1", "Bpinetree", "bpintre1", "BScryPine", "BSpanMoss", "bpinea", "bwillow",
+                "B_HTOAK.*", "Bmtntre1", "Bpinetree", "bpintre1", "BScryPine", "BSpanMoss", "bpinea", "bwillow", "BVRGRN1",
                 
                 // Hibernia
                 "Hbareskny", "BigHibTree", "HElm", "HElm1grey", "HBirchtree", "Hdeadtree", "HBirchSingle", 
@@ -96,7 +105,7 @@ namespace MapCreator
                 "appletree", "olivetree", "pintre[0-9]+", "crookedpalm", "SmallPalm", "reedclump1", "SkinnyPalm"
 
             };
-            foreach (string tree in trees) fixtureFilterData.FixtureFilter.AddFixtureFilterRow(tree, treesCategory, "", 0, 0, "", "", 0, false);
+            foreach (string tree in trees) fixtureFilterData.FixtureFilter.AddFixtureFilterRow(tree, treeImagesCategory, "", 0, 0, "", "", 0, false);
 
             //
             // Known decor (rocks and other)

@@ -320,7 +320,10 @@ namespace MapCreator
                             DrawFlat(modelsOverlay, model);
                             break;
                         case FixtureRendererType.Tree:
-                            DrawTree(modelsOverlay, model);
+                            DrawShaded(modelsOverlay, model);
+                            break;
+                        case FixtureRendererType.TreeImage:
+                            DrawTreeImage(modelsOverlay, model);
                             break;
                     }
 
@@ -403,36 +406,6 @@ namespace MapCreator
             }
         }
 
-        private MagickImage DrawShaded2(FixtureModel model)
-        {
-            //MainForm.Log(model.Name, MainForm.LogLevel.notice);
-
-            MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, model.Canvas.Width, model.Canvas.Height);
-
-            foreach (DrawListEntry drawListEntry in model.Canvas.DrawListEntries)
-            {
-                using (DrawablePolygon polyDraw = new DrawablePolygon(drawListEntry.coordinates))
-                {
-                    modelCanvas.FillColor = new MagickColor(
-                        Convert.ToSingle(drawListEntry.lightning * model.Canvas.Color.R * 255),
-                        Convert.ToSingle(drawListEntry.lightning * model.Canvas.Color.G * 255),
-                        Convert.ToSingle(drawListEntry.lightning * model.Canvas.Color.B * 255),
-                        Convert.ToSingle(model.Canvas.Alpha)
-                    );
-                    modelCanvas.Draw(polyDraw);
-                }
-            }
-
-            if (model.RendererConfiguration.Outline)
-            {
-                modelCanvas.BorderColor = MagickColor.Transparent;
-                modelCanvas.Border(1);
-                modelCanvas.Shadow(0, 0, 1, new Percentage(100), System.Drawing.Color.Black);
-            }
-
-            return modelCanvas;
-        }
-
         private void DrawFlat(MagickImage overlay, FixtureModel model)
         {
             //MainForm.Log(model.Name, MainForm.LogLevel.notice);
@@ -465,34 +438,65 @@ namespace MapCreator
             }
         }
 
-        private void DrawTree(MagickImage overlay, FixtureModel model)
+        private Dictionary<string, MagickImage> treeImages = new Dictionary<string, MagickImage>();
+
+        private void DrawTreeImage(MagickImage overlay, FixtureModel model)
         {
-            //MainForm.Log(model.Name, MainForm.LogLevel.notice);
-
-            using (MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, model.Canvas.Width, model.Canvas.Height))
+            if (!treeImages.ContainsKey(model.NifRow.Filename))
             {
-                foreach (DrawListEntry drawListEntry in model.Canvas.DrawListEntries)
+                string treeImageFile = string.Format("{0}\\data\\prerendered\\{1}.png", Application.StartupPath, Path.GetFileNameWithoutExtension(model.NifRow.Filename));
+                if (File.Exists(treeImageFile))
                 {
-                    using (DrawablePolygon polyDraw = new DrawablePolygon(drawListEntry.coordinates))
+                    MagickImage treeImage = new MagickImage(treeImageFile);
+                    treeImage.Blur();
+
+                    treeImages.Add(model.NifRow.Filename, treeImage);
+                }
+                else
+                {
+                    treeImages.Add(model.NifRow.Filename, null);
+                }
+            }
+
+            if (treeImages.ContainsKey(model.NifRow.Filename) && treeImages[model.NifRow.Filename] != null)
+            {
+                using (MagickImage newTree = treeImages[model.NifRow.Filename].Clone())
+                {
+                    newTree.BackgroundColor = MagickColor.Transparent;
+                    newTree.Rotate(model.FixtureRow.A);
+                    newTree.Trim();
+                    newTree.Resize(model.Canvas.Width, model.Canvas.Height);
+
+                    using (MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, model.Canvas.Width, model.Canvas.Height))
                     {
-                        modelCanvas.FillColor = new MagickColor(
-                            Convert.ToSingle(drawListEntry.lightning * model.Canvas.Color.R * 255),
-                            Convert.ToSingle(drawListEntry.lightning * model.Canvas.Color.G * 255),
-                            Convert.ToSingle(drawListEntry.lightning * model.Canvas.Color.B * 255),
-                            Convert.ToSingle(model.Canvas.Alpha)
-                        );
-                        modelCanvas.Draw(polyDraw);
+                        foreach (DrawListEntry drawListEntry in model.Canvas.DrawListEntries)
+                        {
+                            modelCanvas.FillColor = new MagickColor(
+                                Convert.ToSingle(128 * 256 * drawListEntry.lightning),
+                                Convert.ToSingle(128 * 256 * drawListEntry.lightning),
+                                Convert.ToSingle(128 * 256 * drawListEntry.lightning)
+                            );
+
+                            using (DrawablePolygon polyDraw = new DrawablePolygon(drawListEntry.coordinates))
+                            {
+                                modelCanvas.Draw(polyDraw);
+                            }
+                        }
+
+                        modelCanvas.Composite(newTree, 0, 0, CompositeOperator.DstIn);
+                        newTree.Composite(modelCanvas, 0, 0, CompositeOperator.Overlay);
                     }
-                }
 
-                if (model.RendererConfiguration.Outline)
-                {
-                    modelCanvas.BorderColor = MagickColor.Transparent;
-                    modelCanvas.Border(1);
-                    modelCanvas.Shadow(0, 0, 1, new Percentage(100), System.Drawing.Color.Black);
-                }
+                    if (model.RendererConfiguration.Transparency != 0)
+                    {
+                        newTree.Alpha(AlphaOption.Set);
 
-                overlay.Composite(modelCanvas, model.Canvas.X, model.Canvas.Y, CompositeOperator.SrcOver);
+                        double divideValue = 100.0 / (100.0 - model.RendererConfiguration.Transparency);
+                        newTree.QuantumOperator(Channels.Alpha, EvaluateOperator.Devide, divideValue);
+                    }
+
+                    overlay.Composite(newTree, model.Canvas.X, model.Canvas.Y, CompositeOperator.SrcOver);
+                }
             }
         }
 
