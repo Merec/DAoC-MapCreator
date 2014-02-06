@@ -18,8 +18,7 @@ using System.Diagnostics;
 
 namespace MapCreator
 {
-
-    class MapFixtures
+    class MapFixturesOld2
     {
         private ZoneConfiguration zoneConfiguration;
         private List<RiverConfiguration> rivers;
@@ -38,22 +37,24 @@ namespace MapCreator
         /// <summary>
         /// All fixtures that need to be drawn before river is drawn
         /// </summary>
-        private List<FixtureModel> fixturesBelowWater = new List<FixtureModel>();
+        private List<Model> fixturesBelowWater = new List<Model>();
         
         /// <summary>
         /// All fixtures that need to be drawn after river is drawn
         /// </summary>
-        private List<FixtureModel> fixturesOverWater = new List<FixtureModel>();
+        private List<Model> fixturesOverWater = new List<Model>();
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="zoneConfiguration"></param>
         /// <param name="rivers"></param>
-        public MapFixtures(ZoneConfiguration zoneConfiguration, List<RiverConfiguration> rivers)
+        public MapFixturesOld2(ZoneConfiguration zoneConfiguration, List<RiverConfiguration> rivers)
         {
             this.zoneConfiguration = zoneConfiguration;
             this.rivers = rivers;
+
+            Fixtures.ParseFixturesXml();
 
             FillNifTable();
             FillFixturesTable();
@@ -248,7 +249,7 @@ namespace MapCreator
                     MainForm.Log(model.Name + " no polygons left");
                     continue;
                 }
-                if (model.RendererConfiguration.Renderer == FixtureRendererType.None) continue;
+                if (model.RendererConfiguration.Renderer == FixtureRendererTypeUnused.None) continue;
 
                 // Check if on river or not
                 int riverHeight = 0;
@@ -285,9 +286,14 @@ namespace MapCreator
         /// </summary>
         /// <param name="map"></param>
         /// <param name="underwater"></param>
-        public void Draw(MagickImage map, bool underwater)
+        public void Draw(MagickImage map, bool underwater, bool debug)
         {
-            List<FixtureModel> models;
+            if(debug) {
+                MagickNET.SetLogEvents(LogEvents.All);
+                MagickNET.Log += MagickNET_Log;
+            }
+
+            List<Model> models;
             if (underwater)
             {
                 MainForm.Log("Drawing fixtures under water level...", MainForm.LogLevel.notice);
@@ -308,21 +314,21 @@ namespace MapCreator
                 MainForm.ProgressStart("Drawing models ...");
                 int processCounter = 0;
 
-                foreach (FixtureModel model in models)
+                foreach (Model model in models)
                 {
                     switch (model.RendererConfiguration.Renderer)
                     {
-                        case FixtureRendererType.Shaded:
+                        case FixtureRendererTypeUnused.Shaded:
                         default:
                             DrawShaded(modelsOverlay, model);
                             break;
-                        case FixtureRendererType.Flat:
+                        case FixtureRendererTypeUnused.Flat:
                             DrawFlat(modelsOverlay, model);
                             break;
-                        case FixtureRendererType.Tree:
+                        case FixtureRendererTypeUnused.Tree:
                             DrawShaded(modelsOverlay, model);
                             break;
-                        case FixtureRendererType.TreeImage:
+                        case FixtureRendererTypeUnused.TreeImage:
                             DrawTreeImage(modelsOverlay, model);
                             break;
                     }
@@ -492,7 +498,7 @@ namespace MapCreator
                         newTree.Alpha(AlphaOption.Set);
 
                         double divideValue = 100.0 / (100.0 - model.RendererConfiguration.Transparency);
-                        newTree.QuantumOperator(Channels.Alpha, EvaluateOperator.Devide, divideValue);
+                        newTree.Evaluate(Channels.Alpha, EvaluateOperator.Divide, divideValue);
                     }
 
                     overlay.Composite(newTree, model.Canvas.X, model.Canvas.Y, CompositeOperator.SrcOver);
@@ -566,6 +572,19 @@ namespace MapCreator
         }
 
         #endregion
+
+        StreamWriter writer;
+
+        public void MagickNET_Log(object sender, LogEventArgs arguments)
+        {
+            if (writer == null)
+            {
+                string date = DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                writer = new StreamWriter(string.Format("{0}\\magick_{1}.log", Application.StartupPath, date));
+            }
+
+            writer.WriteLine(arguments.Message);
+        }
 
     }
 
