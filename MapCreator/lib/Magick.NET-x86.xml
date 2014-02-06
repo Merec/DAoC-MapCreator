@@ -4,115 +4,57 @@
         "Magick.NET"
     </assembly>
     <members>
-        <member name="M:ImageMagick.MagickImageInfo.ReadCollection(System.IO.Stream)">
+        <member name="M:ImageMagick.Percentage.ToString">
 ==========================================================================================
 <summary>
-Read basic information about an image with multiple frames/pages.
-</summary><param name="stream">The stream to read the image data from.</param><exception cref="T:ImageMagick.MagickException" /></member>
-        <member name="M:ImageMagick.MagickImageInfo.ReadCollection(System.String)">
+Returns a string that represents the current percentage.
+</summary></member>
+        <member name="M:ImageMagick.Percentage.ToInt32">
 ==========================================================================================
 <summary>
-Read basic information about an image with multiple frames/pages.
-</summary><param name="fileName">The fully qualified name of the image file, or the relative image file name.</param><exception cref="T:ImageMagick.MagickException" /></member>
-        <member name="M:ImageMagick.MagickImageInfo.ReadCollection(System.Byte[])">
+Converts the value to an integer.
+</summary></member>
+        <member name="M:ImageMagick.Percentage.ToDouble">
 ==========================================================================================
 <summary>
-Read basic information about an image with multiple frames/pages.
-</summary><param name="data">The byte array to read the information from.</param><exception cref="T:ImageMagick.MagickException" /></member>
-        <member name="M:ImageMagick.MagickImageInfo.Read(System.IO.Stream)">
-==========================================================================================
-<summary>
-Read basic information about an image.
-</summary><param name="stream">The stream to read the image data from.</param><exception cref="T:ImageMagick.MagickException" /></member>
-        <member name="M:ImageMagick.MagickImageInfo.Read(System.String)">
-==========================================================================================
-<summary>
-Read basic information about an image.
-</summary><param name="fileName">The fully qualified name of the image file, or the relative image file name.</param><exception cref="T:ImageMagick.MagickException" /></member>
-        <member name="M:ImageMagick.MagickImageInfo.Read(System.Byte[])">
-==========================================================================================
-<summary>
-Read basic information about an image.
-</summary><param name="data">The byte array to read the information from.</param><exception cref="T:ImageMagick.MagickException" /></member>
-        <member name="M:ImageMagick.MagickImageInfo.GetHashCode">
+Converts the value to a double.
+</summary></member>
+        <member name="M:ImageMagick.Percentage.GetHashCode">
 ==========================================================================================
 <summary>
 Servers as a hash of this type.
 </summary></member>
-        <member name="M:ImageMagick.MagickImageInfo.Equals(ImageMagick.MagickImageInfo)">
+        <member name="M:ImageMagick.Percentage.Equals(ImageMagick.Percentage)">
 ==========================================================================================
 <summary>
-Determines whether the specified geometry is equal to the current image information.
-</summary><param name="other">The image to compare this image information with.</param></member>
-        <member name="M:ImageMagick.MagickImageInfo.Equals(System.Object)">
+Determines whether the specified percentage is equal to the current percentage.
+</summary><param name="other">The percentage to compare this percentage with.</param></member>
+        <member name="M:ImageMagick.Percentage.Equals(System.Object)">
 ==========================================================================================
 <summary>
-Determines whether the specified object is equal to the current image information.
-</summary><param name="obj">The object to compare this image information with.</param></member>
-        <member name="M:ImageMagick.MagickImageInfo.CompareTo(ImageMagick.MagickImageInfo)">
+Determines whether the specified object is equal to the current percentage.
+</summary><param name="obj">The object to compare this percentage with.</param></member>
+        <member name="M:ImageMagick.Percentage.#ctor(System.Int32)">
 ==========================================================================================
 <summary>
-Compares the current instance with another object of the same type.
-</summary><param name="other">The object to compare this image information with.</param></member>
-        <member name="P:ImageMagick.MagickImageInfo.Width">
+Initializes a new instance of the Percentage class using the specified value.
+(0% = 0, 100% = 100)
+</summary><param name="value">The value (0% = 0, 100% = 100)</param></member>
+        <member name="M:ImageMagick.Percentage.#ctor(System.Double)">
 ==========================================================================================
 <summary>
-Height of the image.
-</summary></member>
-        <member name="P:ImageMagick.MagickImageInfo.ResolutionY">
-==========================================================================================
-<summary>
-The Y resolution of the image.
-</summary></member>
-        <member name="P:ImageMagick.MagickImageInfo.ResolutionX">
-==========================================================================================
-<summary>
-The X resolution of the image.
-</summary></member>
-        <member name="P:ImageMagick.MagickImageInfo.Height">
-==========================================================================================
-<summary>
-Height of the image.
-</summary></member>
-        <member name="P:ImageMagick.MagickImageInfo.Format">
-==========================================================================================
-<summary>
-The format of the image.
-</summary></member>
-        <member name="P:ImageMagick.MagickImageInfo.FileName">
-==========================================================================================
-<summary>
-Original file name of the image (only available if read from disk).
-</summary></member>
-        <member name="P:ImageMagick.MagickImageInfo.ColorSpace">
-==========================================================================================
-<summary>
-Color space of the image.
-</summary></member>
-        <member name="M:ImageMagick.MagickImageInfo.#ctor(System.IO.Stream)">
-==========================================================================================
-<summary>
-Initializes a new instance of the MagickImageInfo class using the specified stream.
-</summary><param name="stream">The stream to read the image data from.</param><exception cref="T:ImageMagick.MagickException" /></member>
-        <member name="M:ImageMagick.MagickImageInfo.#ctor(System.String)">
-==========================================================================================
-<summary>
-Initializes a new instance of the MagickImageInfo class using the specified filename.
-</summary><param name="fileName">The fully qualified name of the image file, or the relative image file name.</param><exception cref="T:ImageMagick.MagickException" /></member>
-        <member name="M:ImageMagick.MagickImageInfo.#ctor(System.Byte[])">
-==========================================================================================
-<summary>
-Initializes a new instance of the MagickImageInfo class using the specified blob.
-</summary><param name="data">The byte array to read the information from.</param><exception cref="T:ImageMagick.MagickException" /></member>
-        <member name="M:ImageMagick.MagickImageInfo.#ctor">
-==========================================================================================
-<summary>
-Initializes a new instance of the MagickImageInfo class.
-</summary></member>
-        <member name="T:ImageMagick.MagickImageInfo">
+Initializes a new instance of the Percentage class using the specified value.
+(0% = 0.0, 100% = 1.0)
+</summary><param name="value">The value (0% = 0.0, 100% = 1.0)</param></member>
+        <member name="T:ImageMagick.Percentage">
 =============================================================================================
 <summary>
-Class that contains basic information about an image.
+Represents a percentage value.
+</summary></member>
+        <member name="T:ImageMagick.StorageType">
+=============================================================================================
+<summary>
+Specifies the pixel storage types.
 </summary></member>
         <member name="M:ImageMagick.ColorHSL.FromMagickColor(ImageMagick.MagickColor)">
 ==========================================================================================
@@ -322,12 +264,6 @@ Set the events that will be written to the log. The log will be written to the L
 and the debug window in VisualStudio. To change the log settings you must use a custom
 log.xml file.
 </summary><param name="events">The events that will be logged.</param></member>
-        <member name="M:ImageMagick.MagickNET.SetCacheThreshold(System.UInt64)">
-==========================================================================================
-<summary>
-Pixel cache threshold in bytes. Once this memory threshold is exceeded, all subsequent
-pixels cache operations are to/from disk. This setting is shared by all MagickImage objects.
-</summary><param name="threshold">The threshold in bytes.</param></member>
         <member name="M:ImageMagick.MagickNET.Initialize(System.String)">
 ==========================================================================================
 <summary>
@@ -340,6 +276,10 @@ xml files in that directory.
 Returns the format information of the specified format.
 </summary><param name="format">The image format.</param></member>
         <member name="P:ImageMagick.MagickNET.Version">
+==========================================================================================
+<summary>
+Gets or sets the use of OpenCL.
+</summary>
 ==========================================================================================
 <summary>
 Returns the version of Magick.NET.
@@ -365,15 +305,156 @@ Class that can be used to initialize Magick.NET.
         <member name="T:ImageMagick.MagickLogFuncDelegate">
 =============================================================================================
 </member>
-        <member name="M:ImageMagick.PathClosePath.#ctor">
+        <member name="P:ImageMagick.LogEventArgs.EventType">
 ==========================================================================================
 <summary>
-Initializes a new instance of the PathClosePath class.
+Type of the log message.
 </summary></member>
-        <member name="T:ImageMagick.PathClosePath">
+        <member name="P:ImageMagick.LogEventArgs.Message">
+==========================================================================================
+<summary>
+Type of the log message.
+</summary></member>
+        <member name="T:ImageMagick.LogEventArgs">
 =============================================================================================
 <summary>
-Encapsulation of the PathClosePath object.
+EventArgs for Log events.
+</summary></member>
+        <member name="T:ImageMagick.LogEvents">
+=============================================================================================
+<summary>
+Specifies log events.
+</summary></member>
+        <member name="M:ImageMagick.MagickImageInfo.ReadCollection(System.IO.Stream)">
+==========================================================================================
+<summary>
+Read basic information about an image with multiple frames/pages.
+</summary><param name="stream">The stream to read the image data from.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImageInfo.ReadCollection(System.String)">
+==========================================================================================
+<summary>
+Read basic information about an image with multiple frames/pages.
+</summary><param name="fileName">The fully qualified name of the image file, or the relative image file name.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImageInfo.ReadCollection(System.Byte[])">
+==========================================================================================
+<summary>
+Read basic information about an image with multiple frames/pages.
+</summary><param name="data">The byte array to read the information from.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImageInfo.Read(System.IO.Stream)">
+==========================================================================================
+<summary>
+Read basic information about an image.
+</summary><param name="stream">The stream to read the image data from.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImageInfo.Read(System.String)">
+==========================================================================================
+<summary>
+Read basic information about an image.
+</summary><param name="fileName">The fully qualified name of the image file, or the relative image file name.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImageInfo.Read(System.Byte[])">
+==========================================================================================
+<summary>
+Read basic information about an image.
+</summary><param name="data">The byte array to read the information from.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImageInfo.GetHashCode">
+==========================================================================================
+<summary>
+Servers as a hash of this type.
+</summary></member>
+        <member name="M:ImageMagick.MagickImageInfo.Equals(ImageMagick.MagickImageInfo)">
+==========================================================================================
+<summary>
+Determines whether the specified geometry is equal to the current image information.
+</summary><param name="other">The image to compare this image information with.</param></member>
+        <member name="M:ImageMagick.MagickImageInfo.Equals(System.Object)">
+==========================================================================================
+<summary>
+Determines whether the specified object is equal to the current image information.
+</summary><param name="obj">The object to compare this image information with.</param></member>
+        <member name="M:ImageMagick.MagickImageInfo.CompareTo(ImageMagick.MagickImageInfo)">
+==========================================================================================
+<summary>
+Compares the current instance with another object of the same type.
+</summary><param name="other">The object to compare this image information with.</param></member>
+        <member name="P:ImageMagick.MagickImageInfo.Width">
+==========================================================================================
+<summary>
+Height of the image.
+</summary></member>
+        <member name="P:ImageMagick.MagickImageInfo.ResolutionY">
+==========================================================================================
+<summary>
+The Y resolution of the image.
+</summary></member>
+        <member name="P:ImageMagick.MagickImageInfo.ResolutionX">
+==========================================================================================
+<summary>
+The X resolution of the image.
+</summary></member>
+        <member name="P:ImageMagick.MagickImageInfo.Height">
+==========================================================================================
+<summary>
+Height of the image.
+</summary></member>
+        <member name="P:ImageMagick.MagickImageInfo.Format">
+==========================================================================================
+<summary>
+The format of the image.
+</summary></member>
+        <member name="P:ImageMagick.MagickImageInfo.FileName">
+==========================================================================================
+<summary>
+Original file name of the image (only available if read from disk).
+</summary></member>
+        <member name="P:ImageMagick.MagickImageInfo.ColorSpace">
+==========================================================================================
+<summary>
+Color space of the image.
+</summary></member>
+        <member name="M:ImageMagick.MagickImageInfo.#ctor(System.IO.Stream)">
+==========================================================================================
+<summary>
+Initializes a new instance of the MagickImageInfo class using the specified stream.
+</summary><param name="stream">The stream to read the image data from.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImageInfo.#ctor(System.String)">
+==========================================================================================
+<summary>
+Initializes a new instance of the MagickImageInfo class using the specified filename.
+</summary><param name="fileName">The fully qualified name of the image file, or the relative image file name.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImageInfo.#ctor(System.Byte[])">
+==========================================================================================
+<summary>
+Initializes a new instance of the MagickImageInfo class using the specified blob.
+</summary><param name="data">The byte array to read the information from.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImageInfo.#ctor">
+==========================================================================================
+<summary>
+Initializes a new instance of the MagickImageInfo class.
+</summary></member>
+        <member name="T:ImageMagick.MagickImageInfo">
+=============================================================================================
+<summary>
+Class that contains basic information about an image.
+</summary></member>
+        <member name="P:ImageMagick.ResourceLimits.Thread">
+==========================================================================================
+<summary>
+Limits the number of threads used in multithreaded operations.
+</summary></member>
+        <member name="P:ImageMagick.ResourceLimits.Memory">
+==========================================================================================
+<summary>
+Pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
+operations are to/from disk.
+</summary></member>
+        <member name="P:ImageMagick.ResourceLimits.Disk">
+==========================================================================================
+<summary>
+Pixel cache limit in bytes. Requests for memory above this limit will fail.
+</summary></member>
+        <member name="T:ImageMagick.ResourceLimits">
+=============================================================================================
+<summary>
+Class that can be used to set the limits to the resources that are being used.
 </summary></member>
         <member name="M:ImageMagick.ColorMono.FromMagickColor(ImageMagick.MagickColor)">
 ==========================================================================================
@@ -425,26 +506,6 @@ Initializes a new instance of the ColorYUV class.
 <summary>
 Class that represents a YUV color.
 </summary></member>
-        <member name="P:ImageMagick.LogEventArgs.EventType">
-==========================================================================================
-<summary>
-Type of the log message.
-</summary></member>
-        <member name="P:ImageMagick.LogEventArgs.Message">
-==========================================================================================
-<summary>
-Type of the log message.
-</summary></member>
-        <member name="T:ImageMagick.LogEventArgs">
-=============================================================================================
-<summary>
-EventArgs for Log events.
-</summary></member>
-        <member name="T:ImageMagick.LogEvents">
-=============================================================================================
-<summary>
-Specifies log events.
-</summary></member>
         <member name="P:ImageMagick.Quantum.Max">
 ==========================================================================================
 <summary>
@@ -489,21 +550,6 @@ Initializes a new instance of the PathSmoothCurvetoAbs class.
 =============================================================================================
 <summary>
 Encapsulation of the PathSmoothCurvetoAbs object.
-</summary></member>
-        <member name="M:ImageMagick.PathMovetoRel.#ctor(System.Collections.Generic.IEnumerable`1{ImageMagick.Coordinate})">
-==========================================================================================
-<summary>
-Initializes a new instance of the PathMovetoRel class.
-</summary><param name="coordinates">The coordinates to use.</param></member>
-        <member name="M:ImageMagick.PathMovetoRel.#ctor(ImageMagick.Coordinate)">
-==========================================================================================
-<summary>
-Initializes a new instance of the PathMovetoRel class.
-</summary><param name="coordinate">The coordinate to use.</param></member>
-        <member name="T:ImageMagick.PathMovetoRel">
-=============================================================================================
-<summary>
-Encapsulation of the PathMovetoRel object.
 </summary></member>
         <member name="M:ImageMagick.PathMovetoAbs.#ctor(System.Collections.Generic.IEnumerable`1{ImageMagick.Coordinate})">
 ==========================================================================================
@@ -689,6 +735,21 @@ Creates a new DrawableTextKerning instance.
 =============================================================================================
 <summary>
 Encapsulation of the DrawableTextKerning object.
+</summary></member>
+        <member name="P:ImageMagick.DrawableTextInterwordSpacing.Spacing">
+==========================================================================================
+<summary>
+Spacing to use.
+</summary></member>
+        <member name="M:ImageMagick.DrawableTextInterwordSpacing.#ctor(System.Double)">
+==========================================================================================
+<summary>
+Creates a new DrawableTextInterwordSpacing instance.
+</summary><param name="spacing">Spacing to use.</param></member>
+        <member name="T:ImageMagick.DrawableTextInterwordSpacing">
+=============================================================================================
+<summary>
+Encapsulation of the DrawableTextInterwordSpacing object.
 </summary></member>
         <member name="P:ImageMagick.DrawableTextDecoration.Decoration">
 ==========================================================================================
@@ -1318,46 +1379,6 @@ Creates a new DrawableCircle instance.
 <summary>
 Encapsulation of the DrawableCircle object.
 </summary></member>
-        <member name="P:ImageMagick.DrawableArc.StartY">
-==========================================================================================
-<summary>
-The starting Y coordinate of the bounding rectangle.
-</summary></member>
-        <member name="P:ImageMagick.DrawableArc.StartX">
-==========================================================================================
-<summary>
-The starting X coordinate of the bounding rectangle.
-</summary></member>
-        <member name="P:ImageMagick.DrawableArc.StartDegrees">
-==========================================================================================
-<summary>
-The starting degrees of rotation.
-</summary></member>
-        <member name="P:ImageMagick.DrawableArc.EndY">
-==========================================================================================
-<summary>
-The ending Y coordinate of the bounding rectangle.
-</summary></member>
-        <member name="P:ImageMagick.DrawableArc.EndX">
-==========================================================================================
-<summary>
-The ending X coordinate of the bounding rectangle.
-</summary></member>
-        <member name="P:ImageMagick.DrawableArc.EndDegrees">
-==========================================================================================
-<summary>
-The ending degrees of rotation.
-</summary></member>
-        <member name="M:ImageMagick.DrawableArc.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
-==========================================================================================
-<summary>
-Creates a new DrawableArc instance.
-</summary><param name="startX">The starting X coordinate of the bounding rectangle.</param><param name="startY">The starting Y coordinate of thebounding rectangle.</param><param name="endX">The ending X coordinate of the bounding rectangle.</param><param name="endY">The ending Y coordinate of the bounding rectangle.</param><param name="startDegrees">The starting degrees of rotation.</param><param name="endDegrees">The ending degrees of rotation.</param></member>
-        <member name="T:ImageMagick.DrawableArc">
-=============================================================================================
-<summary>
-Encapsulation of the DrawableArc object.
-</summary></member>
         <member name="M:ImageMagick.PathSmoothQuadraticCurvetoRel.#ctor(System.Collections.Generic.IEnumerable`1{ImageMagick.Coordinate})">
 ==========================================================================================
 <summary>
@@ -1433,40 +1454,30 @@ Creates a new DrawableMatte instance.
 <summary>
 Encapsulation of the DrawableMatte object.
 </summary></member>
-        <member name="P:ImageMagick.DrawableStrokeColor.Color">
+        <member name="M:ImageMagick.PathClosePath.#ctor">
 ==========================================================================================
 <summary>
-The color to use.
+Initializes a new instance of the PathClosePath class.
 </summary></member>
-        <member name="M:ImageMagick.DrawableStrokeColor.#ctor(ImageMagick.MagickColor)">
-==========================================================================================
-<summary>
-Creates a new DrawableStrokeColor instance.
-</summary><param name="color">The color to use.</param></member>
-        <member name="M:ImageMagick.DrawableStrokeColor.#ctor(System.Drawing.Color)">
-==========================================================================================
-<summary>
-Creates a new DrawableStrokeColor instance.
-</summary><param name="color">The color to use.</param></member>
-        <member name="T:ImageMagick.DrawableStrokeColor">
+        <member name="T:ImageMagick.PathClosePath">
 =============================================================================================
 <summary>
-Encapsulation of the DrawableStrokeColor object.
+Encapsulation of the PathClosePath object.
 </summary></member>
-        <member name="M:ImageMagick.PathQuadraticCurvetoAbs.#ctor(System.Collections.Generic.IEnumerable`1{ImageMagick.PathQuadraticCurveto})">
+        <member name="M:ImageMagick.PathMovetoRel.#ctor(System.Collections.Generic.IEnumerable`1{ImageMagick.Coordinate})">
 ==========================================================================================
 <summary>
-Initializes a new instance of the PathQuadraticCurvetoAbs class.
-</summary><param name="pathQuadraticCurvetos">The coordinates to use.</param></member>
-        <member name="M:ImageMagick.PathQuadraticCurvetoAbs.#ctor(ImageMagick.PathQuadraticCurveto)">
+Initializes a new instance of the PathMovetoRel class.
+</summary><param name="coordinates">The coordinates to use.</param></member>
+        <member name="M:ImageMagick.PathMovetoRel.#ctor(ImageMagick.Coordinate)">
 ==========================================================================================
 <summary>
-Initializes a new instance of the PathQuadraticCurvetoAbs class.
-</summary><param name="pathQuadraticCurveto">The coordinate to use.</param></member>
-        <member name="T:ImageMagick.PathQuadraticCurvetoAbs">
+Initializes a new instance of the PathMovetoRel class.
+</summary><param name="coordinate">The coordinate to use.</param></member>
+        <member name="T:ImageMagick.PathMovetoRel">
 =============================================================================================
 <summary>
-Encapsulation of the PathQuadraticCurvetoAbs object.
+Encapsulation of the PathMovetoRel object.
 </summary></member>
         <member name="M:ImageMagick.DrawablePopGraphicContext.#ctor">
 ==========================================================================================
@@ -1493,6 +1504,21 @@ Creates a new DrawableStrokeAntialias instance.
 <summary>
 Encapsulation of the DrawableStrokeAntialias object.
 </summary></member>
+        <member name="P:ImageMagick.DrawableTextDirection.Direction">
+==========================================================================================
+<summary>
+Direction to use.
+</summary></member>
+        <member name="M:ImageMagick.DrawableTextDirection.#ctor(ImageMagick.TextDirection)">
+==========================================================================================
+<summary>
+Creates a new DrawableTextDirection instance.
+</summary><param name="direction">Direction to use.</param></member>
+        <member name="T:ImageMagick.DrawableTextDirection">
+=============================================================================================
+<summary>
+Encapsulation of the DrawableTextDirection object.
+</summary></member>
         <member name="M:ImageMagick.DrawablePopPattern.#ctor">
 ==========================================================================================
 <summary>
@@ -1503,20 +1529,45 @@ Creates a new DrawablePopPattern instance.
 <summary>
 Encapsulation of the DrawablePopPattern object.
 </summary></member>
-        <member name="P:ImageMagick.DrawableTextInterwordSpacing.Spacing">
+        <member name="P:ImageMagick.DrawableArc.StartY">
 ==========================================================================================
 <summary>
-Spacing to use.
+The starting Y coordinate of the bounding rectangle.
 </summary></member>
-        <member name="M:ImageMagick.DrawableTextInterwordSpacing.#ctor(System.Double)">
+        <member name="P:ImageMagick.DrawableArc.StartX">
 ==========================================================================================
 <summary>
-Creates a new DrawableTextInterwordSpacing instance.
-</summary><param name="spacing">Spacing to use.</param></member>
-        <member name="T:ImageMagick.DrawableTextInterwordSpacing">
+The starting X coordinate of the bounding rectangle.
+</summary></member>
+        <member name="P:ImageMagick.DrawableArc.StartDegrees">
+==========================================================================================
+<summary>
+The starting degrees of rotation.
+</summary></member>
+        <member name="P:ImageMagick.DrawableArc.EndY">
+==========================================================================================
+<summary>
+The ending Y coordinate of the bounding rectangle.
+</summary></member>
+        <member name="P:ImageMagick.DrawableArc.EndX">
+==========================================================================================
+<summary>
+The ending X coordinate of the bounding rectangle.
+</summary></member>
+        <member name="P:ImageMagick.DrawableArc.EndDegrees">
+==========================================================================================
+<summary>
+The ending degrees of rotation.
+</summary></member>
+        <member name="M:ImageMagick.DrawableArc.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+==========================================================================================
+<summary>
+Creates a new DrawableArc instance.
+</summary><param name="startX">The starting X coordinate of the bounding rectangle.</param><param name="startY">The starting Y coordinate of thebounding rectangle.</param><param name="endX">The ending X coordinate of the bounding rectangle.</param><param name="endY">The ending Y coordinate of the bounding rectangle.</param><param name="startDegrees">The starting degrees of rotation.</param><param name="endDegrees">The ending degrees of rotation.</param></member>
+        <member name="T:ImageMagick.DrawableArc">
 =============================================================================================
 <summary>
-Encapsulation of the DrawableTextInterwordSpacing object.
+Encapsulation of the DrawableArc object.
 </summary></member>
         <member name="M:ImageMagick.PathQuadraticCurvetoRel.#ctor(System.Collections.Generic.IEnumerable`1{ImageMagick.PathQuadraticCurveto})">
 ==========================================================================================
@@ -1573,33 +1624,6 @@ The ID of the image.
 <summary>
 Class that contains data for the Write event.
 </summary></member>
-        <member name="P:ImageMagick.PathQuadraticCurveto.Y1">
-==========================================================================================
-</member>
-        <member name="P:ImageMagick.PathQuadraticCurveto.X1">
-==========================================================================================
-</member>
-        <member name="P:ImageMagick.PathQuadraticCurveto.Y">
-==========================================================================================
-</member>
-        <member name="P:ImageMagick.PathQuadraticCurveto.X">
-==========================================================================================
-</member>
-        <member name="M:ImageMagick.PathQuadraticCurveto.#ctor(System.Double,System.Double,System.Double,System.Double)">
-==========================================================================================
-<summary>
-Initializes a new instance of the PathQuadraticCurveto class.
-</summary></member>
-        <member name="M:ImageMagick.PathQuadraticCurveto.#ctor">
-==========================================================================================
-<summary>
-Initializes a new instance of the PathQuadraticCurveto class.
-</summary></member>
-        <member name="T:ImageMagick.PathQuadraticCurveto">
-=============================================================================================
-<summary>
-Encapsulation of the PathQuadraticCurveto object.
-</summary></member>
         <member name="P:ImageMagick.DrawableCompositeImage.Y">
 ==========================================================================================
 <summary>
@@ -1645,6 +1669,48 @@ Creates a new DrawableCompositeImage instance.
 <summary>
 Encapsulation of the DrawableCompositeImage object.
 </summary></member>
+        <member name="M:ImageMagick.PathQuadraticCurvetoAbs.#ctor(System.Collections.Generic.IEnumerable`1{ImageMagick.PathQuadraticCurveto})">
+==========================================================================================
+<summary>
+Initializes a new instance of the PathQuadraticCurvetoAbs class.
+</summary><param name="pathQuadraticCurvetos">The coordinates to use.</param></member>
+        <member name="M:ImageMagick.PathQuadraticCurvetoAbs.#ctor(ImageMagick.PathQuadraticCurveto)">
+==========================================================================================
+<summary>
+Initializes a new instance of the PathQuadraticCurvetoAbs class.
+</summary><param name="pathQuadraticCurveto">The coordinate to use.</param></member>
+        <member name="T:ImageMagick.PathQuadraticCurvetoAbs">
+=============================================================================================
+<summary>
+Encapsulation of the PathQuadraticCurvetoAbs object.
+</summary></member>
+        <member name="P:ImageMagick.PathQuadraticCurveto.Y1">
+==========================================================================================
+</member>
+        <member name="P:ImageMagick.PathQuadraticCurveto.X1">
+==========================================================================================
+</member>
+        <member name="P:ImageMagick.PathQuadraticCurveto.Y">
+==========================================================================================
+</member>
+        <member name="P:ImageMagick.PathQuadraticCurveto.X">
+==========================================================================================
+</member>
+        <member name="M:ImageMagick.PathQuadraticCurveto.#ctor(System.Double,System.Double,System.Double,System.Double)">
+==========================================================================================
+<summary>
+Initializes a new instance of the PathQuadraticCurveto class.
+</summary></member>
+        <member name="M:ImageMagick.PathQuadraticCurveto.#ctor">
+==========================================================================================
+<summary>
+Initializes a new instance of the PathQuadraticCurveto class.
+</summary></member>
+        <member name="T:ImageMagick.PathQuadraticCurveto">
+=============================================================================================
+<summary>
+Encapsulation of the PathQuadraticCurveto object.
+</summary></member>
         <member name="M:ImageMagick.DrawablePushClipPath.#ctor(System.String)">
 ==========================================================================================
 <summary>
@@ -1654,6 +1720,26 @@ Creates a new DrawablePushClipPath instance.
 =============================================================================================
 <summary>
 Encapsulation of the DrawablePushClipPath object.
+</summary></member>
+        <member name="P:ImageMagick.DrawableStrokeColor.Color">
+==========================================================================================
+<summary>
+The color to use.
+</summary></member>
+        <member name="M:ImageMagick.DrawableStrokeColor.#ctor(ImageMagick.MagickColor)">
+==========================================================================================
+<summary>
+Creates a new DrawableStrokeColor instance.
+</summary><param name="color">The color to use.</param></member>
+        <member name="M:ImageMagick.DrawableStrokeColor.#ctor(System.Drawing.Color)">
+==========================================================================================
+<summary>
+Creates a new DrawableStrokeColor instance.
+</summary><param name="color">The color to use.</param></member>
+        <member name="T:ImageMagick.DrawableStrokeColor">
+=============================================================================================
+<summary>
+Encapsulation of the DrawableStrokeColor object.
 </summary></member>
         <member name="M:ImageMagick.PathLinetoAbs.#ctor(System.Collections.Generic.IEnumerable`1{ImageMagick.Coordinate})">
 ==========================================================================================
@@ -2103,6 +2189,18 @@ that is added back into the original.</param><param name="threshold">The thresho
 <summary>
 Trim edges that are the background color from the image.
 </summary><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Transverse">
+==========================================================================================
+<summary>
+Creates a vertical mirror image by reflecting the pixels around the central x-axis while
+rotating them by 270 degrees. 
+</summary><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Transpose">
+==========================================================================================
+<summary>
+Creates a horizontal mirror image by reflecting the pixels around the central y-axis while
+rotating them by 90 degrees. 
+</summary><exception cref="T:ImageMagick.MagickException" /></member>
         <member name="M:ImageMagick.MagickImage.TransparentChroma(ImageMagick.MagickColor,ImageMagick.MagickColor)">
 ==========================================================================================
 <summary>
@@ -2209,6 +2307,27 @@ Threshold image.
 <summary>
 Channel a texture on image background.
 </summary><param name="image">The image to use as a texture on image background.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.SubImageSearch(ImageMagick.MagickImage,ImageMagick.Metric,System.Double)">
+==========================================================================================
+<summary>
+Search for the specified image at EVERY possible location in this image. This is slow!
+very very slow.. It returns a similarity image such that an exact match location is
+completely white and if none of the pixels match, black, otherwise some gray level in-between.
+</summary><param name="image">The image to search for.</param><param name="metric">The metric to use.</param><param name="similarityThreshold">Minimum distortion for (sub)image match.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.SubImageSearch(ImageMagick.MagickImage,ImageMagick.Metric)">
+==========================================================================================
+<summary>
+Search for the specified image at EVERY possible location in this image. This is slow!
+very very slow.. It returns a similarity image such that an exact match location is
+completely white and if none of the pixels match, black, otherwise some gray level in-between.
+</summary><param name="image">The image to search for.</param><param name="metric">The metric to use.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.SubImageSearch(ImageMagick.MagickImage)">
+==========================================================================================
+<summary>
+Search for the specified image at EVERY possible location in this image. This is slow!
+very very slow.. It returns a similarity image such that an exact match location is
+completely white and if none of the pixels match, black, otherwise some gray level in-between.
+</summary><param name="image">The image to search for.</param><exception cref="T:ImageMagick.MagickException" /></member>
         <member name="M:ImageMagick.MagickImage.Swirl(System.Double)">
 ==========================================================================================
 <summary>
@@ -2543,16 +2662,6 @@ random threshold. The result is a low-contrast, two color image.
 <summary>
 Raise image (lighten or darken the edges of an image to give a 3-D raised effect).
 </summary><param name="size">The size of the edges.</param><exception cref="T:ImageMagick.MagickException" /></member>
-        <member name="M:ImageMagick.MagickImage.QuantumOperator(ImageMagick.Channels,ImageMagick.MagickGeometry,ImageMagick.EvaluateOperator,System.Double)">
-==========================================================================================
-<summary>
-Apply an arithmetic or bitwise operator to the image pixel quantums.
-</summary><param name="channels">The channel(s) to apply the operator on.</param><param name="geometry">The geometry to use.</param><param name="evaluateOperator">The operator.</param><param name="value">The value.</param><exception cref="T:ImageMagick.MagickException" /></member>
-        <member name="M:ImageMagick.MagickImage.QuantumOperator(ImageMagick.Channels,ImageMagick.EvaluateOperator,System.Double)">
-==========================================================================================
-<summary>
-Apply an arithmetic or bitwise operator to the image pixel quantums.
-</summary><param name="channels">The channel(s) to apply the operator on.</param><param name="evaluateOperator">The operator.</param><param name="value">The value.</param><exception cref="T:ImageMagick.MagickException" /></member>
         <member name="M:ImageMagick.MagickImage.Quantize(System.Boolean)">
 ==========================================================================================
 <summary>
@@ -2910,6 +3019,11 @@ Frame image with the default geometry (25x25+6+6).
 <summary>
 Formats the specified expression, more info here: http://www.imagemagick.org/script/escape.php.
 </summary><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.FontTypeMetrics(System.String,System.Boolean)">
+==========================================================================================
+<summary>
+Obtain font metrics for text string given current font, pointsize, and density settings.
+</summary><param name="ignoreNewLines">Specifies if new lines should be ignored.</param><exception cref="T:ImageMagick.MagickException" /></member>
         <member name="M:ImageMagick.MagickImage.FontTypeMetrics(System.String)">
 ==========================================================================================
 <summary>
@@ -3019,6 +3133,16 @@ Extend the image as defined by the width and height.
 <summary>
 Extend the image as defined by the width and height.
 </summary><param name="width">The width to extend the image to.</param><param name="height">The height to extend the image to.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Evaluate(ImageMagick.Channels,ImageMagick.MagickGeometry,ImageMagick.EvaluateOperator,System.Double)">
+==========================================================================================
+<summary>
+Apply an arithmetic or bitwise operator to the image pixel quantums.
+</summary><param name="channels">The channel(s) to apply the operator on.</param><param name="geometry">The geometry to use.</param><param name="evaluateOperator">The operator.</param><param name="value">The value.</param><exception cref="T:ImageMagick.MagickException" /></member>
+        <member name="M:ImageMagick.MagickImage.Evaluate(ImageMagick.Channels,ImageMagick.EvaluateOperator,System.Double)">
+==========================================================================================
+<summary>
+Apply an arithmetic or bitwise operator to the image pixel quantums.
+</summary><param name="channels">The channel(s) to apply the operator on.</param><param name="evaluateOperator">The operator.</param><param name="value">The value.</param><exception cref="T:ImageMagick.MagickException" /></member>
         <member name="M:ImageMagick.MagickImage.Equals(ImageMagick.MagickImage)">
 ==========================================================================================
 <summary>
@@ -3648,10 +3772,20 @@ Text inter-word spacing.
 <summary>
 Text inter-line spacing.
 </summary></member>
+        <member name="P:ImageMagick.MagickImage.TextGravity">
+==========================================================================================
+<summary>
+Annotation text gravity.
+</summary></member>
         <member name="P:ImageMagick.MagickImage.TextEncoding">
 ==========================================================================================
 <summary>
 Annotation text encoding (e.g. "UTF-16").
+</summary></member>
+        <member name="P:ImageMagick.MagickImage.TextDirection">
+==========================================================================================
+<summary>
+Render text right-to-left or left-to-right. 
 </summary></member>
         <member name="P:ImageMagick.MagickImage.StrokeWidth">
 ==========================================================================================
@@ -4044,6 +4178,16 @@ Initializes a new instance of the MagickImage class.
 =============================================================================================
 <summary>
 Encapsulation of the ImageMagick image object.
+</summary></member>
+        <member name="P:ImageMagick.TypeMetric.UnderlineThickness">
+==========================================================================================
+<summary>
+Underline thickness.
+</summary></member>
+        <member name="P:ImageMagick.TypeMetric.UnderlinePosition">
+==========================================================================================
+<summary>
+Underline position.
 </summary></member>
         <member name="P:ImageMagick.TypeMetric.TextWidth">
 ==========================================================================================
@@ -4587,6 +4731,11 @@ Returns the pixel at the specified coordinate.
 <summary>
 Base class that can be used to access the individual pixels of an image.
 </summary></member>
+        <member name="M:ImageMagick.Pixel.ToColor">
+==========================================================================================
+<summary>
+Converts the pixel to a color. Assumes the pixel is RGBA.
+</summary></member>
         <member name="M:ImageMagick.Pixel.SetChannel(System.Int32,System.Single)">
 ==========================================================================================
 <summary>
@@ -4691,6 +4840,27 @@ Get or set the value at the specified x/y position.
 =============================================================================================
 <summary>
 Encapsulates a matrix of doubles.
+</summary></member>
+        <member name="P:ImageMagick.MagickSearchResult.SimilarityMetric">
+==========================================================================================
+<summary>
+Similarity metric.
+</summary></member>
+        <member name="P:ImageMagick.MagickSearchResult.SimilarityImage">
+==========================================================================================
+<summary>
+A similarity image such that an exact match location is completely white and if none of
+the pixels match, black, otherwise some gray level in-between.
+</summary></member>
+        <member name="P:ImageMagick.MagickSearchResult.BestMatch">
+==========================================================================================
+<summary>
+The offset for the best match.
+</summary></member>
+        <member name="T:ImageMagick.MagickSearchResult">
+=============================================================================================
+<summary>
+Result for a sub image search operation.
 </summary></member>
         <member name="M:ImageMagick.MagickFormatInfo.Unregister">
 ==========================================================================================
@@ -5059,6 +5229,11 @@ Encapsulation of the ImageMagick exception object.
 <summary>
 Specifies the virtual pixel methods.
 </summary></member>
+        <member name="T:ImageMagick.TextDirection">
+=============================================================================================
+<summary>
+Specified the direction for text.
+</summary></member>
         <member name="T:ImageMagick.SparseColorMethod">
 =============================================================================================
 <summary>
@@ -5394,58 +5569,6 @@ Initializes a new instance of the PathSmoothCurvetoRel class.
 =============================================================================================
 <summary>
 Encapsulation of the PathSmoothCurvetoRel object.
-</summary></member>
-        <member name="M:ImageMagick.Percentage.ToString">
-==========================================================================================
-<summary>
-Returns a string that represents the current percentage.
-</summary></member>
-        <member name="M:ImageMagick.Percentage.ToInt32">
-==========================================================================================
-<summary>
-Converts the value to an integer.
-</summary></member>
-        <member name="M:ImageMagick.Percentage.ToDouble">
-==========================================================================================
-<summary>
-Converts the value to a double.
-</summary></member>
-        <member name="M:ImageMagick.Percentage.GetHashCode">
-==========================================================================================
-<summary>
-Servers as a hash of this type.
-</summary></member>
-        <member name="M:ImageMagick.Percentage.Equals(ImageMagick.Percentage)">
-==========================================================================================
-<summary>
-Determines whether the specified percentage is equal to the current percentage.
-</summary><param name="other">The percentage to compare this percentage with.</param></member>
-        <member name="M:ImageMagick.Percentage.Equals(System.Object)">
-==========================================================================================
-<summary>
-Determines whether the specified object is equal to the current percentage.
-</summary><param name="obj">The object to compare this percentage with.</param></member>
-        <member name="M:ImageMagick.Percentage.#ctor(System.Int32)">
-==========================================================================================
-<summary>
-Initializes a new instance of the Percentage class using the specified value.
-(0% = 0, 100% = 100)
-</summary><param name="value">The value (0% = 0, 100% = 100)</param></member>
-        <member name="M:ImageMagick.Percentage.#ctor(System.Double)">
-==========================================================================================
-<summary>
-Initializes a new instance of the Percentage class using the specified value.
-(0% = 0.0, 100% = 1.0)
-</summary><param name="value">The value (0% = 0.0, 100% = 1.0)</param></member>
-        <member name="T:ImageMagick.Percentage">
-=============================================================================================
-<summary>
-Represents a percentage value.
-</summary></member>
-        <member name="T:ImageMagick.StorageType">
-=============================================================================================
-<summary>
-Specifies the pixel storage types.
 </summary></member>
         <member name="M:ImageMagick.PathArcRel.#ctor(System.Collections.Generic.IEnumerable`1{ImageMagick.PathArc})">
 ==========================================================================================
