@@ -1,0 +1,78 @@
+﻿<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Fixtures">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="FixtureCategory" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="id"/>
+              <xs:element type="xs:string" name="renderer"/>
+              <xs:element name="light">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:float" name="min" use="optional"/>
+                      <xs:attribute type="xs:float" name="max" use="optional"/>
+                      <xs:attribute type="xs:string" name="direction" use="optional"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="color"/>
+              <xs:element type="xs:byte" name="transparency"/>
+              <xs:element name="shadow">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="color" use="optional"/>
+                      <xs:attribute type="xs:byte" name="offset_x" use="optional"/>
+                      <xs:attribute type="xs:byte" name="offset_y" use="optional"/>
+                      <xs:attribute type="xs:byte" name="size" use="optional"/>
+                      <xs:attribute type="xs:byte" name="transparency" use="optional"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="is_default" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Fixture" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="pattern"/>
+              <xs:element type="xs:string" name="category" minOccurs="0"/>
+              <xs:element type="xs:string" name="renderer" minOccurs="0"/>
+              <xs:element name="light" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:float" name="min"/>
+                      <xs:attribute type="xs:float" name="max"/>
+                      <xs:attribute type="xs:string" name="direction"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:string" name="color" minOccurs="0"/>
+              <xs:element type="xs:byte" name="transparency" minOccurs="0"/>
+              <xs:element name="shadow" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="color"/>
+                      <xs:attribute type="xs:byte" name="offset_x"/>
+                      <xs:attribute type="xs:byte" name="offset_y"/>
+                      <xs:attribute type="xs:byte" name="size"/>
+                      <xs:attribute type="xs:byte" name="transparency"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

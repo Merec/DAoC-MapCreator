@@ -102,8 +102,8 @@ namespace MapCreator
         /// <returns></returns>
         public double GetHeight(double loc_x, double loc_y)
         {
-            int x = Convert.ToInt32(zoneConfiguration.LocToPixel(loc_x));
-            int y = Convert.ToInt32(zoneConfiguration.LocToPixel(loc_y));
+            int x = Convert.ToInt32(zoneConfiguration.ZoneCoordinateToMapCoordinate(loc_x));
+            int y = Convert.ToInt32(zoneConfiguration.ZoneCoordinateToMapCoordinate(loc_y));
             
             if (x == zoneConfiguration.TargetMapSize) x -= 1;
             else if (x < 0) x = 0;

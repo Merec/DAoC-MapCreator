@@ -292,7 +292,7 @@ namespace MapCreator
                 foreach (List<int[]> coords in m_bounds)
                 {
                     List<Coordinate> coordinates = new List<Coordinate>();
-                    foreach (int[] ints in coords) coordinates.Add(new Coordinate(zoneConfiguration.LocToPixel(ints[0]), zoneConfiguration.LocToPixel(ints[1])));
+                    foreach (int[] ints in coords) coordinates.Add(new Coordinate(zoneConfiguration.ZoneCoordinateToMapCoordinate(ints[0]), zoneConfiguration.ZoneCoordinateToMapCoordinate(ints[1])));
 
                     using (DrawablePolygon poly = new DrawablePolygon(coordinates))
                     {
@@ -367,7 +367,7 @@ namespace MapCreator
                         foreach (List<int[]> coords in m_boundsSubstraction)
                         {
                             List<Coordinate> coordinates = new List<Coordinate>();
-                            foreach (int[] ints in coords) coordinates.Add(new Coordinate(zoneConfiguration.LocToPixel(ints[0]), zoneConfiguration.LocToPixel(ints[1])));
+                            foreach (int[] ints in coords) coordinates.Add(new Coordinate(zoneConfiguration.ZoneCoordinateToMapCoordinate(ints[0]), zoneConfiguration.ZoneCoordinateToMapCoordinate(ints[1])));
 
                             using (DrawablePolygon poly = new DrawablePolygon(coordinates))
                             {

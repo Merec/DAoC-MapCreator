@@ -9,7 +9,8 @@ using System.Text.RegularExpressions;
 
 namespace MapCreator
 {
-    enum FixtureRendererType
+    [Obsolete("Replaced")]
+    enum FixtureRendererTypeUnused
     {
         None,
         Shaded,
@@ -20,10 +21,10 @@ namespace MapCreator
 
     class FixtureRenderer
     {
-        [Obsolete("Replced XSD table")]
+        [Obsolete("Replaced XSD table")]
         private static MapCreatorData fixtureFilterData = new MapCreatorData();
 
-        [Obsolete("Replced XSD table")]
+        [Obsolete("Replaced XSD table")]
         public static MapCreatorData FixtureFilterData
         {
             get { return FixtureRenderer.fixtureFilterData; }
@@ -66,19 +67,19 @@ namespace MapCreator
         {
             // Categories
             var noneCategory = fixtureFilterData.FixtureFilterCategory.AddFixtureFilterCategoryRow(
-                "None", FixtureRendererType.None.ToString(), 0, 0, "1,1,-1", "#FFFFFF", 0, false, false
+                "None", FixtureRendererTypeUnused.None.ToString(), 0, 0, "1,1,-1", "#FFFFFF", 0, false, false
             );
             var structuresCategory = fixtureFilterData.FixtureFilterCategory.AddFixtureFilterCategoryRow(
-                "Building", FixtureRendererType.Shaded.ToString(), 0.6, 0.9, "1,1,-1", "#FFFFFF", 0, true, true
+                "Building", FixtureRendererTypeUnused.Shaded.ToString(), 0.6, 0.9, "1,1,-1", "#FFFFFF", 0, true, true
             );
             var decorCategory = fixtureFilterData.FixtureFilterCategory.AddFixtureFilterCategoryRow(
-                "Decoration", FixtureRendererType.Flat.ToString(), 0, 0, "1,1,-1", "#FFFFFF", 0, true, false
+                "Decoration", FixtureRendererTypeUnused.Flat.ToString(), 0, 0, "1,1,-1", "#FFFFFF", 0, true, false
             );
             var treesCategory = fixtureFilterData.FixtureFilterCategory.AddFixtureFilterCategoryRow(
-                "Trees", FixtureRendererType.Tree.ToString(), 0.6, 0.9, "1,1,-1", "#405924", 20, false, false
+                "Trees", FixtureRendererTypeUnused.Tree.ToString(), 0.6, 0.9, "1,1,-1", "#405924", 20, false, false
             );
             var treeImagesCategory = fixtureFilterData.FixtureFilterCategory.AddFixtureFilterCategoryRow(
-                "TreeImage", FixtureRendererType.TreeImage.ToString(), 0.7, 1.0, "1,1,-1", "#FFFFFF", 15, false, false
+                "TreeImage", FixtureRendererTypeUnused.TreeImage.ToString(), 0.7, 1.0, "1,1,-1", "#FFFFFF", 15, false, false
             );
 
             // Knwon Non-Drawabls
@@ -208,13 +209,13 @@ namespace MapCreator
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private static FixtureRendererType GetRendererType(string name)
+        private static FixtureRendererTypeUnused GetRendererType(string name)
         {
             // Parse the textual representation of the renderer to its enum value
-            FixtureRendererType renderer = FixtureRendererType.Shaded;
+            FixtureRendererTypeUnused renderer = FixtureRendererTypeUnused.Shaded;
             try
             {
-                renderer = (FixtureRendererType)Enum.Parse(typeof(FixtureRendererType), name);
+                renderer = (FixtureRendererTypeUnused)Enum.Parse(typeof(FixtureRendererTypeUnused), name);
             }
             catch
             {
@@ -270,7 +271,7 @@ namespace MapCreator
     struct FixtureRendererConfiguration
     {
         public string Name;
-        public FixtureRendererType Renderer;
+        public FixtureRendererTypeUnused Renderer;
         public float LightMin;
         public float LightMax;
         public SharpDX.Vector3 LightVector;
@@ -282,7 +283,7 @@ namespace MapCreator
         {
             Name = name;
 
-            Renderer = FixtureRendererType.Shaded;
+            Renderer = FixtureRendererTypeUnused.Shaded;
             LightMin = 0.5f;
             LightMax = 1.0f;
             LightVector = new SharpDX.Vector3(1f, 1f, -1f);

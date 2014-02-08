@@ -73,8 +73,8 @@ namespace MapCreator
             m_polygons = SetPolygons(polys, zoneConfiguration.LocScale);
             if (m_polygons.Count() == 0) return;
 
-            m_x = zoneConfiguration.LocToPixel(fixtureRow.X);
-            m_y = zoneConfiguration.LocToPixel(fixtureRow.Y);
+            m_x = zoneConfiguration.ZoneCoordinateToMapCoordinate(fixtureRow.X);
+            m_y = zoneConfiguration.ZoneCoordinateToMapCoordinate(fixtureRow.Y);
 
             // Calculate Z
             m_z = fixtureRow.Z;
@@ -87,7 +87,7 @@ namespace MapCreator
             // Get the renderer configuration
             m_rendererConfiguration = FixtureRenderer.GetRendererConfiguration(nifRow.Filename.ToLower());
 
-            if (m_rendererConfiguration.Renderer != FixtureRendererType.None)
+            if (m_rendererConfiguration.Renderer != FixtureRendererTypeUnused.None)
             {
                 // Generate a Canvas that can be used for drawing
                 GenerateCanvas();

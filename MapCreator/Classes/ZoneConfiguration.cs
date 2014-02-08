@@ -8,8 +8,7 @@ namespace MapCreator
 {
     public class ZoneConfiguration : IDisposable
     {
-        public const int ColorMultiplier = 1;
-        const double maxLoc = 65536.0;
+        const double zoneMaxCoordinate = 65536.0;
 
         private string m_zoneId;
         public string ZoneId
@@ -137,8 +136,8 @@ namespace MapCreator
             // for math
             m_targetMapSize = mapSize;
             m_mapScale = m_targetMapSize / 256.0;
-            m_locsPerPixel = maxLoc / mapSize;
-            m_locScale = m_targetMapSize / maxLoc;
+            m_locsPerPixel = zoneMaxCoordinate / mapSize;
+            m_locScale = m_targetMapSize / zoneMaxCoordinate;
 
             // Heightmap
             this.m_heightmap = new MapHeightmap(this);
@@ -175,14 +174,14 @@ namespace MapCreator
             return zoneDataDirectory;
         }
 
-        public double LocToPixel(double loc)
+        public double ZoneCoordinateToMapCoordinate(double zoneCoordinate)
         {
-            return (m_targetMapSize * loc) / maxLoc;
+            return (m_targetMapSize * zoneCoordinate) / zoneMaxCoordinate;
         }
 
-        public double PixelToLoc(double pixel)
+        public double MapCoordinateToZoneCoordinate(double mapCoordinate)
         {
-            return (maxLoc * pixel) / m_targetMapSize;
+            return (zoneMaxCoordinate * mapCoordinate) / m_targetMapSize;
         }
 
         public ImageMagick.MagickImage GetWaterMap()

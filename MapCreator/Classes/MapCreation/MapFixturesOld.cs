@@ -475,8 +475,8 @@ namespace MapCreator.Deprecated
 
                     foreach (var fixture in fixtures)
                     {
-                        double x = zoneConfiguration.LocToPixel(fixture.fixtureRow.X);
-                        double y = zoneConfiguration.LocToPixel(fixture.fixtureRow.Y);
+                        double x = zoneConfiguration.ZoneCoordinateToMapCoordinate(fixture.fixtureRow.X);
+                        double y = zoneConfiguration.ZoneCoordinateToMapCoordinate(fixture.fixtureRow.Y);
                         // Parse the Z-Position of the fixture
                         double z = fixture.fixtureRow.Z;
 
@@ -570,8 +570,8 @@ namespace MapCreator.Deprecated
                     MapNifs.FixturesRow fixtureRow = fixture.fixtureRow;
                     NifModel model = fixture.nifModel;
 
-                    double x = zoneConfiguration.LocToPixel(fixtureRow.X);
-                    double y = zoneConfiguration.LocToPixel(fixtureRow.Y);
+                    double x = zoneConfiguration.ZoneCoordinateToMapCoordinate(fixtureRow.X);
+                    double y = zoneConfiguration.ZoneCoordinateToMapCoordinate(fixtureRow.Y);
 
                     // Filter above and under water
                     double z = fixtureRow.Z;

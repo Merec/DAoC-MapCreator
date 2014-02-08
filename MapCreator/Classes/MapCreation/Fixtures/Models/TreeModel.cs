@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MapCreator
 {
-    interface Model
+    class TreeModel : Model
     {
     }
 }

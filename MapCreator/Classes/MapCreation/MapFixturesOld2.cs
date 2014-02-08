@@ -37,12 +37,12 @@ namespace MapCreator
         /// <summary>
         /// All fixtures that need to be drawn before river is drawn
         /// </summary>
-        private List<Model> fixturesBelowWater = new List<Model>();
+        private List<FixtureModel> fixturesBelowWater = new List<FixtureModel>();
         
         /// <summary>
         /// All fixtures that need to be drawn after river is drawn
         /// </summary>
-        private List<Model> fixturesOverWater = new List<Model>();
+        private List<FixtureModel> fixturesOverWater = new List<FixtureModel>();
 
         /// <summary>
         /// Constructor
@@ -53,8 +53,6 @@ namespace MapCreator
         {
             this.zoneConfiguration = zoneConfiguration;
             this.rivers = rivers;
-
-            Fixtures.ParseFixturesXml();
 
             FillNifTable();
             FillFixturesTable();
@@ -293,7 +291,7 @@ namespace MapCreator
                 MagickNET.Log += MagickNET_Log;
             }
 
-            List<Model> models;
+            List<FixtureModel> models;
             if (underwater)
             {
                 MainForm.Log("Drawing fixtures under water level...", MainForm.LogLevel.notice);
@@ -314,7 +312,7 @@ namespace MapCreator
                 MainForm.ProgressStart("Drawing models ...");
                 int processCounter = 0;
 
-                foreach (Model model in models)
+                foreach (FixtureModel model in models)
                 {
                     switch (model.RendererConfiguration.Renderer)
                     {

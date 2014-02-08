@@ -596,6 +596,11 @@ namespace MapCreator
                             fixturesGenerator.Draw(map, false);
                         }
 
+                        if (fixturesGenerator != null)
+                        {
+                            fixturesGenerator.Dispose();
+                        }
+
                         // Create bounds
                         if (bounds)
                         {

@@ -56,6 +56,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
     <DocumentationFile>
     </DocumentationFile>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>..\Releases\x64\</OutputPath>
@@ -221,20 +222,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Constants.cs" />
-    <Compile Include="Classes\MapCreation\Fixtures\FixtureModel.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\Models\FixtureModel.cs" />
     <Compile Include="Classes\MapCreation\Fixtures\FixtureRenderer.cs" />
-    <Compile Include="Classes\MapCreation\Fixtures\FixtureRow.cs" />
-    <Compile Include="Classes\MapCreation\Fixtures\Model.cs" />
-    <Compile Include="Classes\MapCreation\Fixtures\TreeModel.cs" />
+    <Compile Include="Classes\MapCreation\NewFixtures\DrawableFixture.cs" />
+    <Compile Include="Classes\MapCreation\NewFixtures\Objects\FixtureRow.cs" />
+    <Compile Include="Classes\MapCreation\NewFixtures\FixtureRendererConfigurations.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\Models\Model.cs" />
+    <Compile Include="Classes\MapCreation\NewFixtures\FixturesLoader.cs" />
+    <Compile Include="Classes\MapCreation\NewFixtures\Objects\TreeClusterRow.cs" />
+    <Compile Include="Classes\MapCreation\NewFixtures\Objects\TreeRow.cs" />
+    <Compile Include="Classes\MapCreation\NewFixtures\Objects\NifRow.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\Models\TreeModel.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\Renderer\BaseRenderer.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\Renderer\FlatRenderer.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\Renderer\ImageRenderer.cs" />
+    <Compile Include="Classes\MapCreation\Fixtures\Renderer\ShadedRenderer.cs" />
     <Compile Include="Classes\MapCreation\MapFixtures.cs" />
+    <Compile Include="Classes\MapCreation\MapFixturesOld2.cs" />
     <Compile Include="Classes\MapCreation\MapBackground.cs" />
     <Compile Include="Classes\DataWrapper.cs" />
     <Compile Include="Classes\MagickWrapper.cs" />
     <Compile Include="Classes\MapCreation\MapBounds.cs" />
-    <Compile Include="Classes\MapCreation\MapFixtures_old.cs" />
+    <Compile Include="Classes\MapCreation\MapFixturesOld.cs" />
     <Compile Include="Classes\MapCreation\MapHeightmap.cs" />
     <Compile Include="Classes\MapCreation\MapLightmap.cs" />
     <Compile Include="Classes\MapCreation\MapRiver.cs" />
+    <Compile Include="Classes\MapCreation\NewFixtures\NifPolygons.cs" />
     <Compile Include="Classes\NiflibWrapper.cs" />
     <Compile Include="Classes\Tools.cs" />
     <Compile Include="Classes\ZoneConfiguration.cs" />
@@ -340,6 +353,7 @@
     </None>
     <None Include="fixtures.xsd">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -393,7 +407,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="fixtures.xml" />
+    <Content Include="fixtures.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="lib\ICSharpCode.SharpZipLib.dll" />
     <Content Include="lib\Magick.NET-x64.dll" />
     <Content Include="lib\Magick.NET-x64.xml" />
