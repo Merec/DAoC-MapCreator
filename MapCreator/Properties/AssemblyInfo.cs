@@ -10,8 +10,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MapCreator")]
-[assembly: AssemblyCopyright("Copyright © Merec  2013")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("(c) Merec 2014")]
+[assembly: AssemblyTrademark("Dawn of Light")]
 [assembly: AssemblyCulture("")]
 
 // Durch Festlegen von ComVisible auf "false" werden die Typen in dieser Assembly unsichtbar 

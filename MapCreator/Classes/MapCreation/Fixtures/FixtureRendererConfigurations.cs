@@ -59,9 +59,11 @@ namespace MapCreator
             return null;
         }
 
-        public static FixtureRendererConfiguration2 GerRendererById(string id)
+        public static FixtureRendererConfiguration2 GetRendererById(string id)
         {
-            return rendererCategories.Where(c => c.Name == id).FirstOrDefault();
+            var conf = rendererCategories.Where(c => c.Name == id);
+            if (conf.Count() == 0) return defaultConfiguration;
+            else return conf.FirstOrDefault();
         }
 
         /// <summary>

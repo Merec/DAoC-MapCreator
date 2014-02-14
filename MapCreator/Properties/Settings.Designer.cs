@@ -250,5 +250,77 @@ namespace MapCreator.Properties {
                 this["lastCreatedMaps"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool removeBoundsFromMap {
+            get {
+                return ((bool)(this["removeBoundsFromMap"]));
+            }
+            set {
+                this["removeBoundsFromMap"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool treesAsShadedModel {
+            get {
+                return ((bool)(this["treesAsShadedModel"]));
+            }
+            set {
+                this["treesAsShadedModel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool treesAsImages {
+            get {
+                return ((bool)(this["treesAsImages"]));
+            }
+            set {
+                this["treesAsImages"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string mapType {
+            get {
+                return ((string)(this["mapType"]));
+            }
+            set {
+                this["mapType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("90")]
+        public decimal mapQuality {
+            get {
+                return ((decimal)(this["mapQuality"]));
+            }
+            set {
+                this["mapQuality"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("zone{id}_{size}")]
+        public string mapFilePattern {
+            get {
+                return ((string)(this["mapFilePattern"]));
+            }
+            set {
+                this["mapFilePattern"] = value;
+            }
+        }
     }
 }

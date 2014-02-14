@@ -66,6 +66,7 @@
             this.mapsTreeView.SelNodes = ((System.Collections.Hashtable)(resources.GetObject("mapsTreeView.SelNodes")));
             this.mapsTreeView.Size = new System.Drawing.Size(281, 583);
             this.mapsTreeView.TabIndex = 0;
+            this.mapsTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.mapsTreeView_NodeMouseDoubleClick);
             // 
             // panel1
             // 
@@ -300,6 +301,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SelectMapsForm";

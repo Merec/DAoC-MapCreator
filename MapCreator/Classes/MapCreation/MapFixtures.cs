@@ -5,6 +5,7 @@ using System.Text;
 using ImageMagick;
 using MapCreator.Fixtures;
 using System.Diagnostics;
+using SharpDX;
 
 namespace MapCreator
 {
@@ -59,10 +60,10 @@ namespace MapCreator
             m_fixtures = FixturesLoader.GetDrawableFixtures();
 
             // Sort Fixtures by under/above water
-            SortFixtures();
+            //SortFixtures();
         }
 
-        public void SortFixtures()
+        public void Start()
         {
             if (m_fixtures.Count == 0) return;
 
@@ -78,6 +79,25 @@ namespace MapCreator
 
             foreach (DrawableFixture model in m_fixtures)
             {
+                // ignote the model if there are no polygons
+                if(model.ProcessedPolygons.Count() == 0) continue;
+
+                // UI options
+                if (!DrawTrees && (model.IsTree || model.IsTreeCluster))
+                {
+                    continue;
+                }
+
+                if (!DrawFixtures && !(model.IsTree || model.IsTreeCluster))
+                {
+                    continue;
+                }
+
+                if (!DrawTreesAsImages && (model.IsTree || model.IsTreeCluster))
+                {
+                    model.RendererConf = FixtureRendererConfigurations.GetRendererById("TreeShaded");
+                }
+
                 double modelCenterX = zoneConfiguration.ZoneCoordinateToMapCoordinate(model.FixtureRow.X);
                 double modelCenterY = zoneConfiguration.ZoneCoordinateToMapCoordinate(model.FixtureRow.Y);
 
@@ -125,39 +145,66 @@ namespace MapCreator
 
         private void Draw(MagickImage map, List<DrawableFixture> fixtures)
         {
-            MainForm.ProgressStart("Drawing models ...");
+            MainForm.ProgressStart("Drawing fixtures ...");
             Stopwatch timer = Stopwatch.StartNew();
 
             using (MagickImage modelsOverlay = new MagickImage(MagickColor.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
             {
-                int processCounter = 0;
-                foreach (DrawableFixture fixture in fixtures)
+                using (MagickImage treeOverlay = new MagickImage(MagickColor.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
                 {
-                    switch (fixture.RendererConf.Renderer)
+                    int processCounter = 0;
+                    foreach (DrawableFixture fixture in fixtures)
                     {
-                        case FixtureRenderererType.Shaded:
-                            DrawShaded(modelsOverlay, fixture);
-                            break;
-                        case FixtureRenderererType.Flat:
-                            DrawFlat(modelsOverlay, fixture);
-                            break;
-                        case FixtureRenderererType.Image:
-                            DrawImage(modelsOverlay, fixture);
-                            break;
+                        switch (fixture.RendererConf.Renderer)
+                        {
+                            case FixtureRenderererType.Shaded:
+                                DrawShaded((fixture.IsTree || fixture.IsTreeCluster) ? treeOverlay : modelsOverlay, fixture);
+                                break;
+                            case FixtureRenderererType.Flat:
+                                DrawFlat((fixture.IsTree || fixture.IsTreeCluster) ? treeOverlay : modelsOverlay, fixture);
+                                break;
+                            case FixtureRenderererType.Image:
+                                DrawImage((fixture.IsTree || fixture.IsTreeCluster) ? treeOverlay : modelsOverlay, fixture);
+                                break;
+                        }
+
+                        int percent = 100 * processCounter / fixtures.Count();
+                        MainForm.ProgressUpdate(percent);
+                        processCounter++;
                     }
 
-                    int percent = 100 * processCounter / fixtures.Count();
-                    MainForm.ProgressUpdate(percent);
-                    processCounter++;
-                }
+                    MainForm.Log("Merging ....");
+                    MainForm.ProgressStartMarquee("Merging ...");
 
-                MainForm.Log("Merging ....");
-                MainForm.ProgressStartMarquee("Merging ...");
-                map.Composite(modelsOverlay, 0, 0, CompositeOperator.SrcOver);
+                    FixtureRendererConfiguration2 treeImagesRConf = FixtureRendererConfigurations.GetRendererById("TreeImage");
+                    if (treeImagesRConf.HasShadow)
+                    {
+                        treeOverlay.BorderColor = MagickColor.Transparent;
+                        treeOverlay.Border(1);
+                        treeOverlay.Shadow(
+                            treeImagesRConf.ShadowOffsetX,
+                            treeImagesRConf.ShadowOffsetY,
+                            treeImagesRConf.ShadowSize,
+                            new Percentage(100 - treeImagesRConf.ShadowTransparency),
+                            treeImagesRConf.ShadowColor
+                        );
+                    }
+
+                    if (treeImagesRConf.Transparency != 0)
+                    {
+                        treeOverlay.Alpha(AlphaOption.Set);
+
+                        double divideValue = 100.0 / (100.0 - treeImagesRConf.Transparency);
+                        treeOverlay.Evaluate(Channels.Alpha, EvaluateOperator.Divide, divideValue);
+                    }
+
+                    map.Composite(modelsOverlay, 0, 0, CompositeOperator.SrcOver);
+                    map.Composite(treeOverlay, 0, 0, CompositeOperator.SrcOver);
+                }
             }
 
             timer.Stop();
-            MainForm.Log(string.Format("Finished drawing models in {0} seconds.", timer.Elapsed.TotalSeconds), MainForm.LogLevel.success);
+            MainForm.Log(string.Format("Finished drawing fixtures in {0} seconds.", timer.Elapsed.TotalSeconds), MainForm.LogLevel.success);
         }
 
         private void DrawShaded(MagickImage overlay, DrawableFixture fixture)
@@ -174,14 +221,14 @@ namespace MapCreator
                         if (fixture.RendererConf.HasLight)
                         {
                             modelCanvas.FillColor = new MagickColor(
-                                Convert.ToSingle(drawableElement.lightning * fixture.ModelColor.R),
-                                Convert.ToSingle(drawableElement.lightning * fixture.ModelColor.G),
-                                Convert.ToSingle(drawableElement.lightning * fixture.ModelColor.B)
+                                Convert.ToSingle(drawableElement.lightning * fixture.RendererConf.Color.R),
+                                Convert.ToSingle(drawableElement.lightning * fixture.RendererConf.Color.G),
+                                Convert.ToSingle(drawableElement.lightning * fixture.RendererConf.Color.B)
                             );
                         }
                         else
                         {
-                            modelCanvas.FillColor = fixture.ModelColor;
+                            modelCanvas.FillColor = fixture.RendererConf.Color;
                         }
 
                         modelCanvas.Draw(polyDraw);
@@ -191,7 +238,7 @@ namespace MapCreator
                 if (fixture.RendererConf.HasShadow)
                 {
                     modelCanvas.BorderColor = MagickColor.Transparent;
-                    modelCanvas.Border(1);
+                    modelCanvas.Border((int)fixture.RendererConf.ShadowSize);
                     modelCanvas.Shadow(
                         fixture.RendererConf.ShadowOffsetX, 
                         fixture.RendererConf.ShadowOffsetY, 
@@ -199,6 +246,10 @@ namespace MapCreator
                         new Percentage(100 - fixture.RendererConf.ShadowTransparency),
                         fixture.RendererConf.ShadowColor
                     );
+
+                    // Update the canvas position to match the new border
+                    fixture.CanvasX -= fixture.RendererConf.ShadowSize;
+                    fixture.CanvasY -= fixture.RendererConf.ShadowSize;
                 }
 
                 if (fixture.RendererConf.Transparency != 0)
@@ -219,7 +270,7 @@ namespace MapCreator
 
             using (MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
             {
-                modelCanvas.FillColor = fixture.ModelColor;
+                modelCanvas.FillColor = fixture.RendererConf.Color;
 
                 foreach (DrawableElement drawableElement in fixture.DrawableElements)
                 {
@@ -240,6 +291,10 @@ namespace MapCreator
                         new Percentage(100 - fixture.RendererConf.ShadowTransparency),
                         fixture.RendererConf.ShadowColor
                     );
+
+                    // Update the canvas position to match the new border
+                    fixture.CanvasX -= fixture.RendererConf.ShadowSize;
+                    fixture.CanvasY -= fixture.RendererConf.ShadowSize;
                 }
 
                 if (fixture.RendererConf.Transparency != 0)
@@ -256,22 +311,19 @@ namespace MapCreator
 
         private void DrawImage(MagickImage overlay, DrawableFixture fixture)
         {
-            //MainForm.Log(string.Format("Image: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
+            MainForm.Log(string.Format("Image: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
             string fileName = System.IO.Path.GetFileNameWithoutExtension(fixture.NifName);
+            string defaultTree = "elm1";
 
-            if (!m_modelImages.ContainsKey(fileName))
+            // Load default tree
+            if (!m_modelImages.ContainsKey(defaultTree))
             {
-                string treeImageFile = string.Format("{0}\\data\\prerendered\\{1}.png", System.Windows.Forms.Application.StartupPath, fileName);
+                string treeImageFile = string.Format("{0}\\data\\prerendered\\{1}.png", System.Windows.Forms.Application.StartupPath, defaultTree);
                 if (System.IO.File.Exists(treeImageFile))
                 {
                     MagickImage treeImage = new MagickImage(treeImageFile);
-
-                    if (fixture.IsTree)
-                    {
-                        treeImage.Blur();
-                    }
-
-                    m_modelImages.Add(fileName, treeImage);
+                    treeImage.Blur();
+                    m_modelImages.Add(defaultTree, treeImage);
                 }
                 else
                 {
@@ -279,14 +331,178 @@ namespace MapCreator
                 }
             }
 
+            if (fixture.IsTreeCluster)
+            {
+                DrawTreeCluster(overlay, fixture);
+                return;
+            }
+
+            // Load model image
+            if (!m_modelImages.ContainsKey(fileName))
+            {
+                string treeImageFile = string.Format("{0}\\data\\prerendered\\{1}.png", System.Windows.Forms.Application.StartupPath, fileName);
+                if (System.IO.File.Exists(treeImageFile))
+                {
+                    MagickImage modelImage = new MagickImage(treeImageFile);
+                    if (fixture.IsTree) modelImage.Blur();
+                    m_modelImages.Add(fileName, modelImage);
+                }
+                else
+                {
+                    if (fixture.IsTree)
+                    {
+                        MainForm.Log(string.Format("Can not find image for tree {0} ({1}), using default tree", fixture.Name, fixture.NifName), MainForm.LogLevel.warning);
+                        m_modelImages.Add(fileName, m_modelImages[defaultTree]);
+                    }
+                    else m_modelImages.Add(fileName, null);
+                }
+            }
+
+            // Draw the image
             if (m_modelImages.ContainsKey(fileName) && m_modelImages[fileName] != null)
             {
-                using (MagickImage newTree = m_modelImages[fileName].Clone())
+                NifRow orginalNif = FixturesLoader.NifRows.Where(n => n.NifId == fixture.FixtureRow.NifId).FirstOrDefault();
+                if (orginalNif == null)
                 {
-                    newTree.BackgroundColor = MagickColor.Transparent;
-                    newTree.Rotate(fixture.FixtureRow.A);
-                    newTree.Trim();
-                    newTree.Resize(fixture.CanvasWidth, fixture.CanvasHeight);
+                    MainForm.Log(string.Format("Error with imaged nif ({0})!", fixture.FixtureRow.TextualName), MainForm.LogLevel.warning);
+                }
+
+                // The final image
+                using (MagickImage modelImage = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+                {
+                    // Place the replacing image
+                    using (MagickImage newModelImage = m_modelImages[fileName].Clone())
+                    {
+                        newModelImage.BackgroundColor = MagickColor.Transparent;
+
+                        double scaleWidthToTreeImage = orginalNif.Width / newModelImage.Width;
+                        double scaleHeightToTreeImage = orginalNif.Height / newModelImage.Height;
+                        int width = Convert.ToInt32(newModelImage.Width * scaleWidthToTreeImage * fixture.Scale);
+                        int height = Convert.ToInt32(newModelImage.Height * scaleHeightToTreeImage * fixture.Scale);
+                        
+                        // Resize to new size
+                        newModelImage.Resize(width, height);
+
+                        // Rotate the image
+                        //newModelImage.Rotate(fixture.FixtureRow.A * -1 * fixture.FixtureRow.AxisZ3D);
+                        newModelImage.Rotate((360d * fixture.FixtureRow.AxisZ3D - fixture.FixtureRow.A) * -1);
+
+                        // Place in center of modelImage
+                        modelImage.Composite(newModelImage, Gravity.Center, CompositeOperator.SrcOver);
+                    }
+
+                    // Draw the shaped model if wanted
+                    if (fixture.RendererConf.HasLight)
+                    {
+                        using (MagickImage modelShaped = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+                        {
+                            foreach (DrawableElement drawableElement in fixture.DrawableElements)
+                            {
+                                modelShaped.FillColor = new MagickColor(
+                                    Convert.ToSingle(128 * 256 * drawableElement.lightning),
+                                    Convert.ToSingle(128 * 256 * drawableElement.lightning),
+                                    Convert.ToSingle(128 * 256 * drawableElement.lightning)
+                                );
+
+                                using (DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates))
+                                {
+                                    modelShaped.Draw(polyDraw);
+                                }
+                            }
+
+                            // Remove outstanding edges from the shape using the replacing image
+                            modelShaped.Composite(modelImage, 0, 0, CompositeOperator.DstIn);
+                            // Enlight the replacing image using the shape
+                            modelImage.Composite(modelShaped, 0, 0, CompositeOperator.Overlay);
+                        }
+                    }
+
+                    // Add the shadow if not a tree (tree shadow are substituted by a treeoverlay)
+                    if (fixture.RendererConf.HasShadow && !fixture.IsTree)
+                    {
+                        modelImage.BorderColor = MagickColor.Transparent;
+                        modelImage.Border((int)fixture.RendererConf.ShadowSize);
+                        modelImage.Shadow(
+                            fixture.RendererConf.ShadowOffsetX,
+                            fixture.RendererConf.ShadowOffsetY,
+                            fixture.RendererConf.ShadowSize,
+                            new Percentage(100 - fixture.RendererConf.ShadowTransparency),
+                            fixture.RendererConf.ShadowColor
+                        );
+
+                        // Update the canvas position to match the new border
+                        fixture.CanvasX -= fixture.RendererConf.ShadowSize;
+                        fixture.CanvasY -= fixture.RendererConf.ShadowSize;
+                    }
+
+                    // Set transprency if not a tree (see shadow)
+                    if (fixture.RendererConf.Transparency != 0 && !fixture.IsTree)
+                    {
+                        double divideValue = 100.0 / (100.0 - fixture.RendererConf.Transparency);
+                        modelImage.Evaluate(Channels.Alpha, EvaluateOperator.Divide, divideValue);
+                    }
+
+                    // Place the image on the right position
+                    overlay.Composite(modelImage, Convert.ToInt32(fixture.CanvasX), Convert.ToInt32(fixture.CanvasY), CompositeOperator.SrcOver);
+                }
+            }
+        }
+
+        private void DrawTreeCluster(MagickImage overlay, DrawableFixture fixture)
+        {
+            //MainForm.Log(string.Format("Image: {0} ({1}) ...", fixture.Name, fixture.TreeCluster.Tree), MainForm.LogLevel.notice);
+            string fileName = System.IO.Path.GetFileNameWithoutExtension(fixture.TreeCluster.Tree);
+            string defaultTree = "elm1";
+
+            // Load model image
+            if (!m_modelImages.ContainsKey(fileName))
+            {
+                string treeImageFile = string.Format("{0}\\data\\prerendered\\{1}.png", System.Windows.Forms.Application.StartupPath, fileName);
+                if (System.IO.File.Exists(treeImageFile))
+                {
+                    MagickImage modelImage = new MagickImage(treeImageFile);
+                    modelImage.Blur();
+                    m_modelImages.Add(fileName, modelImage);
+                }
+                else
+                {
+                    MainForm.Log(string.Format("Can not find image for tree {0} ({1}), using default tree", fixture.TreeCluster.Tree, fixture.NifName), MainForm.LogLevel.warning);
+                    m_modelImages.Add(fileName, m_modelImages[defaultTree]);
+                }
+            }
+
+            if (m_modelImages.ContainsKey(fileName) && m_modelImages[fileName] != null)
+            {
+                // Get the width of the orginal tree shape
+                NifRow tree = FixturesLoader.NifRows.Where(n => n.Filename.ToLower() == fixture.TreeCluster.Tree.ToLower()).FirstOrDefault();
+                if (tree == null) return;
+
+                int dimensions = ((fixture.CanvasWidth > fixture.CanvasHeight) ? fixture.CanvasWidth : fixture.CanvasHeight) + 10;
+                int extendedWidth = dimensions - fixture.CanvasWidth;
+                int extendedHeight = dimensions - fixture.CanvasHeight;
+
+                using (MagickImage treeCluster = new MagickImage(MagickColor.Transparent, dimensions, dimensions))
+                {
+                    double centerX = treeCluster.Width / 2d;
+                    double centerY = treeCluster.Height / 2d;
+
+                    foreach (SharpDX.Vector3 treeInstance in fixture.TreeCluster.TreeInstances)
+                    {
+                        using (MagickImage treeImage = m_modelImages[fileName].Clone())
+                        {
+                            double scaleWidthToTreeImage = tree.Width / treeImage.Width;
+                            double scaleHeightToTreeImage = tree.Height / treeImage.Height;
+                            int width = Convert.ToInt32(treeImage.Width * scaleWidthToTreeImage * fixture.Scale);
+                            int height = Convert.ToInt32(treeImage.Height * scaleHeightToTreeImage * fixture.Scale);
+                            treeImage.Resize(width, height);
+
+                            int x = Convert.ToInt32(centerX - width / 2d - zoneConfiguration.ZoneCoordinateToMapCoordinate(treeInstance.X) * (fixture.FixtureRow.Scale / 100));
+                            int y = Convert.ToInt32(centerY - height / 2d - zoneConfiguration.ZoneCoordinateToMapCoordinate(treeInstance.Y) * (fixture.FixtureRow.Scale / 100));
+                            treeCluster.Composite(treeImage, x, y, CompositeOperator.SrcOver);
+                        }
+                    }
+
+                    treeCluster.Rotate((360d * fixture.FixtureRow.AxisZ3D - fixture.FixtureRow.A) * -1);
 
                     using (MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
                     {
@@ -304,15 +520,16 @@ namespace MapCreator
                             }
                         }
 
-                        modelCanvas.Composite(newTree, 0, 0, CompositeOperator.DstIn);
-                        newTree.Composite(modelCanvas, 0, 0, CompositeOperator.Overlay);
+                        modelCanvas.Composite(treeCluster, Gravity.Center, CompositeOperator.DstIn);
+                        treeCluster.Composite(modelCanvas, Gravity.Center, CompositeOperator.Overlay);
+                        //treeCluster.Composite(modelCanvas, Gravity.Center, CompositeOperator.SrcOver);
                     }
 
                     if (fixture.RendererConf.HasShadow)
                     {
-                        newTree.BorderColor = MagickColor.Transparent;
-                        newTree.Border(1);
-                        newTree.Shadow(
+                        treeCluster.BorderColor = MagickColor.Transparent;
+                        treeCluster.Border(1);
+                        treeCluster.Shadow(
                             fixture.RendererConf.ShadowOffsetX,
                             fixture.RendererConf.ShadowOffsetY,
                             fixture.RendererConf.ShadowSize,
@@ -323,13 +540,13 @@ namespace MapCreator
 
                     if (fixture.RendererConf.Transparency != 0)
                     {
-                        newTree.Alpha(AlphaOption.Set);
+                        treeCluster.Alpha(AlphaOption.Set);
 
                         double divideValue = 100.0 / (100.0 - fixture.RendererConf.Transparency);
-                        newTree.Evaluate(Channels.Alpha, EvaluateOperator.Divide, divideValue);
+                        treeCluster.Evaluate(Channels.Alpha, EvaluateOperator.Divide, divideValue);
                     }
 
-                    overlay.Composite(newTree, Convert.ToInt32(fixture.CanvasX), Convert.ToInt32(fixture.CanvasY), CompositeOperator.SrcOver);
+                    overlay.Composite(treeCluster, Convert.ToInt32(fixture.CanvasX - extendedWidth/2), Convert.ToInt32(fixture.CanvasY - extendedHeight/2), CompositeOperator.SrcOver);
                 }
             }
         }

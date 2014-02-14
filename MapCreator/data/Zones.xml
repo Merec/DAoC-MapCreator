@@ -1,18 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<zones>
-  <realm name="All">
-    
-    <expansion name="New Frontiers">
-      <zone id="175" type="Outdoor">Snowdonia</zone>
-      <zone id="176" type="Outdoor">Sauvage-Wald</zone>
-      <zone id="177" type="Outdoor">Pennine-Berge</zone>
-      <zone id="178" type="Outdoor">Hadrianswall</zone>
+<!--
+ 
+Available zone types:
+Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
+ 
+-->
 
-      <zone id="163" type="Outdoor">Agramon</zone>
-      <zone id="164" type="Outdoor">Irische See</zone>
+<zones>
+  <realm name="All Realms">
+    <expansion name="New Frontiers">
+      <zone id="163" type="Frontiers">Agramon (North Sea)</zone>
+      <zone id="164" type="Frontiers">Irish Sea</zone>
+
+      <zone id="167" type="Frontiers">Odin's Gate</zone>
+      <zone id="168" type="Frontiers">Jamtland Mountains</zone>
+      <zone id="169" type="Frontiers">Yggdra Forest</zone>
+      <zone id="170" type="Frontiers">Uppland</zone>
+
+      <zone id="171" type="Frontiers">Emain Macha</zone>
+      <zone id="172" type="Frontiers">Breifine</zone>
+      <zone id="173" type="Frontiers">Cruachan Gorge</zone>
+      <zone id="174" type="Frontiers">Mount Collory</zone>
+
+      <zone id="175" type="Frontiers">Snowdonia</zone>
+      <zone id="176" type="Frontiers">Forest Sauvage</zone>
+      <zone id="177" type="Frontiers">Pennine Mountains</zone>
+      <zone id="178" type="Frontiers">Hadrian's Wall</zone>
+
+      <zone id="234" type="Battlegrounds">The Proving Grounds</zone>
+      <zone id="235" type="Battlegrounds">The Lions Den</zone>
+      <zone id="236" type="Battlegrounds">The Hills of Claret</zone>
+      <zone id="237" type="Battlegrounds">Killaloe</zone>
+      <zone id="238" type="Battlegrounds">Thidranki</zone>
+      <zone id="239" type="Battlegrounds">Braemar</zone>
+      <zone id="240" type="Battlegrounds">Wilton</zone>
+      <zone id="241" type="Battlegrounds">Molvik</zone>
+      <zone id="242" type="Battlegrounds">TestBG</zone>
+      <zone id="254" type="Battlegrounds">Leirvik</zone>
+      <zone id="165" type="Battlegrounds">Cathal Valeey</zone>
+
+      <zone id="233" type="Dungeons">Summoner's Hall</zone>
+      <zone id="244" type="Dungeons">Passage of Conflict</zone>
+      <zone id="245" type="Dungeons">Labyrinth of the Minotaur</zone>
+      <zone id="249" type="Dungeons">Darkness Falls</zone>
+      <zone id="489" type="Dungeons">Demon's Breach</zone>
     </expansion>
-    
+
     <expansion name="Trials of Atlantis">
       <zone id="070" type="Outdoor">Ruins of Atlantis (Albion)</zone>
       <zone id="071" type="Outdoor">Ruins of Atlantis (Midgard)</zone>
@@ -24,80 +58,65 @@
       <zone id="076" type="Outdoor">Oceanus Notos</zone>
       <zone id="077" type="Outdoor">Oceanus Anatole</zone>
       <zone id="081" type="Outdoor">Stygia Delta</zone>
-      <zone id="082" type="Outdoor">Land von Atum</zone>
-      <zone id="084" type="Outdoor">Typhons Reach</zone>
-      <zone id="085" type="Outdoor">Ascheinseln</zone>
-      <zone id="086" type="Outdoor">Grüne Lichtungen</zone>
+      <zone id="082" type="Outdoor">Land of Atum</zone>
+      <zone id="084" type="Outdoor">Typhon's Reach</zone>
+      <zone id="085" type="Outdoor">Ashen Isles</zone>
+      <zone id="086" type="Outdoor">Green Glades</zone>
       <zone id="087" type="Outdoor">Arbor Glen</zone>
-      <!--
-      <zone id="078" type="Dungeon">Cetus Höhle</zone>
-      <zone id="079" type="Dungeon">Sobekite Ewigkeit</zone>
-      <zone id="080" type="Dungeon">Tempel des Zwielichts</zone>
-      <zone id="083" type="Dungeon">Hallen von Ma'ati</zone>
-      <zone id="088" type="Dungeon">Grosse Pyramide</zone>
-      <zone id="089" type="Dungeon">Herz von Volcanus</zone>
-      <zone id="090" type="Dungeon">Aerus Stadt</zone>
-      -->
+
+      <zone id="078" type="Dungeons">Cetus' Pit</zone>
+      <zone id="079" type="Dungeons">Sobekite Eternal</zone>
+      <zone id="080" type="Dungeons">Temple of Twilight</zone>
+      <zone id="083" type="Dungeons">Halls of Ma'ati</zone>
+      <zone id="088" type="Dungeons">The Great Pyramid</zone>
+      <zone id="089" type="Dungeons">Deep Volcanus</zone>
+      <zone id="090" type="Dungeons">Aerus City</zone>
+    </expansion>
+
+    <expansion name="Old Frontiers">
+      <zone id="011" type="Frontiers">Forest Sauvage</zone>
+      <zone id="012" type="Frontiers">Snowdonia</zone>
+      <zone id="014" type="Frontiers">Pennine Mountains</zone>
+      <zone id="015" type="Frontiers">Hadrian's Wall</zone>
+      <zone id="111" type="Frontiers">Uppland</zone>
+      <zone id="112" type="Frontiers">Yggdra Forest</zone>
+      <zone id="113" type="Frontiers">Jamtland Mountains</zone>
+      <zone id="115" type="Frontiers">Odin's Gate</zone>
+      <zone id="210" type="Frontiers">Mount Collory</zone>
+      <zone id="211" type="Frontiers">Cruachan Gorge</zone>
+      <zone id="212" type="Frontiers">Breifine</zone>
+      <zone id="214" type="Frontiers">Emain Macha</zone>
+    </expansion>
+  </realm>
+
+  <realm name="Albion">
+
+    <expansion name="Tutorial">
+      <zone id="027" type="Outdoor">Constantine's Sound</zone>
+      
+      <zone id="498" type="Dungeons">Alb Launch (?)</zone>
+      <zone id="343" type="Dungeons">Alb Launch2 (?)</zone>
     </expansion>
     
-  </realm>
-  
-  <realm name="Albion">
     <expansion name="Classic">
-      <!--<zone id="026" type="Capitol">Camelot</zone>-->
-      
-      <zone id="000" type="Outdoor">Hügel von Camelot</zone>
-      <zone id="001" type="Outdoor">Ebenen von Salisbury</zone>
-      <zone id="002" type="Outdoor">Schwarzberge (Süd)</zone>
-      <zone id="003" type="Outdoor">Schwarzberge (Nord)</zone>
+      <zone id="026" type="Capitol">Camelot</zone>
+
+      <zone id="000" type="Outdoor">Camelot Hills</zone>
+      <zone id="001" type="Outdoor">Salisbury Plains</zone>
+      <zone id="002" type="Outdoor">Black Mountains South</zone>
+      <zone id="003" type="Outdoor">Black Mountains North</zone>
       <zone id="004" type="Outdoor">Dartmoor</zone>
       <zone id="006" type="Outdoor">Cornwall</zone>
       <zone id="007" type="Outdoor">Llyn Barfog</zone>
-      <zone id="008" type="Outdoor">Campacorentinwald</zone>
-      <zone id="009" type="Outdoor">Avalon-Sümpfe</zone>
+      <zone id="008" type="Outdoor">Campacorentin Forest</zone>
+      <zone id="009" type="Outdoor">Avalon Marsh</zone>
       <zone id="010" type="Outdoor">Lyonesse</zone>
-      <!--
-      <zone id="021" type="Dungeon">Mithras Gruft</zone>
-      <zone id="019" type="Dungeon">Stonehenge-Gräber</zone>
-      -->
-    </expansion>
 
-    <expansion name="Shrouded Isles">
-      <zone id="051" type="Outdoor">Glasinsel</zone>
-      <zone id="052" type="Outdoor">Avalon</zone>
-      <zone id="053" type="Outdoor">Täler von Devwy</zone>
-      <zone id="054" type="Outdoor">Caldey</zone>
-      <zone id="055" type="Outdoor">Gwyddneau</zone>
-      <zone id="056" type="Outdoor">Aldland</zone>
-      <zone id="057" type="Outdoor">Inishail</zone>
-    </expansion>
-
-    <!--
-    <expansion name="Catacombs">
-      <zone id="059" type="Indoor">Glaschtin-Schmiede (Albion)</zone>
-      <zone id="063" type="Indoor">Römische Aquädukte</zone>
-      <zone id="065" type="Indoor">Inconnu-Krypta</zone>
-      <zone id="066" type="Indoor">Untergrundwald (Albion)</zone>
-      <zone id="067" type="Indoor">Totenland von Annwn (Albion)</zone>
-      <zone id="068" type="Indoor">Untere Krypta</zone>
-      <zone id="109" type="Indoor">Grenzlinien (Albion)</zone>
-      <zone id="196" type="Indoor">Anderwelt (Albion)</zone>
-      <zone id="227" type="Indoor">Verlassene Minen (Albion)</zone>
-
-      <zone id="069" type="Dungeon">Dunkelturm</zone>
-    </expansion>
-    -->
-
-    <expansion name="Darkness Rising">
-      <zone id="330" type="Outdoor">Abgelegene Hügel (Albion)</zone>
-      <!--
-      <zone id="336" type="Indoor">dämonisches Gefängnis</zone>
-      <zone id="339" type="Indoor">Schwefelhöhlen</zone>
-      <zone id="347" type="Indoor">Lager des Dämonenlords</zone>
-      <zone id="348" type="Indoor">Kerker des Barons</zone>
-      <zone id="363" type="Indoor">Anataeus Heiligtum</zone>
-      <zone id="394" type="Indoor">König Constantines Thronsaal</zone>
-      -->
+      <zone id="019" type="Dungeons">Stonehenge Barrows</zone>
+      <zone id="021" type="Dungeons">Tomb of Mithra</zone>
+      <zone id="022" type="Dungeons">Keltoi Fogou</zone>
+      <zone id="023" type="Dungeons">Catacombs of Cardova</zone>
+      <zone id="024" type="Dungeons">Tepok's Mine</zone>
     </expansion>
 
     <expansion name="Foundations">
@@ -110,12 +129,214 @@
       <zone id="260" type="Outdoor">Chiltern</zone>
       <zone id="261" type="Outdoor">Sherborne</zone>
     </expansion>
-    
+
+    <expansion name="Shrouded Isles">
+      <zone id="051" type="Outdoor">Isle of Glass</zone>
+      <zone id="052" type="Outdoor">Avalon Isle</zone>
+      <zone id="053" type="Outdoor">Dales of Devwy</zone>
+      <zone id="054" type="Outdoor">Caldey</zone>
+      <zone id="055" type="Outdoor">Gwyddneau</zone>
+      <zone id="056" type="Outdoor">Aldland</zone>
+      <zone id="057" type="Outdoor">Inishail Island</zone>
+
+      <zone id="050" type="Dungeons">Avalon City</zone>
+      <zone id="060" type="Dungeons">Caer Sidi</zone>
+      <zone id="061" type="Dungeons">Krondon</zone>
+      <zone id="062" type="Dungeons">Crystal Cave</zone>
+    </expansion>
+
+    <expansion name="Catacombs">
+      <zone id="059" type="Indoor">Glashtin Forge</zone>
+      <zone id="063" type="Indoor">Roman Aqueducts</zone>
+      <zone id="065" type="Indoor">Inconnu Crypt</zone>
+      <zone id="066" type="Indoor">Underground Forest</zone>
+      <zone id="067" type="Indoor">Deadlands of Annwns</zone>
+      <zone id="068" type="Indoor">Lower Crypts</zone>
+      <zone id="109" type="Indoor">The Frontlines</zone>
+      <zone id="196" type="Indoor">The Otherworld</zone>
+      <zone id="227" type="Indoor">Abandoned Mines</zone>
+
+      <zone id="069" type="Instances">The Darkspire</zone>
+    </expansion>
+
+    <expansion name="Darkness Rising">
+      <zone id="330" type="Outdoor">The Foothills of Albion</zone>
+
+      <zone id="336" type="Instances">Demonic Prison</zone>
+      <zone id="339" type="Instances">Brimstone Caverns</zone>
+      <zone id="347" type="Instances">Lair of the Demon's Lord</zone>
+      <zone id="348" type="Instances">Baron's Gaol</zone>
+      <zone id="363" type="Instances">Anataeus's Sanctuary</zone>
+      <zone id="394" type="Instances">Constantin's Throne Room</zone>
+
+      <zone id="326" type="Instances">Epic Dungeons (Liv 30)</zone>
+      <zone id="356" type="Instances">Epic Dungeons (Liv 40-45)</zone>
+    </expansion>
   </realm>
-  
+
   <realm name="Hibernia">
+
+    <expansion name="Tutorial">
+      <zone id="029" type="Outdoor">Lamfhota's Sound</zone>
+      
+      <zone id="497" type="Dungeons">Mid Launch (?)</zone>
+      <zone id="342" type="Dungeons">Mid Launch2 (?)</zone>
+    </expansion>
+
+    <expansion name="Classic">
+      <zone id="27" type="Capitol">Tir na Nog</zone>
+
+      <zone id="200" type="Outdoor">Lough Derg</zone>
+      <zone id="201" type="Outdoor">Silvermine Mts.</zone>
+      <zone id="202" type="Outdoor">Shannon Estuary</zone>
+      <zone id="203" type="Outdoor">Cliffs of Moher</zone>
+      <zone id="204" type="Outdoor">Lough Gur</zone>
+      <zone id="205" type="Outdoor">Bog of Cullen</zone>
+      <zone id="206" type="Outdoor">Valley of Bri Leith</zone>
+      <zone id="207" type="Outdoor">Connacht</zone>
+      <zone id="208" type="Outdoor">Cursed Forest</zone>
+      <zone id="216" type="Outdoor">Sheeroe Hills</zone>
+      
+      <zone id="220" type="Dungeons">Coruscating Mines</zone>
+      <zone id="221" type="Dungeons">Muire Tomb</zone>
+      <zone id="222" type="Dungeons">Spraggon Den</zone>
+      <zone id="223" type="Dungeons">Koalinth Caverns</zone>
+      <zone id="224" type="Dungeons">Treibh Caillte</zone>
+    </expansion>
+
+    <expansion name="Foundations">
+      <zone id="213" type="Outdoor">Meath</zone>
+      <zone id="215" type="Outdoor">Dunshire</zone>
+      <zone id="217" type="Outdoor">Torrylin</zone>
+      <zone id="218" type="Outdoor">Kilcullen</zone>
+      <zone id="219" type="Outdoor">Saeranthal</zone>
+      <zone id="225" type="Outdoor">Aberillan</zone>
+      <zone id="272" type="Outdoor">Tullamore</zone>
+      <zone id="273" type="Outdoor">Moycullen</zone>
+    </expansion>
+
+    <expansion name="Shrouded Isles">
+      <zone id="181" type="Outdoor">Domnann</zone>
+      <zone id="182" type="Outdoor">Caillte Garran</zone>
+      <zone id="183" type="Outdoor">Vale of Balor</zone>
+      <zone id="184" type="Outdoor">Cothrom Gorge</zone>
+      <zone id="185" type="Outdoor">World's End</zone>
+      <zone id="186" type="Outdoor">Vigilant Rock</zone>
+      <zone id="187" type="Outdoor">Allta Fearann</zone>
+      
+      <zone id="180" type="Dungeons">Fomor</zone>
+      <zone id="190" type="Dungeons">Tur Suil</zone>
+      <zone id="191" type="Dungeons">Galladoria</zone>
+    </expansion>
+
+    <expansion name="Catacombs">
+      <zone id="092" type="Indoor">Veil Rift</zone>
+      <zone id="093" type="Indoor">Shar Labyrinth</zone>
+      <zone id="094" type="Indoor">The Queen's Labyrinth</zone>
+      <zone id="095" type="Indoor">The Frontlines</zone>
+      <zone id="096" type="Indoor">Underground Forest</zone>
+      <zone id="097" type="Indoor">Deadlands of Annwns</zone>
+      <zone id="099" type="Indoor">Glashtin Forge</zone>
+      <zone id="197" type="Indoor">The Otherworld</zone>
+      <zone id="228" type="Indoor">Abandoned Mines</zone>
+
+      <zone id="098" type="Instances">The Darkspire</zone>
+    </expansion>
+
+    <expansion name="Darkness Rising">
+      <zone id="335" type="Outdoor">The Foothills of Hibernia</zone>
+
+      <zone id="325" type="Instances">Epic Dungeons (Liv 30)</zone>
+      <zone id="355" type="Instances">Epic Dungeons (Liv 40-45)</zone>
+      <zone id="338" type="Instances">Demonic Prison</zone>
+      <zone id="341" type="Instances">Cave of Cruachan</zone>
+      <zone id="348" type="Instances">Morfesa's Gaol</zone>
+      <zone id="378" type="Instances">K.Garran's Sanctuary</zone>
+      <zone id="395" type="Instances">Lug's Throne Room</zone>
+    </expansion>    
   </realm>
   <realm name="Midgard">
+
+    <expansion name="Tutorial">
+      <zone id="028" type="Outdoor">Grenlock's Sound</zone>
+      <zone id="499" type="Dungeons">Hib Launch (?)</zone>
+      <zone id="344" type="Dungeons">Hib Launch2 (?)</zone>
+    </expansion>
+
+    <expansion name="Classic">
+      <zone id="120" type="Capitol">Jordheim</zone>
+
+      <zone id="100" type="Outdoor">Vale of Mularn</zone>
+      <zone id="101" type="Outdoor">East Svealand</zone>
+      <zone id="102" type="Outdoor">West Svealand</zone>
+      <zone id="103" type="Outdoor">Gotar</zone>
+      <zone id="104" type="Outdoor">Muspelheim</zone>
+      <zone id="105" type="Outdoor">Myrkwood Forest</zone>
+      <zone id="106" type="Outdoor">Skona Ravine</zone>
+      <zone id="107" type="Outdoor">Vanern Swamp</zone>
+      <zone id="108" type="Outdoor">Raumarik</zone>
+      <zone id="116" type="Outdoor">Malmohus</zone>
+
+      <zone id="125" type="Dungeons">Spindelhalla</zone>
+      <zone id="126" type="Dungeons">Vendo Caverns</zone>
+      <zone id="127" type="Dungeons">Varulvhamn</zone>
+      <zone id="128" type="Dungeons">Cursed Tomb</zone>
+      <zone id="129" type="Dungeons">Nisse's Lair</zone>
+    </expansion>
+
+    <expansion name="Foundations">
+      <zone id="114" type="Outdoor">Erikstaad</zone>
+      <zone id="117" type="Outdoor">Arothi</zone>
+      <zone id="118" type="Outdoor">Carlingford</zone>
+      <zone id="119" type="Outdoor">Wyndham</zone>
+      <zone id="121" type="Outdoor">Frisia</zone>
+      <zone id="122" type="Outdoor">Kaupang</zone>
+      <zone id="266" type="Outdoor">Holmestrand</zone>
+      <zone id="267" type="Outdoor">Nittedal</zone>
+    </expansion>
+
+    <expansion name="Shrouded Isles">
+      <zone id="151" type="Outdoor">Aegir's Landing</zone>
+      <zone id="152" type="Outdoor">Gripklosa Mountains</zone>
+      <zone id="153" type="Outdoor">Delling Crater</zone>
+      <zone id="154" type="Outdoor">Faraheim</zone>
+      <zone id="155" type="Outdoor">Munin Sound</zone>
+      <zone id="156" type="Outdoor">Iarnwood</zone>
+      <zone id="158" type="Outdoor">Modernagrav</zone>
+
+      <zone id="150" type="Dungeons">Trollheim</zone>
+      <zone id="160" type="Dungeons">Tuscaran Glacer</zone>
+      <zone id="161" type="Dungeons">Iarnvidiur's Lair</zone>
+    </expansion>
+
+    <expansion name="Catacombs">
+      <zone id="058" type="Indoor">Underground Forest</zone>
+      <zone id="148" type="Indoor">The Frontlines</zone>
+      <zone id="149" type="Indoor">Nyttheim</zone>
+      <zone id="162" type="Indoor">Deadlands of Annwns</zone>
+      <zone id="189" type="Indoor">Glashtin Forge</zone>
+      <zone id="195" type="Indoor">The Otherworld</zone>
+      <zone id="226" type="Indoor">Abandoned Mines</zone>
+      <zone id="229" type="Indoor">Burial Grounds</zone>
+      <zone id="243" type="Indoor">Kobold Undercity</zone>
+
+      <zone id="188" type="Instances">The Darkspire</zone>
+    </expansion>
+
+    <expansion name="Darkness Rising">
+      <zone id="334" type="Outdoor">The Foothills of Midgard</zone>
+
+      <zone id="328" type="Instances">Epic Dungeons (Liv 30)</zone>
+      <zone id="359" type="Instances">Epic Dungeons (Liv 40-45)</zone>
+      
+      <zone id="337" type="Instances">Demonic Prison</zone>
+      <zone id="340" type="Instances">Halls of Helgardh</zone>
+      <zone id="347" type="Instances">Lair of the Demon's Lord</zone>
+      <zone id="351" type="Instances">Nephraal's Gaol</zone>
+      <zone id="363" type="Instances">K.Iraeda's Sanctuary</zone>
+      <zone id="360" type="Instances">Erik's Throne Room</zone>
+    </expansion>
+    
   </realm>
-  
+
 </zones>

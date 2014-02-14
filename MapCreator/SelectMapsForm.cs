@@ -38,10 +38,16 @@ namespace MapCreator
             //presetsComboBox.ValueMember = "Id";
         }
 
+        public void Preselect(List<ZoneSelection> preselect)
+        {
+            m_selectedZones = preselect;
+            UpdateSelectedMapsListBox();
+        }
+
         private void UpdateSelectedMapsListBox()
         {
             selectedMapsListBox.DataSource = null;
-            selectedMapsListBox.DataSource = SelectedZones.OrderBy(s => s.Name).ToList();
+            selectedMapsListBox.DataSource = SelectedZones.OrderBy(s => s.Id).ToList();
         }
 
         private void UpdatePresets()
@@ -55,7 +61,7 @@ namespace MapCreator
             {
                 TreeNode realmNode = new TreeNode(realm);
 
-                foreach (string expansion in DataWrapper.GetExpansionsByRealm(realm).OrderBy(o => o.ToString()))
+                foreach (string expansion in DataWrapper.GetExpansionsByRealm(realm))
                 {
                     TreeNode expansionNode = new TreeNode(expansion);
 
@@ -63,19 +69,37 @@ namespace MapCreator
                     {
                         TreeNode mapTypeNode = new TreeNode(mapType);
 
-                        foreach (KeyValuePair<string, string> zone in DataWrapper.GetZonesByRealmAndExpansionAndType(realm, expansion, mapType).OrderBy(o => o.Value))
+                        foreach (KeyValuePair<string, string> zone in DataWrapper.GetZonesByRealmAndExpansionAndType(realm, expansion, mapType).OrderBy(o => o.Key))
                         {
-                            TreeNode zoneNode = new TreeNode(zone.Value);
-                            zoneNode.Tag = new ZoneSelection(zone.Key, zone.Value);
+                            if (mapType == "Capitol" || mapType == "Indoor" || mapType == "Dungeons" || mapType == "Instances") continue;
+
+                            ZoneSelection currentZone = new ZoneSelection(zone.Key, zone.Value, expansion, mapType);
+                            TreeNode zoneNode = new TreeNode(currentZone.ToString());
+                            zoneNode.Tag = currentZone;
 
                             m_allNodes.Add(zoneNode);
                             mapTypeNode.Nodes.Add(zoneNode);
                         }
 
-                        expansionNode.Nodes.Add(mapTypeNode);
+                        if (mapTypeNode.Nodes.Count > 0)
+                        {
+                            expansionNode.Nodes.Add(mapTypeNode);
+                        }
                     }
 
-                    realmNode.Nodes.Add(expansionNode);
+                    if (expansionNode.Nodes.Count == 1)
+                    {
+                        foreach (TreeNode node in expansionNode.Nodes[0].Nodes)
+                        {
+                            expansionNode.Nodes.Add(node);
+                        }
+                        expansionNode.Nodes.RemoveAt(0);
+                        realmNode.Nodes.Add(expansionNode);
+                    }
+                    else if (expansionNode.Nodes.Count > 1)
+                    {
+                        realmNode.Nodes.Add(expansionNode);
+                    }
                 }
 
                 mapsTreeView.Nodes.Add(realmNode);
@@ -196,6 +220,15 @@ namespace MapCreator
         private void selectedMapsListBox_DataSourceChanged(object sender, EventArgs e)
         {
             selectMapsCounterLabel.Text = SelectedZones.Count.ToString();
+        }
+
+        private void mapsTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node.Tag is ZoneSelection)
+            {
+                m_selectedZones.Add((ZoneSelection) e.Node.Tag);
+                UpdateSelectedMapsListBox();
+            }
         }
     }
 }

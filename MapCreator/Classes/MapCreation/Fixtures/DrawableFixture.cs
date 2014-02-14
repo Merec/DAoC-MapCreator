@@ -23,7 +23,9 @@ namespace MapCreator
         public ImageMagick.MagickColor ModelColor;
         public int ModelTransparency;
 
-        public Polygon[] RawPolygons;
+        public double Scale;
+
+        public IEnumerable<Polygon> RawPolygons;
         public List<Polygon> ProcessedPolygons = new List<Polygon>();
         public IEnumerable<DrawableElement> DrawableElements = new List<DrawableElement>();
 
@@ -49,6 +51,12 @@ namespace MapCreator
         {
             // Do nothig if we don't want to draw the nif
             if (RendererConf.Renderer == FixtureRenderererType.None)
+            {
+                return;
+            }
+
+            // Do nothing is there are no polgons
+            if (RawPolygons.Count() == 0)
             {
                 return;
             }
@@ -85,8 +93,8 @@ namespace MapCreator
             double maxXProduct = (maxX < 0) ? maxX * -1 : maxX;
             double minYProduct = (minY < 0) ? minY * -1 : minY;
             double maxYProduct = (maxY < 0) ? maxY * -1 : maxY;
-            CanvasWidth = (int)((minXProduct < maxXProduct) ? maxXProduct * 2f : minXProduct * 2f);
-            CanvasHeight = (int)((minYProduct < maxYProduct) ? maxYProduct * 2f : minYProduct * 2f);
+            CanvasWidth = Convert.ToInt32((minXProduct < maxXProduct) ? maxXProduct * 2f : minXProduct * 2f);
+            CanvasHeight = Convert.ToInt32((minYProduct < maxYProduct) ? maxYProduct * 2f : minYProduct * 2f);
 
             // Contains all polygons
             List<DrawableElement> drawlist = new List<DrawableElement>();
@@ -116,21 +124,27 @@ namespace MapCreator
             }
 
             DrawableElements = drawlist.OrderBy(o => o.order);
-            CanvasX = Convert.ToInt32(ZoneConf.ZoneCoordinateToMapCoordinate(FixtureRow.X) - CanvasWidth / 2);
-            CanvasY = Convert.ToInt32(ZoneConf.ZoneCoordinateToMapCoordinate(FixtureRow.Y) - CanvasHeight / 2);
+            CanvasX = Convert.ToInt32(ZoneConf.ZoneCoordinateToMapCoordinate(FixtureRow.X) - CanvasWidth / 2d);
+            CanvasY = Convert.ToInt32(ZoneConf.ZoneCoordinateToMapCoordinate(FixtureRow.Y) - CanvasHeight / 2d);
             ModelColor = RendererConf.Color;
             ModelTransparency = RendererConf.Transparency;
         }
 
         private void TransformPolygons()
         {
-            double scale = ((FixtureRow.Scale / 100f) * ZoneConf.LocScale);
-            double angle = 360f - FixtureRow.A;
+            Scale = ((FixtureRow.Scale / 100f) * ZoneConf.LocScale);
+
+            double angle = 360d * FixtureRow.AxisZ3D - FixtureRow.A;
+
+            if (ZoneConf.ZoneId == "330" || ZoneConf.ZoneId == "334" || ZoneConf.ZoneId == "335")
+            {
+                angle = (360 - FixtureRow.A) * FixtureRow.AxisZ3D;
+            }
 
             Matrix rotation = Matrix.Identity;
             if (angle != 0)
             {
-                rotation = Matrix.RotationZ(Convert.ToSingle(angle * Math.PI / 180.0));
+                rotation *= Matrix.RotationZ(Convert.ToSingle(angle * Math.PI / 180.0));
             }
 
             foreach (Polygon poly in RawPolygons)
@@ -139,19 +153,19 @@ namespace MapCreator
                 Vector3 p2 = Vector3.TransformCoordinate(poly.P2, rotation);
                 Vector3 p3 = Vector3.TransformCoordinate(poly.P3, rotation);
 
-                if (scale != 1)
+                if (Scale != 1)
                 {
-                    p1.X *= (float)scale;
-                    p1.Y *= (float)scale;
-                    p1.Z *= (float)scale;
+                    p1.X *= (float)Scale;
+                    p1.Y *= (float)Scale;
+                    p1.Z *= (float)Scale;
 
-                    p2.X *= (float)scale;
-                    p2.Y *= (float)scale;
-                    p2.Z *= (float)scale;
+                    p2.X *= (float)Scale;
+                    p2.Y *= (float)Scale;
+                    p2.Z *= (float)Scale;
 
-                    p3.X *= (float)scale;
-                    p3.Y *= (float)scale;
-                    p3.Z *= (float)scale;
+                    p3.X *= (float)Scale;
+                    p3.Y *= (float)Scale;
+                    p3.Z *= (float)Scale;
                 }
 
                 // Check visibility of polygons
@@ -196,6 +210,11 @@ namespace MapCreator
             Vector3 v1 = new Vector3(p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2]);
             Vector3 v2 = new Vector3(p3[0] - p2[0], p3[1] - p2[1], p3[2] - p2[2]);
             return Vector3.Cross(v1, v2);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} ({1})", Name, NifName);
         }
     }
 

@@ -184,7 +184,7 @@
     <OutputPath>..\Releases\x86\</OutputPath>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>MapCreator.ico</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
@@ -202,9 +202,13 @@
       <HintPath>lib\MPKLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MWCommon">
-      <HintPath>..\MWCommon\bin\Debug\MWCommon.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MWCommon, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\MWCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="MWControls, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\MWControls.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
       <HintPath>..\packages\SharpDX.2.5.0\lib\net40\SharpDX.dll</HintPath>
@@ -221,6 +225,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Constants.cs" />
     <Compile Include="Classes\MapCreation\Fixtures\DrawableFixture.cs" />
     <Compile Include="Classes\MapCreation\Fixtures\Objects\FixtureRow.cs" />
@@ -229,15 +239,14 @@
     <Compile Include="Classes\MapCreation\Fixtures\Objects\TreeClusterRow.cs" />
     <Compile Include="Classes\MapCreation\Fixtures\Objects\TreeRow.cs" />
     <Compile Include="Classes\MapCreation\Fixtures\Objects\NifRow.cs" />
+    <Compile Include="Classes\MapCreation\MapBounds.cs" />
     <Compile Include="Classes\MapCreation\MapFixtures.cs" />
     <Compile Include="Classes\MapCreation\MapBackground.cs" />
     <Compile Include="Classes\DataWrapper.cs" />
     <Compile Include="Classes\MagickWrapper.cs" />
-    <Compile Include="Classes\MapCreation\MapBounds.cs" />
     <Compile Include="Classes\MapCreation\MapHeightmap.cs" />
     <Compile Include="Classes\MapCreation\MapLightmap.cs" />
     <Compile Include="Classes\MapCreation\MapRiver.cs" />
-    <Compile Include="Classes\MapCreation\Fixtures\NifPolygons.cs" />
     <Compile Include="Classes\NiflibWrapper.cs" />
     <Compile Include="Classes\Tools.cs" />
     <Compile Include="Classes\ZoneConfiguration.cs" />
@@ -278,6 +287,9 @@
     <Compile Include="SelectMapsForm.Designer.cs">
       <DependentUpon>SelectMapsForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -292,6 +304,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SelectMapsForm.resx">
       <DependentUpon>SelectMapsForm.cs</DependentUpon>
@@ -341,6 +354,9 @@
     <None Include="data\textures\watery.dds">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="data\Zones.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="fixtures.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -361,38 +377,81 @@
     <Content Include="data\prerendered\appletree.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\ash.png" />
-    <Content Include="data\prerendered\beech.png" />
-    <Content Include="data\prerendered\Beech_gnarl.png" />
-    <Content Include="data\prerendered\BigHibTree.png" />
-    <Content Include="data\prerendered\bigtree.png" />
+    <Content Include="data\prerendered\ash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\beech.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\Beech_gnarl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\BigHibTree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\bigtree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\prerendered\bpinea.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\Bpinetree.png" />
-    <Content Include="data\prerendered\BVRGRN1.png" />
+    <Content Include="data\prerendered\Bpinetree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\BVRGRN1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\prerendered\bwillow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\B_HTOAK1.png" />
-    <Content Include="data\prerendered\B_HTOAKB.png" />
-    <Content Include="data\prerendered\cedar.png" />
-    <Content Include="data\prerendered\chestnut.png" />
+    <Content Include="data\prerendered\B_HTOAK1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\B_HTOAKB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\cedar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\chestnut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\prerendered\elm1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\prerendered\elm2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\hazel.png" />
-    <Content Include="data\prerendered\HBirchSingle.png" />
-    <Content Include="data\prerendered\HBirchtree.png" />
-    <Content Include="data\prerendered\Hdeadtree.png" />
-    <Content Include="data\prerendered\HElm2.png" />
-    <Content Include="data\prerendered\HElm2tan.png" />
-    <Content Include="data\prerendered\HOaktree.png" />
-    <Content Include="data\prerendered\hollytree.png" />
-    <Content Include="data\prerendered\maple.png" />
+    <Content Include="data\prerendered\hazel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\HBirchSingle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\HBirchtree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\Hdeadtree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\HElm2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\HElm2tan.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\HOaktree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\hollytree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\maple.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\oak1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\Zones.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -407,7 +466,11 @@
     <Content Include="lib\Magick.NET-x86.dll" />
     <Content Include="lib\Magick.NET-x86.xml" />
     <Content Include="lib\MPKLib.dll" />
-    <Content Include="MapCreator.ico" />
+    <Content Include="lib\MWCommon.dll" />
+    <Content Include="lib\MWControls.dll" />
+    <Content Include="icon.ico" />
+    <None Include="Resources\MapCreatorInfo.jpg" />
+    <None Include="Resources\dol_small.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -442,11 +505,6 @@
       <Name>NifUtil</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\MWControls\MWControls.csproj">
-      <Project>{9986C595-9BF5-42B1-935E-C1203108248D}</Project>
-      <Name>MWControls</Name>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -462,6 +520,9 @@ copy /Y "$(ProjectDir)lib\Magick.NET-$(PlatformName).dll" "$(TargetDir)lib"</Pre
     <PostBuildEvent>move "$(TargetDir)\*.dll" "$(TargetDir)\lib\"
 
 if "$(ConfigurationName)" == "Release" (
+    "C:\Program Files\7-Zip\7z" a -tzip MapCreator-$(PlatformName).zip * -x!*.zip
+)
+if "$(ConfigurationName)" == "Release x86" (
     "C:\Program Files\7-Zip\7z" a -tzip MapCreator-$(PlatformName).zip * -x!*.zip
 )</PostBuildEvent>
   </PropertyGroup>

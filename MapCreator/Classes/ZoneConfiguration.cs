@@ -160,6 +160,9 @@ namespace MapCreator
                 case GameExpansion.NewFrontiers:
                     zoneDataDirectory = string.Format("{0}\\frontiers\\zones\\zone{1}", Properties.Settings.Default.game_path, zoneId);
                     break;
+                case GameExpansion.Tutorial:
+                    zoneDataDirectory = string.Format("{0}\\tutorial\\zones\\zone{1}", Properties.Settings.Default.game_path, zoneId);
+                    break;
                 default:
                     zoneDataDirectory = string.Format("{0}\\zones\\zone{1}", Properties.Settings.Default.game_path, zoneId);
                     break;

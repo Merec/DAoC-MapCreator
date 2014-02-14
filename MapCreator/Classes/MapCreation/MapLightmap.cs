@@ -75,12 +75,12 @@ namespace MapCreator
 
             using (MagickImage lightmap = new MagickImage(Color.Transparent, 256, 256))
             {
-                using (PixelCollection heightmapPixel = heightmap.GetReadOnlyPixels())
+                using (PixelCollection heightmapPixels = heightmap.GetReadOnlyPixels())
                 {
                     using (WritablePixelCollection lightmapPixels = lightmap.GetWritablePixels())
                     {
                         // z-component of surface normals
-                        double nz = 512 / zScale;
+                        double nz = 512d / zScale;
                         double nz_2 = nz * nz;
                         double nzlz = nz * lightVector[2];
 
@@ -100,18 +100,18 @@ namespace MapCreator
                                 if (x == 255) x2 = 255;
                                 else x2 = x + 1;
 
-                                double l = heightmapPixel.GetPixel(x1, y).GetChannel(0);
-                                double r = heightmapPixel.GetPixel(x2, y).GetChannel(0);
-                                double u = heightmapPixel.GetPixel(x, y1).GetChannel(0);
-                                double d = heightmapPixel.GetPixel(x, y2).GetChannel(0);
+                                double l = heightmapPixels.GetPixel(x1, y).GetChannel(0);
+                                double r = heightmapPixels.GetPixel(x2, y).GetChannel(0);
+                                double u = heightmapPixels.GetPixel(x, y1).GetChannel(0);
+                                double d = heightmapPixels.GetPixel(x, y2).GetChannel(0);
 
                                 double nx = l - r;
                                 double ny = u - d;
 
-                                double m_normal = (double)Math.Sqrt(nx * nx + ny * ny + nz_2);
+                                double m_normal = Math.Sqrt(nx * nx + ny * ny + nz_2);
                                 double ndotl = (nx * lightVector[0] + ny * lightVector[1] + nzlz) / m_normal;
 
-                                double pixelValue = lightBase - ndotl * lightScale * 255;
+                                double pixelValue = lightBase - ndotl * lightScale * 256d;
                                 lightmapPixels.Set(x, y, new float[] { (float)pixelValue, (float)pixelValue, (float)pixelValue, 0 });
                             }
 

@@ -162,11 +162,12 @@ namespace MapCreator
 
         public static ZoneSelection GetZoneSelectionByZoneId(string zoneId)
         {
-            var results = zonesXml.Descendants("zone").Where(z => z.Attribute("id").Value == zoneId).Select(e => e.Value);
+            var results = zonesXml.Descendants("zone").Where(z => z.Attribute("id").Value == zoneId);
 
             if (results.Count() > 0)
             {
-                return new ZoneSelection(zoneId, results.First());
+                string expansion = results.First().Parent.Attribute("name").Value;
+                return new ZoneSelection(zoneId, results.First().Value, expansion, results.First().Attribute("type").Value);
             }
             else
             {

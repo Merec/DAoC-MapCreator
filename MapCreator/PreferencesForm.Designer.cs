@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PreferencesForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gamePathBrowseButton = new System.Windows.Forms.Button();
             this.gamePathTextBox = new System.Windows.Forms.TextBox();
@@ -116,6 +117,7 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PreferencesForm";
             this.Text = "PreferencesForm";
             this.groupBox1.ResumeLayout(false);

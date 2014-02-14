@@ -20,6 +20,12 @@ namespace MapCreator.Fixtures
         // Location where to search for npk with nifs
         private static List<string> nifSearchPaths = new List<string>();
 
+        internal static List<NifRow> NifRows
+        {
+            get { return FixturesLoader.nifRows; }
+            set { FixturesLoader.nifRows = value; }
+        }
+
         public static void Initialize(ZoneConfiguration zoneConfiguration)
         {
             FixturesLoader.zoneConf = zoneConfiguration;
@@ -79,6 +85,10 @@ namespace MapCreator.Fixtures
                 fixtureRow.Scale = Convert.ToInt32(fields[7]);
                 fixtureRow.OnGround = (Convert.ToInt32(fields[11]) == 1) ? true : false;
                 fixtureRow.Flip = (Convert.ToInt32(fields[12]) == 1) ? true : false;
+                fixtureRow.Angle3D = Convert.ToDouble(fields[15], provider);
+                fixtureRow.AxisX3D = Convert.ToDouble(fields[16], provider);
+                fixtureRow.AxisY3D = Convert.ToDouble(fields[17], provider);
+                fixtureRow.AxisZ3D = Convert.ToDouble(fields[18], provider);
                 fixtureRows.Add(fixtureRow);
             }
 
@@ -91,6 +101,7 @@ namespace MapCreator.Fixtures
                 List<string> treesCsvRows = DataWrapper.GetFileContent(treeMpk, "Treemap.csv");
                 List<string> treeClusterCsvRows = DataWrapper.GetFileContent(treeClusterMpk, "tree_clusters.csv");
 
+                int counter = 0;
                 foreach (string row in treesCsvRows)
                 {
                     if (row.StartsWith("NIF Name")) continue;
@@ -129,7 +140,23 @@ namespace MapCreator.Fixtures
                     treeClusterRows.Add(treeClusterRow);
                 }
             }
+            
+            // Add the trees of the clusters to the cache
+            for (int i = 0; i < nifRows.Count; i++ )
+            {
+                bool isTreeCluster = treeClusterRows.Any(tc => tc.Name.ToLower() == nifRows[i].Filename.ToLower());
+                if (isTreeCluster)
+                {
+                    TreeClusterRow treeCluster = treeClusterRows.Where(tc => tc.Name.ToLower() == nifRows[i].Filename.ToLower()).FirstOrDefault();
+                    if(treeCluster == null || nifRows.Where(n => n.Filename == treeCluster.Tree).Count() > 0) continue;
 
+                    NifRow tree = new NifRow();
+                    tree.NifId = 10000 + i;
+                    tree.TextualName = treeCluster.Tree + " (cluster tree)";
+                    tree.Filename = treeCluster.Tree;
+                    nifRows.Add(tree);
+                }
+            }
 
         }
 
@@ -169,7 +196,7 @@ namespace MapCreator.Fixtures
                 string modelPolySavePath = string.Format("{0}\\{1}", polysDirectory, modelPolyFileName);
 
                 // MPK handling, cache .poly file for models
-                if (polyMpk.Files.Where(f => f.Name == modelPolyFileName).Count() == 0)
+                if (polyMpk.Files.Where(f => f.Name.ToLower() == modelPolyFileName.ToLower()).Count() == 0)
                 {
                     string nifArchivePath = FindNifArchive(nifRow);
                     if(string.IsNullOrEmpty(nifArchivePath)) continue;
@@ -179,7 +206,7 @@ namespace MapCreator.Fixtures
                     {
                         if (nifFileFromNpk != null)
                         {
-                            //MainForm.Log(string.Format("Converting {0}...", nifRow.TextualName), MainForm.LogLevel.notice);
+                            MainForm.Log(string.Format("Converting {0}...", nifRow.TextualName), MainForm.LogLevel.notice);
 
                             // Create a new poly and add to mpk
                             polyMpkModified = true;
@@ -247,7 +274,7 @@ namespace MapCreator.Fixtures
                 // Get renderer configuration
                 FixtureRendererConfiguration2? rConf = FixtureRendererConfigurations.GetFixtureRendererConfiguration(nifRow.Filename);
 
-                bool isTree = treeRows.Any(tc => tc.Name.ToLower() == nifRow.Filename.ToLower());
+                bool isTree = treeRows.Any(t => t.Name.ToLower() == nifRow.Filename.ToLower());
                 bool isTreeCluster = treeClusterRows.Any(tc => tc.Name.ToLower() == nifRow.Filename.ToLower());
 
                 if (isTree)
@@ -256,7 +283,7 @@ namespace MapCreator.Fixtures
                     fixture.Tree = treeRows.Where(tc => tc.Name.ToLower() == nifRow.Filename.ToLower()).FirstOrDefault();
                     fixture.RawPolygons = nifRow.Polygons;
 
-                    if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.GerRendererById("TreeImage");
+                    if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("TreeImage");
                     else fixture.RendererConf = rConf.GetValueOrDefault();
                 }
                 else if (isTreeCluster)
@@ -264,9 +291,30 @@ namespace MapCreator.Fixtures
                     fixture.IsTreeCluster = true;
                     fixture.TreeCluster = treeClusterRows.Where(tc => tc.Name.ToLower() == nifRow.Filename.ToLower()).FirstOrDefault();
 
-                    // Do some polygon magic here....
+                    // Get the polygons of the base nif
+                    var treeNif = nifRows.Where(n => n.Filename.ToLower() == fixture.TreeCluster.Tree.ToLower()).FirstOrDefault();
+                    if (treeNif == null) continue;
+                    Polygon[] baseTreePolygons = treeNif.Polygons;
 
-                    if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.GerRendererById("TreeImage");
+                    // Loop the instances and transform the polygons
+                    List<Polygon> treeClusterPolygons = new List<Polygon>();
+                    foreach (SharpDX.Vector3 tree in fixture.TreeCluster.TreeInstances)
+                    {
+                        foreach (Polygon treePolygon in baseTreePolygons)
+                        {
+                            Polygon newPolygon = new Polygon(treePolygon.P1, treePolygon.P2, treePolygon.P3);
+                            for (int i = 0; i < newPolygon.Vectors.Length; i++)
+                            {
+                                newPolygon.Vectors[i].X -= tree.X;
+                                newPolygon.Vectors[i].Y += tree.Y;
+                                newPolygon.Vectors[i].Z += tree.Z;
+                            }
+                            treeClusterPolygons.Add(newPolygon);
+                        }
+                    }
+                    fixture.RawPolygons = treeClusterPolygons;
+
+                    if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("TreeImage");
                     else fixture.RendererConf = rConf.GetValueOrDefault();
                 }
                 else

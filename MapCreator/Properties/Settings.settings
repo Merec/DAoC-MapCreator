@@ -59,5 +59,23 @@
     <Setting Name="lastCreatedMaps" Type="System.String" Scope="User">
       <Value Profile="(Default)">000</Value>
     </Setting>
+    <Setting Name="removeBoundsFromMap" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="treesAsShadedModel" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="treesAsImages" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="mapType" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="mapQuality" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">90</Value>
+    </Setting>
+    <Setting Name="mapFilePattern" Type="System.String" Scope="User">
+      <Value Profile="(Default)">zone{id}_{size}</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -18,6 +18,11 @@ namespace MapCreator
         private bool m_onGround;
         private bool m_flip;
 
+        private double m_angle3D = 0;
+        private double m_axisX3D = 0;
+        private double m_axisY3D = 0;
+        private double m_axisZ3D = 0;
+
         #region Getter/Setter
 
         public int Id
@@ -88,10 +93,40 @@ namespace MapCreator
             set { m_flip = value; }
         }
 
+        public double Angle3D
+        {
+            get { return m_angle3D; }
+            set { m_angle3D = value; }
+        }
+
+        public double AxisX3D
+        {
+            get { return m_axisX3D; }
+            set { m_axisX3D = value; }
+        }
+
+
+        public double AxisY3D
+        {
+            get { return m_axisY3D; }
+            set { m_axisY3D = value; }
+        }
+
+        public double AxisZ3D
+        {
+            get { return m_axisZ3D; }
+            set { m_axisZ3D = value; }
+        }
+
         #endregion
 
         public FixtureRow()
         {
+        }
+
+        public override string ToString()
+        {
+            return "id: " + m_id.ToString() + "nifId: " + m_nifId.ToString() + "; " + m_textualName;
         }
     }
 }

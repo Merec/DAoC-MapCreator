@@ -10,15 +10,17 @@ namespace MapCreator
     {
         Unknown = 0,
 
-        Classic = 1,
-        ShroudedIsles = 2,
-        TrialsOfAtlantis = 3,
-        Catacombs = 4,
-        DarknessRising = 6,
-        LabyrithOfTheMinotaur = 7,
+        Tutorial,
+        Classic,
+        ShroudedIsles,
+        TrialsOfAtlantis,
+        Catacombs,
+        DarknessRising,
+        LabyrithOfTheMinotaur,
 
-        Foundations = 10,
-        NewFrontiers = 11,
+        Foundations,
+        NewFrontiers,
+        OldFrontiers
     }
 
     public enum RiverTypes

@@ -85,10 +85,7 @@ namespace MapCreator
                     }
                     catch { }
                 }
-
-                selectedMapsListBox.DataSource = null;
-                selectedMapsListBox.DataSource = SelectedZones;
-                selectedMapsCounterLabel.Text = SelectedZones.Count.ToString();
+                UpdateSelectedZoneListBox();
             }
         }
 
@@ -102,6 +99,13 @@ namespace MapCreator
             mapBoundsColorTextBox.Text = string.Format("{0}{1}{2}", mapBoundsColor.R.ToString("X2"), mapBoundsColor.G.ToString("X2"), mapBoundsColor.B.ToString("X2"));
         }
 
+        private void UpdateSelectedZoneListBox()
+        {
+            selectedMapsListBox.DataSource = null;
+            selectedMapsListBox.DataSource = SelectedZones.OrderBy(z => z.Id).ToList();
+            selectedMapsCounterLabel.Text = SelectedZones.Count.ToString();
+        }
+
         /// <summary>
         /// Zone Selector
         /// </summary>
@@ -110,12 +114,12 @@ namespace MapCreator
         private void selectMapsButton_Click(object sender, EventArgs e)
         {
             SelectMapsForm form = new SelectMapsForm();
+            form.Preselect(m_selectedZones);
+
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                SelectedZones = form.SelectedZones.ToList();
-                selectedMapsListBox.DataSource = null;
-                selectedMapsListBox.DataSource = SelectedZones;
-                selectedMapsCounterLabel.Text = SelectedZones.Count.ToString();
+                SelectedZones = form.SelectedZones;
+                UpdateSelectedZoneListBox();
 
                 Properties.Settings.Default.lastCreatedMaps = string.Join(",", SelectedZones.Select(z => z.Id));
                 Properties.Settings.Default.Save();
@@ -474,7 +478,7 @@ namespace MapCreator
                     foreach (ZoneSelection zone in SelectedZones)
                     {
                         Log(string.Format("Rendering {0} ({1})...", zone.Name, zone.Id), LogLevel.notice);
-                        drawMapBackgroundWorker.RunWorkerAsync(zone.Id);
+                        drawMapBackgroundWorker.RunWorkerAsync(zone);
 
                         while (drawMapBackgroundWorker.IsBusy)
                         {
@@ -515,13 +519,45 @@ namespace MapCreator
         /// <param name="e"></param>
         private void drawMapBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            string ZoneId = (string)e.Argument;
+            ZoneSelection zone = (ZoneSelection)e.Argument;
 
             // Start BackgroundWorker
-            Log(string.Format("Start creating map for zone {0} ...", ZoneId), LogLevel.notice);
+            Log(string.Format("Start creating map for zone {0} ...", zone.Id), LogLevel.notice);
+
+            // The filename
+            string targetFilePath = string.Format("{0}\\maps", Application.StartupPath);
+
+            string pattern = filePatternTextBox.Text;
+            if (string.IsNullOrEmpty(pattern)) pattern = "zone{id}_{size}";
+
+            // Replace some values
+            pattern = pattern.Replace("{id}", zone.Id);
+            pattern = pattern.Replace("{name}", zone.Name);
+            pattern = pattern.Replace("{expansion}", zone.Expansion);
+            pattern = pattern.Replace("{type}", zone.Type);
+            pattern = pattern.Replace("{size}", TargetMapSize.ToString());
+            pattern = Tools.MakeValidFileName(pattern);
+
+            // File extension
+            string fileExtension = "jpg";
+            string selectedFileExtension = "JPEG";
+            this.Invoke((MethodInvoker)delegate()
+            {
+                selectedFileExtension = fileTypeComboBox.Text;
+            });
+            switch (selectedFileExtension)
+            {
+                case "PNG":
+                    fileExtension = "png";
+                    break;
+                case "JPEG":
+                default:
+                    fileExtension = "jpg";
+                    break;
+            }
 
             // The Target File
-            FileInfo mapFile = new FileInfo(string.Format("{0}\\maps\\zone{1}_{2}.jpg", Application.StartupPath, ZoneId, TargetMapSize));
+            FileInfo mapFile = new FileInfo(string.Format("{0}\\maps\\{1}.{2}", Application.StartupPath, pattern, fileExtension));
             if (!Directory.Exists(mapFile.DirectoryName))
             {
                 Directory.CreateDirectory(mapFile.DirectoryName);
@@ -541,11 +577,13 @@ namespace MapCreator
             bool bounds = generateBoundsCheckBox.Checked;
             Color boundsColor = Properties.Settings.Default.mapBoundsColor;
             int boundsOpacity = Convert.ToInt32(mapBoundsOpacityTextBox.Text);
+            bool excludeBoundsFromMap = excludeBoundsFromMapCheckbox.Checked;
 
             bool fixtures = drawFixturesCheckBox.Checked;
+            bool trees = drawTreesCheckBox.Checked;
 
             // Generate the map
-            using (ZoneConfiguration conf = new ZoneConfiguration(ZoneId, TargetMapSize))
+            using (ZoneConfiguration conf = new ZoneConfiguration(zone.Id, TargetMapSize))
             {
                 // Create Background
                 MapBackground background = new MapBackground(conf);
@@ -570,13 +608,17 @@ namespace MapCreator
                         MapRiver river = new MapRiver(conf);
 
                         MapFixtures fixturesGenerator = null;
-                        if (fixtures)
+                        if (fixtures || trees)
                         {
                             fixturesGenerator = new MapFixtures(conf, river.Rivers);
+                            fixturesGenerator.DrawFixtures = drawFixturesCheckBox.Checked;
+                            fixturesGenerator.DrawTrees = drawTreesCheckBox.Checked;
+                            fixturesGenerator.DrawTreesAsImages = treesAsImages.Checked;
+                            fixturesGenerator.Start();
                         }
 
                         // Draw Fixtures below water
-                        if (fixtures)
+                        if (fixtures || trees)
                         {
                             fixturesGenerator.Draw(map, true);
                         }
@@ -591,7 +633,7 @@ namespace MapCreator
                         }
 
                         // Draw Fixtures above water
-                        if (fixtures)
+                        if (fixtures || trees)
                         {
                             fixturesGenerator.Draw(map, false);
                         }
@@ -606,12 +648,14 @@ namespace MapCreator
                         {
                             MapBounds mapBounds = new MapBounds(conf);
                             mapBounds.BoundsColor = boundsColor;
-                            mapBounds.BoundsOpacity = boundsOpacity;
+                            mapBounds.Transparency = boundsOpacity;
+                            mapBounds.ExcludeFromMap = excludeBoundsFromMap;
                             mapBounds.Draw(map);
                         }
 
                         Log(string.Format("Writing map {0} ...", mapFile.Name));
-                        map.Quality = 100;
+                        ProgressStartMarquee("Writing map ...");
+                        map.Quality = Convert.ToInt32(mapQualityTextBox.Value);
                         map.Write(mapFile.FullName);
                     }
                 }
@@ -635,6 +679,37 @@ namespace MapCreator
             {
                 splitContainer1.SplitterDistance = flowLayoutPanel1.Width;
             }
+        }
+
+        private void treesAsShadedModel_CheckedChanged(object sender, EventArgs e)
+        {
+            treesAsImages.Checked = !treesAsShadedModel.Checked;
+        }
+
+        private void treesAsImages_CheckedChanged(object sender, EventArgs e)
+        {
+            treesAsShadedModel.Checked = !treesAsImages.Checked;
+        }
+
+        private void drawTreesCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            treesAsImages.Enabled = drawTreesCheckBox.Checked;
+            treesAsShadedModel.Enabled = drawTreesCheckBox.Checked;
+        }
+
+        private void dawnOfLightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"http://www.dolserver.net");
+        }
+
+        private void aboutMapCreatorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (new About()).ShowDialog();
+        }
+
+        private void reportABugToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"http://www.dolserver.net/viewtopic.php?f=69&t=21710");
         }
 
     }
