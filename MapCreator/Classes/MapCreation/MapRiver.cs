@@ -44,7 +44,7 @@ namespace MapCreator
 
         public MapRiver(ZoneConfiguration zoneConfiguration)
         {
-            MainForm.Log("Parse rivers ...", MainForm.LogLevel.notice);
+            MainForm.ProgressStartMarquee("Loading water configurations ...");
             this.zoneConfiguration = zoneConfiguration;
 
             bool riversFound = true;
@@ -122,6 +122,7 @@ namespace MapCreator
                 riverIndex++;
             }
 
+            MainForm.ProgressReset();
         }
 
         private MagickImage m_waterTexture = null;
@@ -160,19 +161,12 @@ namespace MapCreator
 
         public void Draw(MagickImage map)
         {
-            MainForm.ProgressReset();
-            MainForm.Log("Drawing water areas ...", MainForm.LogLevel.notice);
-            MainForm.ProgressStart("Drawing water areas ...");
-
-            // Get the heightmap
-            //MagickImage heightmap = zoneConfiguration.Heightmap.HeightmapScaled;
-            double resizeFactor = zoneConfiguration.TargetMapSize / zoneConfiguration.Heightmap.Heightmap.Width;
+            MainForm.ProgressStart("Rendering water ...");
 
             using (PixelCollection heightmapPixels = zoneConfiguration.Heightmap.HeightmapScaled.GetReadOnlyPixels())
             {
                 using (MagickImage water = new MagickImage(MagickColor.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
                 {
-                    MainForm.ProgressStart("Drawing water ...");
                     int progressCounter = 0;
 
                     foreach (RiverConfiguration river in m_rivers)
@@ -185,7 +179,7 @@ namespace MapCreator
                         //water.FillColor = fillColor;
 
                         // Get the river coordinates and scale them to the targets size
-                        List<Coordinate> riverCoordinates = river.GetCoordinates().Select(c => new Coordinate(c.X * resizeFactor, c.Y * resizeFactor)).ToList();
+                        List<Coordinate> riverCoordinates = river.GetCoordinates().Select(c => new Coordinate(c.X * zoneConfiguration.MapScale, c.Y * zoneConfiguration.MapScale)).ToList();
 
                         // Texture
                         using (MagickImage texture = new MagickImage((river.Type.ToLower() == "lava") ? GetLavaTexture() : GetWateryTexture()))
@@ -249,7 +243,6 @@ namespace MapCreator
             }
 
             MainForm.ProgressReset();
-            MainForm.Log("Finished water areas!", MainForm.LogLevel.success);
         }
 
         private void DebugRiver(int index, RiverConfiguration river, List<Coordinate> riverCoordinates)

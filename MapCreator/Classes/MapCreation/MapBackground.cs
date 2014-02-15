@@ -46,6 +46,8 @@ namespace MapCreator
 
         public MagickImage Draw()
         {
+            MainForm.ProgressStart("Rendering background ...");
+
             // Check which terrain file is used
             string texMpk = string.Format("{0}\\tex{1}.mpk", this.textureZoneDataDirectory, this.textureZoneId);
             string lodMpk = string.Format("{0}\\lod{1}.mpk", this.textureZoneDataDirectory, this.textureZoneId);
@@ -87,10 +89,6 @@ namespace MapCreator
             double orginalWidth = tileWidth * 8;
             double resizeFactor = (double)zoneConfiguration.TargetMapSize / (double)orginalWidth; // 0 - 1
 
-            MainForm.Log(string.Format("Rendering background for zone {0}...", zoneConfiguration.ZoneId), MainForm.LogLevel.notice);
-            MainForm.ProgressReset();
-            MainForm.ProgressStart("Rendering background ...");
-
             MagickImage map = new MagickImage(Color.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize);
 
             int lastWidth = 0;
@@ -116,23 +114,23 @@ namespace MapCreator
 
                 x += lastWidth;
 
-                MainForm.ProgressUpdate(80 / 8 * col);
+                int percent = 100 * col / 8;
+                MainForm.ProgressUpdate(percent);
             }
+
+            MainForm.ProgressStartMarquee("Merging ...");
 
             // Remove rounding fails
             map.Trim();
-            MainForm.ProgressUpdate(85);
 
             // Flip if set
             if (this.flipX) map.Flop();
             if (this.flipY) map.Flip();
-            MainForm.ProgressUpdate(90);
 
             // Sharpen (tested a lot, seems to be the best values)
             map.Sharpen(4, 3);
 
-            MainForm.Log("Finished background!", MainForm.LogLevel.success);
-            MainForm.ProgressUpdate(100);
+            MainForm.ProgressReset();
 
             return map;
         }

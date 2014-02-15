@@ -296,10 +296,7 @@ namespace MapCreator
         public void Draw(MagickImage map)
         {
             if (m_bounds.Count == 0) return;
-
-            MainForm.ProgressReset();
-            MainForm.Log("Drawing bounds...", MainForm.LogLevel.notice);
-            MainForm.ProgressStart("Drawing bounds...");
+            MainForm.ProgressStart("Drawing zone bounds ...");
 
             // Sort the polygons
             List<List<Coordinate>> polygons = new List<List<Coordinate>>();
@@ -360,7 +357,7 @@ namespace MapCreator
                     }
                 }
 
-                MainForm.ProgressStartMarquee("Merging...");
+                MainForm.ProgressStartMarquee("Merging ...");
                 if (ExcludeFromMap)
                 {
                     map.Composite(boundMap, 0, 0, CompositeOperator.DstOut);
@@ -384,11 +381,13 @@ namespace MapCreator
             }
 
             MainForm.ProgressReset();
-            MainForm.Log("Finished bounds!", MainForm.LogLevel.success);
         }
 
         private void DebugMaps()
         {
+            MainForm.Log("Drawing debug water images ...", MainForm.LogLevel.warning);
+            MainForm.ProgressStartMarquee("Debug water images ...");
+
             DirectoryInfo debugDir = new DirectoryInfo(string.Format("{0}\\debug\\bound\\{1}", System.Windows.Forms.Application.StartupPath, zoneConfiguration.ZoneId));
             if (!debugDir.Exists) debugDir.Create();
             debugDir.GetFiles().ToList().ForEach(f => f.Delete());
@@ -441,6 +440,8 @@ namespace MapCreator
                     boundIndex++;
                 }
             }
+
+            MainForm.ProgressReset();
         }
     }
 }

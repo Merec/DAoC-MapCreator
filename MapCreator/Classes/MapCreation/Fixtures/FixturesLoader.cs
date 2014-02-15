@@ -20,6 +20,8 @@ namespace MapCreator.Fixtures
         // Location where to search for npk with nifs
         private static List<string> nifSearchPaths = new List<string>();
 
+        private static List<string> nifObjectImages = new List<string>();
+
         internal static List<NifRow> NifRows
         {
             get { return FixturesLoader.nifRows; }
@@ -39,12 +41,19 @@ namespace MapCreator.Fixtures
 
             LoadCsvData();
             LoadPolygons();
+
+            // Load the filenames in data/prerendered/objects
+            string objectImageFileDirectory = string.Format("{0}\\data\\prerendered\\objects", System.Windows.Forms.Application.StartupPath);
+            if (!Directory.Exists(objectImageFileDirectory)) Directory.CreateDirectory(objectImageFileDirectory);
+            nifObjectImages = Directory.GetFiles(objectImageFileDirectory).Select(f => Path.GetFileNameWithoutExtension(f).ToLower()).ToList();
         }
 
         /// <summary>
         /// Load all required CSV data
         /// </summary>
         private static void LoadCsvData() {
+            MainForm.ProgressStartMarquee("Loading fixture data ...");
+
             List<string> nifsCsvRows = DataWrapper.GetFileContent(zoneConf.CvsMpk, "nifs.csv");
             List<string> fixturesRows = DataWrapper.GetFileContent(zoneConf.CvsMpk, "fixtures.csv");
 
@@ -85,10 +94,15 @@ namespace MapCreator.Fixtures
                 fixtureRow.Scale = Convert.ToInt32(fields[7]);
                 fixtureRow.OnGround = (Convert.ToInt32(fields[11]) == 1) ? true : false;
                 fixtureRow.Flip = (Convert.ToInt32(fields[12]) == 1) ? true : false;
-                fixtureRow.Angle3D = Convert.ToDouble(fields[15], provider);
-                fixtureRow.AxisX3D = Convert.ToDouble(fields[16], provider);
-                fixtureRow.AxisY3D = Convert.ToDouble(fields[17], provider);
-                fixtureRow.AxisZ3D = Convert.ToDouble(fields[18], provider);
+
+                if (fields.Length > 15)
+                {
+                    fixtureRow.Angle3D = Convert.ToDouble(fields[15], provider);
+                    fixtureRow.AxisX3D = Convert.ToDouble(fields[16], provider);
+                    fixtureRow.AxisY3D = Convert.ToDouble(fields[17], provider);
+                    fixtureRow.AxisZ3D = Convert.ToDouble(fields[18], provider);
+                }
+
                 fixtureRows.Add(fixtureRow);
             }
 
@@ -101,7 +115,6 @@ namespace MapCreator.Fixtures
                 List<string> treesCsvRows = DataWrapper.GetFileContent(treeMpk, "Treemap.csv");
                 List<string> treeClusterCsvRows = DataWrapper.GetFileContent(treeClusterMpk, "tree_clusters.csv");
 
-                int counter = 0;
                 foreach (string row in treesCsvRows)
                 {
                     if (row.StartsWith("NIF Name")) continue;
@@ -158,6 +171,7 @@ namespace MapCreator.Fixtures
                 }
             }
 
+            MainForm.ProgressReset();
         }
 
         /// <summary>
@@ -166,6 +180,10 @@ namespace MapCreator.Fixtures
         private static void LoadPolygons()
         {
             if (nifRows.Count() == 0 || fixtureRows.Count() == 0) return;
+
+            // MainForm progress
+            MainForm.Log("Loading polygons ...", MainForm.LogLevel.notice);
+            MainForm.ProgressStart("Loading polygons ...");
 
             DirectoryInfo polysDirectory = new DirectoryInfo(string.Format("{0}\\data\\polys", System.Windows.Forms.Application.StartupPath));
             if (!polysDirectory.Exists) polysDirectory.Create();
@@ -177,11 +195,6 @@ namespace MapCreator.Fixtures
 
             if (!File.Exists(polysMpkFile)) polyMpkModified = true; // Create a new poyls.mpk
             else polyMpk.Load(polysMpkFile); // Load existing polys.mpk
-
-            // MainForm progress
-            MainForm.ProgressReset();
-            MainForm.Log("Loading nif polygons ...", MainForm.LogLevel.notice);
-            MainForm.ProgressStart("Loading nif polygons ...");
 
             // Loop all nifs from nifs.csv
             int progressCounter = 0;
@@ -206,7 +219,7 @@ namespace MapCreator.Fixtures
                     {
                         if (nifFileFromNpk != null)
                         {
-                            MainForm.Log(string.Format("Converting {0}...", nifRow.TextualName), MainForm.LogLevel.notice);
+                            MainForm.Log(string.Format("Processing {0}...", nifRow.TextualName), MainForm.LogLevel.notice);
 
                             // Create a new poly and add to mpk
                             polyMpkModified = true;
@@ -234,7 +247,7 @@ namespace MapCreator.Fixtures
                 progressCounter++;
             }
 
-            MainForm.ProgressStartMarquee("Saving...");
+            MainForm.ProgressStartMarquee("Saving polygons ...");
 
             // Save the mpk
             if (polyMpkModified)
@@ -254,10 +267,10 @@ namespace MapCreator.Fixtures
             List<DrawableFixture> drawables = new List<DrawableFixture>();
 
             // MainForm progress
-            MainForm.ProgressReset();
             MainForm.Log("Preparing fixtures ...", MainForm.LogLevel.notice);
             MainForm.ProgressStart("Preparing fixtures ...");
 
+            int progressCounter = 0;
             foreach (FixtureRow fixtureRow in fixtureRows)
             {
                 NifRow nifRow = nifRows.Where(n => n.NifId == fixtureRow.NifId).FirstOrDefault();
@@ -321,14 +334,26 @@ namespace MapCreator.Fixtures
                 {
                     fixture.RawPolygons = nifRow.Polygons;
 
-                    if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.DefaultConfiguration;
-                    else fixture.RendererConf = rConf.GetValueOrDefault();
+                    string nifFilenamWithoutExtension = Path.GetFileNameWithoutExtension(fixture.NifName);
+                    if (nifObjectImages.Contains(nifFilenamWithoutExtension.ToLower()))
+                    {
+                        fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("Prerendered");
+                    }
+                    else
+                    {
+                        if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.DefaultConfiguration;
+                        else fixture.RendererConf = rConf.GetValueOrDefault();
+                    }
                 }
 
                 // Calculate the final look of the model
                 fixture.Calc();
 
                 drawables.Add(fixture);
+
+                progressCounter++;
+                int percent = 100 * progressCounter / fixtureRows.Count;
+                MainForm.ProgressUpdate(percent);
             }
 
             MainForm.Log("Fixtures prepared!", MainForm.LogLevel.success);

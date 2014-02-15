@@ -99,7 +99,6 @@ namespace MapCreator
             // Contains all polygons
             List<DrawableElement> drawlist = new List<DrawableElement>();
 
-            // Draw flatten image by irgnoring Z
             foreach (Polygon poly in ProcessedPolygons)
             {
                 Vector3 n = Vector3.Normalize(GetNormal(poly.P1, poly.P2, poly.P3));

@@ -45,7 +45,7 @@
       <Value Profile="(Default)">Black</Value>
     </Setting>
     <Setting Name="mapBoundsOpacity" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">35</Value>
+      <Value Profile="(Default)">65</Value>
     </Setting>
     <Setting Name="mapWidth" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">2048</Value>
@@ -76,6 +76,9 @@
     </Setting>
     <Setting Name="mapFilePattern" Type="System.String" Scope="User">
       <Value Profile="(Default)">zone{id}_{size}</Value>
+    </Setting>
+    <Setting Name="shapedNifLastFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

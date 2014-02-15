@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NifUtil;
+using System.Drawing;
 
 namespace MapCreator
 {
@@ -14,9 +15,6 @@ namespace MapCreator
         private int m_color;
 
         private Polygon[] m_polygons;
-
-        private double m_width = 0;
-        private double m_height = 0;
 
         #region Getter/setter
 
@@ -47,25 +45,7 @@ namespace MapCreator
         public Polygon[] Polygons
         {
             get { return m_polygons; }
-            set { 
-                m_polygons = value;
-                if (m_polygons.Count() > 0)
-                {
-                    CalculateDimensions();
-                }
-            }
-        }
-
-        public double Height
-        {
-            get { return m_height; }
-            set { m_height = value; }
-        }
-
-        public double Width
-        {
-            get { return m_width; }
-            set { m_width = value; }
+            set { m_polygons = value; }
         }
 
         #endregion
@@ -74,8 +54,11 @@ namespace MapCreator
         {
         }
 
-        private void CalculateDimensions()
+        public SizeF GetSize(double scale, double angle)
         {
+            // Create a copy of the polygons
+            List<Polygon> polygons = new List<Polygon>(m_polygons);
+
             var vectors = Polygons.SelectMany(p => p.Vectors);
             double minX = vectors.Min(p => p.X);
             double maxX = vectors.Max(p => p.X);
@@ -88,8 +71,10 @@ namespace MapCreator
             double minYProduct = (minY < 0) ? minY * -1 : minY;
             double maxYProduct = (maxY < 0) ? maxY * -1 : maxY;
 
-            Height = (minXProduct < maxXProduct) ? maxXProduct * 2d : minXProduct * 2d;
-            Width = (minYProduct < maxYProduct) ? maxYProduct * 2d : minYProduct * 2d;
+            SizeF size = new SizeF();
+            size.Width = (float)((minXProduct < maxXProduct) ? maxXProduct * 2d : minXProduct * 2d);
+            size.Height = (float)((minYProduct < maxYProduct) ? maxYProduct * 2d : minYProduct * 2d);
+            return size;
         }
 
         public override string ToString()

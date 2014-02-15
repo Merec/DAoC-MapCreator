@@ -287,6 +287,12 @@
     <Compile Include="SelectMapsForm.Designer.cs">
       <DependentUpon>SelectMapsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShapedNifForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShapedNifForm.Designer.cs">
+      <DependentUpon>ShapedNifForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
@@ -308,6 +314,9 @@
     </Compile>
     <EmbeddedResource Include="SelectMapsForm.resx">
       <DependentUpon>SelectMapsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShapedNifForm.resx">
+      <DependentUpon>ShapedNifForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
@@ -373,83 +382,115 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="data\Fixtures.xml" />
-    <Content Include="data\prerendered\appletree.png">
+    <Content Include="data\prerendered\objects\alb_relictemple_f.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\ash.png">
+    <Content Include="data\prerendered\objects\B-boatovr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\beech.png">
+    <Content Include="data\prerendered\objects\boatwreck.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\Beech_gnarl.png">
+    <Content Include="data\prerendered\objects\Hib_RelicTemple_F.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\BigHibTree.png">
+    <Content Include="data\prerendered\objects\log1-s.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\bigtree.png">
+    <Content Include="data\prerendered\objects\LOG1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\bpinea.png">
+    <Content Include="data\prerendered\objects\log2-s.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\Bpinetree.png">
+    <Content Include="data\prerendered\objects\LOG2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\BVRGRN1.png">
+    <Content Include="data\prerendered\objects\Mid_RelicTemple_F.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\bwillow.png">
+    <Content Include="data\prerendered\objects\OCHPier.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\B_HTOAK1.png">
+    <Content Include="data\prerendered\objects\rockBarrier01_F.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\B_HTOAKB.png">
+    <Content Include="data\prerendered\trees\appletree.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\cedar.png">
+    <Content Include="data\prerendered\trees\ash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\chestnut.png">
+    <Content Include="data\prerendered\trees\beech.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\elm1.png">
+    <Content Include="data\prerendered\trees\Beech_gnarl.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\elm2.png">
+    <Content Include="data\prerendered\trees\BigHibTree.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\hazel.png">
+    <Content Include="data\prerendered\trees\bigtree.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\HBirchSingle.png">
+    <Content Include="data\prerendered\trees\bpinea.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\HBirchtree.png">
+    <Content Include="data\prerendered\trees\Bpinetree.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\Hdeadtree.png">
+    <Content Include="data\prerendered\trees\BVRGRN1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\HElm2.png">
+    <Content Include="data\prerendered\trees\bwillow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\HElm2tan.png">
+    <Content Include="data\prerendered\trees\B_HTOAK1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\HOaktree.png">
+    <Content Include="data\prerendered\trees\B_HTOAKB.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\hollytree.png">
+    <Content Include="data\prerendered\trees\cedar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\maple.png">
+    <Content Include="data\prerendered\trees\chestnut.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\prerendered\oak1.png">
+    <Content Include="data\prerendered\trees\elm1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\trees\elm2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\trees\hazel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\trees\HBirchSingle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\trees\HBirchtree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\trees\Hdeadtree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\trees\HElm2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\trees\HElm2tan.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\trees\HOaktree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\trees\hollytree.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\trees\maple.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\prerendered\trees\oak1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\Zones.xml">
@@ -518,6 +559,7 @@ copy /Y "$(ProjectDir)lib\Magick.NET-$(PlatformName).dll" "$(TargetDir)lib"</Pre
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>move "$(TargetDir)\*.dll" "$(TargetDir)\lib\"
+del SharpDX.xml
 
 if "$(ConfigurationName)" == "Release" (
     "C:\Program Files\7-Zip\7z" a -tzip MapCreator-$(PlatformName).zip * -x!*.zip

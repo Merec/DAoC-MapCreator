@@ -58,14 +58,12 @@ namespace MapCreator
 
             // Prepare models
             m_fixtures = FixturesLoader.GetDrawableFixtures();
-
-            // Sort Fixtures by under/above water
-            //SortFixtures();
         }
 
         public void Start()
         {
             if (m_fixtures.Count == 0) return;
+            MainForm.ProgressStartMarquee("Sorting fixtures ....");
 
             // Create paths out of the rivers
             Dictionary<RiverConfiguration, System.Drawing.Drawing2D.GraphicsPath> riverPaths = new Dictionary<RiverConfiguration, System.Drawing.Drawing2D.GraphicsPath>();
@@ -127,25 +125,25 @@ namespace MapCreator
 
             // Dispose all paths
             riverPaths.Select(d => d.Value).ToList().ForEach(r => r.Dispose());
+
+            MainForm.ProgressReset();
         }
 
         public void Draw(MagickImage map, bool underwater)
         {
             if (underwater)
             {
-                MainForm.Log("Drawing fixtures under water level...", MainForm.LogLevel.notice);
                 Draw(map, m_fixturesUnderWater);
             }
             else
             {
-                MainForm.Log("Drawing fixtures above water level...", MainForm.LogLevel.notice);
                 Draw(map, m_fixturesAboveWater);
             }
         }
 
         private void Draw(MagickImage map, List<DrawableFixture> fixtures)
         {
-            MainForm.ProgressStart("Drawing fixtures ...");
+            MainForm.ProgressStart(string.Format("Drawing fixtures ({0}) ...", fixtures.Count));
             Stopwatch timer = Stopwatch.StartNew();
 
             using (MagickImage modelsOverlay = new MagickImage(MagickColor.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
@@ -155,6 +153,18 @@ namespace MapCreator
                     int processCounter = 0;
                     foreach (DrawableFixture fixture in fixtures)
                     {
+                        // Debug single models
+                        /*
+                        if (fixture.FixtureRow.NifId != 443 && fixture.FixtureRow.NifId != 433 && fixture.FixtureRow.NifId != 459)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            DrawShaded((fixture.IsTree || fixture.IsTreeCluster) ? treeOverlay : modelsOverlay, fixture);
+                        }
+                        */
+
                         switch (fixture.RendererConf.Renderer)
                         {
                             case FixtureRenderererType.Shaded:
@@ -164,6 +174,7 @@ namespace MapCreator
                                 DrawFlat((fixture.IsTree || fixture.IsTreeCluster) ? treeOverlay : modelsOverlay, fixture);
                                 break;
                             case FixtureRenderererType.Image:
+                                //DrawShaded((fixture.IsTree || fixture.IsTreeCluster) ? treeOverlay : modelsOverlay, fixture);
                                 DrawImage((fixture.IsTree || fixture.IsTreeCluster) ? treeOverlay : modelsOverlay, fixture);
                                 break;
                         }
@@ -173,14 +184,13 @@ namespace MapCreator
                         processCounter++;
                     }
 
-                    MainForm.Log("Merging ....");
                     MainForm.ProgressStartMarquee("Merging ...");
 
                     FixtureRendererConfiguration2 treeImagesRConf = FixtureRendererConfigurations.GetRendererById("TreeImage");
                     if (treeImagesRConf.HasShadow)
                     {
-                        treeOverlay.BorderColor = MagickColor.Transparent;
-                        treeOverlay.Border(1);
+                        //treeOverlay.BorderColor = MagickColor.Transparent;
+                        //treeOverlay.Border(1);
                         treeOverlay.Shadow(
                             treeImagesRConf.ShadowOffsetX,
                             treeImagesRConf.ShadowOffsetY,
@@ -204,12 +214,13 @@ namespace MapCreator
             }
 
             timer.Stop();
-            MainForm.Log(string.Format("Finished drawing fixtures in {0} seconds.", timer.Elapsed.TotalSeconds), MainForm.LogLevel.success);
+            MainForm.Log(string.Format("Finished in {0} seconds.", timer.Elapsed.TotalSeconds), MainForm.LogLevel.success);
+            MainForm.ProgressReset();
         }
 
         private void DrawShaded(MagickImage overlay, DrawableFixture fixture)
         {
-            MainForm.Log(string.Format("Shaded: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
+            //MainForm.Log(string.Format("Shaded: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
 
             using (MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
             {
@@ -266,7 +277,7 @@ namespace MapCreator
 
         private void DrawFlat(MagickImage overlay, DrawableFixture fixture)
         {
-            MainForm.Log(string.Format("Flat: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
+            //MainForm.Log(string.Format("Flat: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
 
             using (MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
             {
@@ -311,17 +322,17 @@ namespace MapCreator
 
         private void DrawImage(MagickImage overlay, DrawableFixture fixture)
         {
-            MainForm.Log(string.Format("Image: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
+            //MainForm.Log(string.Format("Image: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
             string fileName = System.IO.Path.GetFileNameWithoutExtension(fixture.NifName);
             string defaultTree = "elm1";
 
             // Load default tree
             if (!m_modelImages.ContainsKey(defaultTree))
             {
-                string treeImageFile = string.Format("{0}\\data\\prerendered\\{1}.png", System.Windows.Forms.Application.StartupPath, defaultTree);
-                if (System.IO.File.Exists(treeImageFile))
+                string defaultTreeImage = string.Format("{0}\\data\\prerendered\\trees\\{1}.png", System.Windows.Forms.Application.StartupPath, defaultTree);                     
+                if (System.IO.File.Exists(defaultTreeImage))
                 {
-                    MagickImage treeImage = new MagickImage(treeImageFile);
+                    MagickImage treeImage = new MagickImage(defaultTreeImage);
                     treeImage.Blur();
                     m_modelImages.Add(defaultTree, treeImage);
                 }
@@ -340,12 +351,14 @@ namespace MapCreator
             // Load model image
             if (!m_modelImages.ContainsKey(fileName))
             {
-                string treeImageFile = string.Format("{0}\\data\\prerendered\\{1}.png", System.Windows.Forms.Application.StartupPath, fileName);
-                if (System.IO.File.Exists(treeImageFile))
+                string objectImageFile = string.Format("{0}\\data\\prerendered\\objects\\{1}.png", System.Windows.Forms.Application.StartupPath, fileName);
+                if (fixture.IsTree) objectImageFile = string.Format("{0}\\data\\prerendered\\trees\\{1}.png", System.Windows.Forms.Application.StartupPath, fileName);
+
+                if (System.IO.File.Exists(objectImageFile))
                 {
-                    MagickImage modelImage = new MagickImage(treeImageFile);
-                    if (fixture.IsTree) modelImage.Blur();
-                    m_modelImages.Add(fileName, modelImage);
+                    MagickImage objectImage = new MagickImage(objectImageFile);
+                    if(fixture.IsTree) objectImage.Blur();
+                    m_modelImages.Add(fileName, objectImage);
                 }
                 else
                 {
@@ -367,6 +380,8 @@ namespace MapCreator
                     MainForm.Log(string.Format("Error with imaged nif ({0})!", fixture.FixtureRow.TextualName), MainForm.LogLevel.warning);
                 }
 
+                System.Drawing.SizeF objectSize = orginalNif.GetSize(0, 0);
+
                 // The final image
                 using (MagickImage modelImage = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
                 {
@@ -375,8 +390,8 @@ namespace MapCreator
                     {
                         newModelImage.BackgroundColor = MagickColor.Transparent;
 
-                        double scaleWidthToTreeImage = orginalNif.Width / newModelImage.Width;
-                        double scaleHeightToTreeImage = orginalNif.Height / newModelImage.Height;
+                        double scaleWidthToTreeImage = objectSize.Width / newModelImage.Width;
+                        double scaleHeightToTreeImage = objectSize.Height / newModelImage.Height;
                         int width = Convert.ToInt32(newModelImage.Width * scaleWidthToTreeImage * fixture.Scale);
                         int height = Convert.ToInt32(newModelImage.Height * scaleHeightToTreeImage * fixture.Scale);
                         
@@ -457,7 +472,7 @@ namespace MapCreator
             // Load model image
             if (!m_modelImages.ContainsKey(fileName))
             {
-                string treeImageFile = string.Format("{0}\\data\\prerendered\\{1}.png", System.Windows.Forms.Application.StartupPath, fileName);
+                string treeImageFile = string.Format("{0}\\data\\prerendered\\trees\\{1}.png", System.Windows.Forms.Application.StartupPath, fileName);
                 if (System.IO.File.Exists(treeImageFile))
                 {
                     MagickImage modelImage = new MagickImage(treeImageFile);
@@ -477,6 +492,8 @@ namespace MapCreator
                 NifRow tree = FixturesLoader.NifRows.Where(n => n.Filename.ToLower() == fixture.TreeCluster.Tree.ToLower()).FirstOrDefault();
                 if (tree == null) return;
 
+                System.Drawing.SizeF treeSize = tree.GetSize(0, 0);
+
                 int dimensions = ((fixture.CanvasWidth > fixture.CanvasHeight) ? fixture.CanvasWidth : fixture.CanvasHeight) + 10;
                 int extendedWidth = dimensions - fixture.CanvasWidth;
                 int extendedHeight = dimensions - fixture.CanvasHeight;
@@ -490,8 +507,8 @@ namespace MapCreator
                     {
                         using (MagickImage treeImage = m_modelImages[fileName].Clone())
                         {
-                            double scaleWidthToTreeImage = tree.Width / treeImage.Width;
-                            double scaleHeightToTreeImage = tree.Height / treeImage.Height;
+                            double scaleWidthToTreeImage = treeSize.Width / treeImage.Width;
+                            double scaleHeightToTreeImage = treeSize.Height / treeImage.Height;
                             int width = Convert.ToInt32(treeImage.Width * scaleWidthToTreeImage * fixture.Scale);
                             int height = Convert.ToInt32(treeImage.Height * scaleHeightToTreeImage * fixture.Scale);
                             treeImage.Resize(width, height);

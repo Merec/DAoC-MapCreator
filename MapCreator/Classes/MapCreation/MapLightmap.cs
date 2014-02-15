@@ -66,9 +66,7 @@ namespace MapCreator
 
         public void Draw(MagickImage map)
         {
-            MainForm.ProgressReset();
-            MainForm.Log("Generating lightmap ...", MainForm.LogLevel.notice);
-            MainForm.ProgressStart("Generating lightmap ...");
+            MainForm.ProgressStart("Drawing lightmap ...");
 
             // Get the heightmap
             MagickImage heightmap = zoneConfiguration.Heightmap.Heightmap;
@@ -115,21 +113,20 @@ namespace MapCreator
                                 lightmapPixels.Set(x, y, new float[] { (float)pixelValue, (float)pixelValue, (float)pixelValue, 0 });
                             }
 
-                            MainForm.ProgressUpdate(y * 80 / lightmap.Height);
+                            int percent = 100 * y / lightmap.Height;
+                            MainForm.ProgressUpdate(percent);
                         }
                     }
                 }
 
+                MainForm.ProgressStartMarquee("Merging...");
                 lightmap.Resize(zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize);
-                MainForm.ProgressUpdate(90);
 
                 // Apply the bumpmap using ColorDodge
                 map.Composite(lightmap, 0, 0, CompositeOperator.ColorDodge);
 
-                MainForm.Log("Finished lightmap!", MainForm.LogLevel.success);
-                MainForm.ProgressUpdate(100);
+                MainForm.ProgressReset();
             }
         }
-
     }
 }

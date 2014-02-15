@@ -30,7 +30,7 @@ namespace MapCreator
 
         public MapHeightmap(ZoneConfiguration zoneConfiguration)
         {
-            MainForm.Log("Loading heightmap files ...", MainForm.LogLevel.notice);
+            MainForm.Log("Preloading zone heightmap ...", MainForm.LogLevel.notice);
 
             this.zoneConfiguration = zoneConfiguration;
             this.m_terrainfactor = Convert.ToInt32(DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, "terrain", "scalefactor"));
@@ -49,10 +49,7 @@ namespace MapCreator
         private void GenerateHeightmap()
         {
             if(this.heightmapGenerated) return;
-
-            MainForm.ProgressReset();
-            MainForm.Log("Generating heightmap ...", MainForm.LogLevel.notice);
-            MainForm.ProgressStart("Generating heightmap ...");
+            MainForm.ProgressStart("Processing heightmap ...");
 
             using (MagickImage offsetmap = zoneConfiguration.GetOffsetMap())
             {
@@ -75,11 +72,15 @@ namespace MapCreator
 
                                 heightmapPixels.Set(x, y, new float[] { heightmapPixelValue, heightmapPixelValue, heightmapPixelValue, 0 });
                             }
-                            MainForm.ProgressUpdate(100 * x / offsetmap.Width);
+
+                            int percent = 100 * x / offsetmap.Width;
+                            MainForm.ProgressUpdate(percent);
                         }
 
                         heightmapPixels.Write();    
                     }
+
+                    MainForm.ProgressStartMarquee("Merging ...");
 
                     m_heightmap.Quality = 100;
                     m_heightmap.Write(m_heightmapFile.FullName);
@@ -90,8 +91,8 @@ namespace MapCreator
                 }
             }
 
-            MainForm.Log("Finished heightmap!", MainForm.LogLevel.success);
             this.heightmapGenerated = true;
+            MainForm.ProgressReset();
         }
 
         /// <summary>

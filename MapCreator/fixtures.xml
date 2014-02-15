@@ -42,18 +42,18 @@
     <shadow color="#000" offset_x="1" offset_y="1" size="1" transparency="0">true</shadow>
   </FixtureCategory>
 
-  <!-- Prerendered: Places an image in the map. The image called like the nif must be placed in data/prerendered  -->
+  <!-- Prerendered: Places an image in the map. The image called like the nif must be placed in data/prerendered/objects; do not remove/rename  -->
   <FixtureCategory is_default="false">
     <id>Prerendered</id>
     <renderer>Image</renderer>
     <!-- This will create a light overlay on the image, creates more realistic results -->
     <light min="0.7" max="1.0" direction="1.0,1.0,-1.0">true</light>
     <color>#DDD</color>
-    <transparency>20</transparency>
-    <shadow color="#000" offset_x="0" offset_y="0" size="1" transparency="25">false</shadow>
+    <transparency>0</transparency>
+    <shadow color="#000" offset_x="0" offset_y="0" size="1" transparency="25">true</shadow>
   </FixtureCategory>
 
-  <!-- Very small nifs like fences or stones may just need to be drawn flat; see definition at below -->
+  <!-- Very small nifs like fences or stones may just need to be drawn flat; see definition below -->
   <FixtureCategory is_default="false">
     <id>Decoration</id>
     <renderer>Flat</renderer>
@@ -63,6 +63,12 @@
     <shadow color="#000" offset_x="0" offset_y="0" size="1" transparency="25">true</shadow>
   </FixtureCategory>
 
+  <!-- This tree is used on Lamfhota's Sound and not in the trees.csv -->
+  <Fixture>
+    <pattern>hOldGrove</pattern>
+    <category>TreeImage</category>
+  </Fixture>
+  
   <Fixture>
     <pattern>b-fence[0-9]+</pattern>
     <category>Decoration</category>
