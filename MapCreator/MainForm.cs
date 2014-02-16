@@ -614,17 +614,18 @@ namespace MapCreator
 
                             // We need this for fixtures
                             MainForm.Log("Loading water configurations ...", LogLevel.notice);
-                            MapRiver river = new MapRiver(conf);
+                            MapWater river = new MapWater(conf);
                             MainForm.Log("Finished loading water configurations!", LogLevel.success);
 
                             MapFixtures fixturesGenerator = null;
                             if (fixtures || trees)
                             {
                                 MainForm.Log("Loading fixtures ...", LogLevel.notice);
-                                fixturesGenerator = new MapFixtures(conf, river.Rivers);
+                                fixturesGenerator = new MapFixtures(conf, river.WaterAreas);
                                 fixturesGenerator.DrawFixtures = drawFixturesCheckBox.Checked;
                                 fixturesGenerator.DrawTrees = drawTreesCheckBox.Checked;
                                 fixturesGenerator.DrawTreesAsImages = treesAsImages.Checked;
+                                fixturesGenerator.TreeTransparency = Convert.ToInt32(mapTreeTransparencyTextBox.Value);
                                 fixturesGenerator.Start();
                                 MainForm.Log("Finished loading fixtures!", LogLevel.success);
                             }
@@ -641,9 +642,9 @@ namespace MapCreator
                             if (rivers)
                             {
                                 MainForm.Log("Rendering water ...", LogLevel.notice);
-                                river.RiverColor = riversColor;
-                                river.RiverOpacity = riverOpacity;
-                                river.UseDefaultColors = riversUseDefaultColor;
+                                river.WaterColor = riversColor;
+                                river.WaterTransparency = riverOpacity;
+                                river.UseClientColors = riversUseDefaultColor;
                                 river.Draw(map);
                                 MainForm.Log("Finished water rendering!", LogLevel.success);
                             }
@@ -702,6 +703,8 @@ namespace MapCreator
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
+            flowLayoutSizerPanel.Height = splitContainer1.Panel1.Height - splitContainer1.Panel1.Padding.Top - splitContainer1.Panel1.Padding.Bottom;
+
             if (flowLayoutPanel1.Width < 800)
             {
                 splitContainer1.SplitterDistance = flowLayoutPanel1.Width;

@@ -9,40 +9,40 @@ using System.Drawing.Drawing2D;
 
 namespace MapCreator
 {
-    class MapRiver
+    class MapWater
     {
         private ZoneConfiguration zoneConfiguration;
 
-        private List<RiverConfiguration> m_rivers = new List<RiverConfiguration>();
-        internal List<RiverConfiguration> Rivers
+        private List<WaterConfiguration> m_waterAreas = new List<WaterConfiguration>();
+        internal List<WaterConfiguration> WaterAreas
         {
-            get { return m_rivers; }
+            get { return m_waterAreas; }
         }
 
-        private Color m_riverColor;
-        public Color RiverColor
+        private Color m_waterColor;
+        public Color WaterColor
         {
-            get { return m_riverColor; }
-            set { m_riverColor = value; }
+            get { return m_waterColor; }
+            set { m_waterColor = value; }
         }
 
-        private int m_riverOpacity;
-        public int RiverOpacity
+        private int m_waterTransparency;
+        public int WaterTransparency
         {
-            get { return m_riverOpacity; }
-            set { m_riverOpacity = value; }
+            get { return m_waterTransparency; }
+            set { m_waterTransparency = value; }
         }
 
-        private bool m_useDefaultColors = true;
-        public bool UseDefaultColors
+        private bool m_useClientColors = true;
+        public bool UseClientColors
         {
-            get { return m_useDefaultColors; }
-            set { m_useDefaultColors = value; }
+            get { return m_useClientColors; }
+            set { m_useClientColors = value; }
         }
 
         private bool debug = false;
 
-        public MapRiver(ZoneConfiguration zoneConfiguration)
+        public MapWater(ZoneConfiguration zoneConfiguration)
         {
             MainForm.ProgressStartMarquee("Loading water configurations ...");
             this.zoneConfiguration = zoneConfiguration;
@@ -62,24 +62,24 @@ namespace MapCreator
                     continue;
                 }
 
-                RiverConfiguration rConf = new RiverConfiguration(riverCheck);
-                rConf.Texture = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "texture");
-                rConf.Multitexture = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "multitexture");
-                rConf.Flow = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "flow");
-                rConf.Height = Convert.ToInt32(DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "height"));
-                rConf.Bankpoints = Convert.ToInt32(DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "bankpoints"));
-                rConf.Extend_PosX = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "Extend_PosX");
-                rConf.Extend_PosY = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "Extend_PosY");
-                rConf.Extend_NegX = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "Extend_NegX");
-                rConf.Extend_NegY = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "Extend_NegY");
-                rConf.Tesselation = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "Tesselation");
-                rConf.Type = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "type");
+                WaterConfiguration waterConf = new WaterConfiguration(riverCheck);
+                waterConf.Texture = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "texture");
+                waterConf.Multitexture = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "multitexture");
+                waterConf.Flow = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "flow");
+                waterConf.Height = Convert.ToInt32(DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "height"));
+                waterConf.Bankpoints = Convert.ToInt32(DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "bankpoints"));
+                waterConf.Extend_PosX = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "Extend_PosX");
+                waterConf.Extend_PosY = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "Extend_PosY");
+                waterConf.Extend_NegX = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "Extend_NegX");
+                waterConf.Extend_NegY = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "Extend_NegY");
+                waterConf.Tesselation = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "Tesselation");
+                waterConf.Type = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "type");
 
 
                 // Adjust some river heights heights
                 if (zoneConfiguration.ZoneId == "168" || zoneConfiguration.ZoneId == "171" || zoneConfiguration.ZoneId == "178")
                 {
-                    rConf.Height += 30;
+                    waterConf.Height += 30;
                 }
 
 
@@ -87,10 +87,10 @@ namespace MapCreator
                 string baseColor = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "base_color");
                 if (color.Length >= 6)
                 {
-                    rConf.Color = ColorTranslator.FromWin32(Convert.ToInt32((string.IsNullOrEmpty(baseColor)) ? color : baseColor));
+                    waterConf.Color = ColorTranslator.FromWin32(Convert.ToInt32((string.IsNullOrEmpty(baseColor)) ? color : baseColor));
                 }
 
-                for (int i = 0; i < rConf.Bankpoints; i++)
+                for (int i = 0; i < waterConf.Bankpoints; i++)
                 {
                     string coordinatesIndexString = (i < 10) ? "0" + i : i.ToString();
                     string left = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "left" + coordinatesIndexString);
@@ -108,16 +108,16 @@ namespace MapCreator
                     if (leftPoint.X < 0) leftPoint.X = 0;
                     if (leftPoint.Y < 0) leftPoint.Y = 0;
 
-                    rConf.LeftCoordinates.Add(leftPoint);
+                    waterConf.LeftCoordinates.Add(leftPoint);
 
                     Coordinate rightPoint = new Coordinate(Convert.ToInt32(rightArr[0]), Convert.ToInt32(rightArr[1]));
                     if (rightPoint.X < 0) rightPoint.X = 0;
                     if (rightPoint.Y < 0) rightPoint.Y = 0;
 
-                    rConf.RightCoordinates.Add(rightPoint);
+                    waterConf.RightCoordinates.Add(rightPoint);
                 }
 
-                this.m_rivers.Add(rConf);
+                this.m_waterAreas.Add(waterConf);
 
                 riverIndex++;
             }
@@ -169,13 +169,13 @@ namespace MapCreator
                 {
                     int progressCounter = 0;
 
-                    foreach (RiverConfiguration river in m_rivers)
+                    foreach (WaterConfiguration river in m_waterAreas)
                     {
                         MainForm.Log(river.Name + "...", MainForm.LogLevel.notice);
 
                         MagickColor fillColor;
-                        if (m_useDefaultColors) fillColor = river.Color;
-                        else fillColor = m_riverColor;
+                        if (m_useClientColors) fillColor = river.Color;
+                        else fillColor = m_waterColor;
                         //water.FillColor = fillColor;
 
                         // Get the river coordinates and scale them to the targets size
@@ -230,13 +230,20 @@ namespace MapCreator
                             DebugRiver(progressCounter, river, riverCoordinates);
                         }
 
-                        int percent = 100 * progressCounter / m_rivers.Count();
+                        int percent = 100 * progressCounter / m_waterAreas.Count();
                         MainForm.ProgressUpdate(percent);
                         progressCounter++;
                     }
 
                     MainForm.ProgressStartMarquee("Merging...");
-                    water.Evaluate(Channels.Alpha, EvaluateOperator.Divide, 2);
+
+                    if (WaterTransparency != 0)
+                    {
+                        water.Alpha(AlphaOption.Set);
+                        double divideValue = 100.0 / (100.0 - WaterTransparency);
+                        water.Evaluate(Channels.Alpha, EvaluateOperator.Divide, divideValue);
+                    }
+
                     water.Blur();
                     map.Composite(water, 0, 0, CompositeOperator.SrcOver);
                 }
@@ -245,7 +252,7 @@ namespace MapCreator
             MainForm.ProgressReset();
         }
 
-        private void DebugRiver(int index, RiverConfiguration river, List<Coordinate> riverCoordinates)
+        private void DebugRiver(int index, WaterConfiguration river, List<Coordinate> riverCoordinates)
         {
             string debugFilename = string.Format("{0}\\debug\\rivers\\{1}_{2}_{3}.jpg", System.Windows.Forms.Application.StartupPath, zoneConfiguration.ZoneId, index, river.Name);
 
@@ -294,7 +301,7 @@ namespace MapCreator
         
     }
 
-    class RiverConfiguration
+    class WaterConfiguration
     {
 
         public string Name;
@@ -315,7 +322,7 @@ namespace MapCreator
         public List<Coordinate> LeftCoordinates = new List<Coordinate>();
         public List<Coordinate> RightCoordinates = new List<Coordinate>();
 
-        public RiverConfiguration(string name)
+        public WaterConfiguration(string name)
         {
             Name = name;
         }

@@ -1,5 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <Fixtures>
+  
+  <!-- Available renderer: None, Shaded, Flat, Image -->
 
   <!-- Don't draw the nif -->
   <FixtureCategory is_default="false">
@@ -15,31 +17,20 @@
   <FixtureCategory is_default="true">
     <id>Building</id>
     <renderer>Shaded</renderer>
-    <light min="0.6" max="0.9" direction="1.0,1.0,-1.0">true</light>
+    <light min="0.6" max="1.0" direction="1.0,1.0,-1.0">true</light>
     <color>#FFF</color>
     <transparency>0</transparency>
     <shadow color="#000" offset_x="0" offset_y="0" size="1" transparency="25">true</shadow>
   </FixtureCategory>
 
-  <!-- Shaded Trees: UI option; do not remove/rename -->
+  <!-- Very small nifs like fences or stones may just need to be drawn flat; see examples below -->
   <FixtureCategory is_default="false">
-    <id>TreeShaded</id>
-    <renderer>Shaded</renderer>
-    <light min="0.6" max="0.9" direction="1.0,1.0,-1.0">true</light>
-    <color>#064c07</color>
-    <transparency>20</transparency>
-    <shadow color="#000" offset_x="0" offset_y="0" size="1" transparency="25">false</shadow>
-  </FixtureCategory>
-
-  <!-- TreeImage: This configuration is used by default for trees; do not remove/rename -->
-  <FixtureCategory is_default="false">
-    <id>TreeImage</id>
-    <renderer>Image</renderer>
-    <!-- This will create a light overlay on the image, creates more realistic results -->
-    <light min="0.7" max="1.0" direction="1.0,1.0,-1.0">true</light>
-    <color>#DDD</color>
-    <transparency>20</transparency>
-    <shadow color="#000" offset_x="1" offset_y="1" size="1" transparency="0">true</shadow>
+    <id>Decoration</id>
+    <renderer>Flat</renderer>
+    <light min="0.6" max="1.0" direction="1.0,1.0,-1.0">false</light>
+    <color>#FFF</color>
+    <transparency>0</transparency>
+    <shadow color="#000" offset_x="0" offset_y="0" size="1" transparency="25">true</shadow>
   </FixtureCategory>
 
   <!-- Prerendered: Places an image in the map. The image called like the nif must be placed in data/prerendered/objects; do not remove/rename  -->
@@ -53,22 +44,42 @@
     <shadow color="#000" offset_x="0" offset_y="0" size="1" transparency="25">true</shadow>
   </FixtureCategory>
 
-  <!-- Very small nifs like fences or stones may just need to be drawn flat; see definition below -->
+  <!-- TreeShaded: UI option; do not remove/rename -->
+  <!-- This configuration marks the model as tree -->
   <FixtureCategory is_default="false">
-    <id>Decoration</id>
-    <renderer>Flat</renderer>
-    <light min="0.6" max="0.9" direction="1.0,1.0,-1.0">false</light>
-    <color>#FFF</color>
-    <transparency>0</transparency>
-    <shadow color="#000" offset_x="0" offset_y="0" size="1" transparency="25">true</shadow>
+    <id>TreeShaded</id>
+    <renderer>Shaded</renderer>
+    <light min="0.6" max="1.0" direction="1.0,1.0,-1.0">true</light>
+    <color>#064c07</color>
+    <transparency>20</transparency>
+    <shadow color="#000" offset_x="0" offset_y="0" size="1" transparency="25">false</shadow>
   </FixtureCategory>
 
-  <!-- This tree is used on Lamfhota's Sound and not in the trees.csv -->
+  <!-- TreeImage: This configuration is used by default for trees; do not remove/rename -->
+  <!-- This configuration marks the model as tree and draws elm1 by default -->
+  <FixtureCategory is_default="false">
+    <id>TreeImage</id>
+    <renderer>Image</renderer>
+    <!-- This will create a light overlay on the image, creates more realistic results -->
+    <light min="0.7" max="1.0" direction="1.0,1.0,-1.0">true</light>
+    <color>#DDD</color>
+    <transparency>20</transparency>
+    <shadow color="#000" offset_x="1" offset_y="1" size="1" transparency="0">true</shadow>
+  </FixtureCategory>
+
+  <!-- Unhandled trees which are not in Treemap.csv -->
+  <!-- Lamfhota's Sound -->
   <Fixture>
     <pattern>hOldGrove</pattern>
     <category>TreeImage</category>
   </Fixture>
+  <!-- Iarnwood -->
+  <Fixture>
+    <pattern>Iarnwood</pattern>
+    <category>TreeImage</category>
+  </Fixture>
   
+  <!-- Some examples -->
   <Fixture>
     <pattern>b-fence[0-9]+</pattern>
     <category>Decoration</category>
@@ -92,7 +103,7 @@
   <!-- Customization -->
   
   <FixtureCategory is_default="false">
-    <id>YourOwnRenderer</id>
+    <id>YourOwnConfiguration</id>
     <renderer>Shaded</renderer>
     <light min="0.5" max="1.5" direction="1.0,1.0,-1.0">true</light>
     <color>#d7d3cf</color>
@@ -102,7 +113,7 @@
 
   <Fixture>
     <pattern>the_awesome_nifname_here_as_regex_pattern</pattern>
-    <category>YourOwnRenderer</category>
+    <category>YourOwnConfiguration</category>
   </Fixture>
   
 </Fixtures>

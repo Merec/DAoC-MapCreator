@@ -287,21 +287,24 @@ namespace MapCreator.Fixtures
                 // Get renderer configuration
                 FixtureRendererConfiguration2? rConf = FixtureRendererConfigurations.GetFixtureRendererConfiguration(nifRow.Filename);
 
-                bool isTree = treeRows.Any(t => t.Name.ToLower() == nifRow.Filename.ToLower());
-                bool isTreeCluster = treeClusterRows.Any(tc => tc.Name.ToLower() == nifRow.Filename.ToLower());
+                fixture.IsTree = treeRows.Any(t => t.Name.ToLower() == nifRow.Filename.ToLower());
+                fixture.IsTreeCluster = treeClusterRows.Any(tc => tc.Name.ToLower() == nifRow.Filename.ToLower());
 
-                if (isTree)
+                if (rConf != null && (rConf.Value.Name == "TreeShaded" || rConf.Value.Name == "TreeImage"))
                 {
                     fixture.IsTree = true;
+                }
+
+                if (fixture.IsTree)
+                {
                     fixture.Tree = treeRows.Where(tc => tc.Name.ToLower() == nifRow.Filename.ToLower()).FirstOrDefault();
                     fixture.RawPolygons = nifRow.Polygons;
 
                     if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("TreeImage");
                     else fixture.RendererConf = rConf.GetValueOrDefault();
                 }
-                else if (isTreeCluster)
+                else if (fixture.IsTreeCluster)
                 {
-                    fixture.IsTreeCluster = true;
                     fixture.TreeCluster = treeClusterRows.Where(tc => tc.Name.ToLower() == nifRow.Filename.ToLower()).FirstOrDefault();
 
                     // Get the polygons of the base nif
@@ -334,16 +337,19 @@ namespace MapCreator.Fixtures
                 {
                     fixture.RawPolygons = nifRow.Polygons;
 
-                    string nifFilenamWithoutExtension = Path.GetFileNameWithoutExtension(fixture.NifName);
-                    if (nifObjectImages.Contains(nifFilenamWithoutExtension.ToLower()))
+                    if (rConf == null)
                     {
-                        fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("Prerendered");
+                        string nifFilenamWithoutExtension = Path.GetFileNameWithoutExtension(fixture.NifName);
+                        if (nifObjectImages.Contains(nifFilenamWithoutExtension.ToLower()))
+                        {
+                            fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("Prerendered");
+                        }
+                        else
+                        {
+                            fixture.RendererConf = FixtureRendererConfigurations.DefaultConfiguration;
+                        }
                     }
-                    else
-                    {
-                        if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.DefaultConfiguration;
-                        else fixture.RendererConf = rConf.GetValueOrDefault();
-                    }
+                    else fixture.RendererConf = rConf.GetValueOrDefault();
                 }
 
                 // Calculate the final look of the model

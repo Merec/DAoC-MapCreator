@@ -246,7 +246,7 @@
     <Compile Include="Classes\MagickWrapper.cs" />
     <Compile Include="Classes\MapCreation\MapHeightmap.cs" />
     <Compile Include="Classes\MapCreation\MapLightmap.cs" />
-    <Compile Include="Classes\MapCreation\MapRiver.cs" />
+    <Compile Include="Classes\MapCreation\MapWater.cs" />
     <Compile Include="Classes\NiflibWrapper.cs" />
     <Compile Include="Classes\Tools.cs" />
     <Compile Include="Classes\ZoneConfiguration.cs" />

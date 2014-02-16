@@ -157,7 +157,7 @@ namespace MapCreator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("35")]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
         public decimal mapRiverOpacity {
             get {
                 return ((decimal)(this["mapRiverOpacity"]));
@@ -289,7 +289,7 @@ namespace MapCreator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("JPEG")]
         public string mapType {
             get {
                 return ((string)(this["mapType"]));
@@ -332,6 +332,18 @@ namespace MapCreator.Properties {
             }
             set {
                 this["shapedNifLastFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public decimal mapTreeTransparency {
+            get {
+                return ((decimal)(this["mapTreeTransparency"]));
+            }
+            set {
+                this["mapTreeTransparency"] = value;
             }
         }
     }

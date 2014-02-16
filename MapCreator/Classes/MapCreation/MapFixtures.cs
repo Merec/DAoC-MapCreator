@@ -12,7 +12,7 @@ namespace MapCreator
     class MapFixtures : IDisposable
     {
         private ZoneConfiguration zoneConfiguration;
-        private List<RiverConfiguration> rivers;
+        private List<WaterConfiguration> rivers;
 
         private List<DrawableFixture> m_fixtures = new List<DrawableFixture>();
 
@@ -44,9 +44,16 @@ namespace MapCreator
             set { m_drawTreesAsImages = value; }
         }
 
+        int m_treeTransparency = 20;
+        public int TreeTransparency
+        {
+            get { return m_treeTransparency; }
+            set { m_treeTransparency = value; }
+        }
+
         #endregion
 
-        public MapFixtures(ZoneConfiguration zoneConfiguration, List<RiverConfiguration> rivers)
+        public MapFixtures(ZoneConfiguration zoneConfiguration, List<WaterConfiguration> rivers)
         {
             this.zoneConfiguration = zoneConfiguration;
             this.rivers = rivers;
@@ -66,8 +73,8 @@ namespace MapCreator
             MainForm.ProgressStartMarquee("Sorting fixtures ....");
 
             // Create paths out of the rivers
-            Dictionary<RiverConfiguration, System.Drawing.Drawing2D.GraphicsPath> riverPaths = new Dictionary<RiverConfiguration, System.Drawing.Drawing2D.GraphicsPath>();
-            foreach (RiverConfiguration rConf in rivers)
+            Dictionary<WaterConfiguration, System.Drawing.Drawing2D.GraphicsPath> riverPaths = new Dictionary<WaterConfiguration, System.Drawing.Drawing2D.GraphicsPath>();
+            foreach (WaterConfiguration rConf in rivers)
             {
                 System.Drawing.Drawing2D.GraphicsPath riverPath = new System.Drawing.Drawing2D.GraphicsPath();
                 System.Drawing.PointF[] points = rConf.GetCoordinates().Select(c => new System.Drawing.PointF(Convert.ToSingle(c.X * zoneConfiguration.MapScale), Convert.ToSingle(c.Y * zoneConfiguration.MapScale))).ToArray();
@@ -101,7 +108,7 @@ namespace MapCreator
 
                 // Check if on river or not
                 int riverHeight = 0;
-                foreach (KeyValuePair<RiverConfiguration, System.Drawing.Drawing2D.GraphicsPath> river in riverPaths)
+                foreach (KeyValuePair<WaterConfiguration, System.Drawing.Drawing2D.GraphicsPath> river in riverPaths)
                 {
                     if (river.Value.IsVisible(Convert.ToSingle(modelCenterX), Convert.ToSingle(modelCenterY)));
                     {
@@ -203,8 +210,7 @@ namespace MapCreator
                     if (treeImagesRConf.Transparency != 0)
                     {
                         treeOverlay.Alpha(AlphaOption.Set);
-
-                        double divideValue = 100.0 / (100.0 - treeImagesRConf.Transparency);
+                        double divideValue = 100.0 / (100.0 - TreeTransparency);
                         treeOverlay.Evaluate(Channels.Alpha, EvaluateOperator.Divide, divideValue);
                     }
 
