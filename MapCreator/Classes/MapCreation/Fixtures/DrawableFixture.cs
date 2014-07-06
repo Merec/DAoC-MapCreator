@@ -109,7 +109,11 @@ namespace MapCreator
                 // shade
                 double ndotl = RendererConf.LightVector[0] * n[0] + RendererConf.LightVector[1] * n[1] + RendererConf.LightVector[2] * n[2];
                 if (ndotl > 0) ndotl = 0;
+
+                // Lightning must be between 0 and 1, its multiplied with RGB and that must return a ushort
                 double lighting = RendererConf.LightMin - (RendererConf.LightMax - RendererConf.LightMin) * ndotl;
+                if (lighting < 0) lighting = 0;
+                else if (lighting > 1) lighting = 1;
 
                 List<ImageMagick.Coordinate> coordinates = new List<ImageMagick.Coordinate>();
                 foreach (Vector3 vector in poly.Vectors)

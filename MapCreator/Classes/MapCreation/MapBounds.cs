@@ -164,10 +164,17 @@ namespace MapCreator
                 // The last point is too close to the first
                 polygons[0].Reverse();
             }
-            // DR, the outland zone have one shape in wrong direction which braks the parser
+            // DR, the outland zone have one shape in wrong direction which breaks the parser
             if (zoneConfiguration.ZoneId == "330") polygons[1].Reverse();
             if (zoneConfiguration.ZoneId == "334") polygons[1].Reverse();
             if (zoneConfiguration.ZoneId == "335") polygons[1].Reverse();
+            // NewNewFrontiers Agramon
+            if (zoneConfiguration.ZoneId == "163")
+            {
+                //polygons[4].Reverse();
+                //polygons[5].Reverse();
+                //polygons[6].Reverse();
+            }
 
             foreach (List<PointF> polygon in polygons)
             {
@@ -191,7 +198,12 @@ namespace MapCreator
                     if (i == n) continue;
                     PointF first = polygons[n].First();
 
-                    if (last.X == first.X && last.Y == first.Y)
+                    bool connect = false;
+                    if (last.X == first.X && last.Y == first.Y) connect = true;
+                    else if (isNextTo(last, first, 20)) connect = true;
+                    else if (isNextTo(first, last, 20)) connect = true;
+
+                    if (connect)
                     {
                         // found a connection
                         polygons[i].AddRange(polygons[n]);
@@ -202,6 +214,13 @@ namespace MapCreator
             }
 
             return polygons;
+        }
+
+        private bool isNextTo(PointF p1, PointF p2, int distance = 50)
+        {
+            float diffX = Math.Abs(p1.X - p2.X);
+            float diffY = Math.Abs(p1.Y - p2.Y);
+            return diffX <= distance && diffY <= distance;
         }
 
         private void FillPolygon(List<PointF> points)
@@ -385,8 +404,8 @@ namespace MapCreator
 
         private void DebugMaps()
         {
-            MainForm.Log("Drawing debug water images ...", MainForm.LogLevel.warning);
-            MainForm.ProgressStartMarquee("Debug water images ...");
+            MainForm.Log("Drawing debug bound images ...", MainForm.LogLevel.warning);
+            MainForm.ProgressStartMarquee("Debug bound images ...");
 
             DirectoryInfo debugDir = new DirectoryInfo(string.Format("{0}\\debug\\bound\\{1}", System.Windows.Forms.Application.StartupPath, zoneConfiguration.ZoneId));
             if (!debugDir.Exists) debugDir.Create();
@@ -430,7 +449,7 @@ namespace MapCreator
                             if (coords[i].Y == zoneConfiguration.TargetMapSize) y2 = zoneConfiguration.TargetMapSize - 1;
                             else y2 = (int)coords[i].Y;
 
-                            pixels.Set(x2, y2, new float[] { 0, 0, 65536, 0 });
+                            pixels.Set(x2, y2, new float[] { 0, 0, 65535, 0 });
                         }
                     }
 
