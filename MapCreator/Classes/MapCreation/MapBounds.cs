@@ -161,25 +161,17 @@ namespace MapCreator
             // Oceanus Notots, the first must be counter clockwise, it must be negated
             if (zoneConfiguration.ZoneId == "076")
             {
-                // The last point is too close to the first
                 polygons[0].Reverse();
             }
             // DR, the outland zone have one shape in wrong direction which breaks the parser
             if (zoneConfiguration.ZoneId == "330") polygons[1].Reverse();
             if (zoneConfiguration.ZoneId == "334") polygons[1].Reverse();
             if (zoneConfiguration.ZoneId == "335") polygons[1].Reverse();
-            // NewNewFrontiers Agramon
-            if (zoneConfiguration.ZoneId == "163")
-            {
-                //polygons[4].Reverse();
-                //polygons[5].Reverse();
-                //polygons[6].Reverse();
-            }
 
             foreach (List<PointF> polygon in polygons)
             {
                 if (polygon.Count < 4) continue;
-                if (zoneConfiguration.Expansion == GameExpansion.NewFrontiers && polygon.Count <= 6) continue;
+                //if (zoneConfiguration.Expansion == GameExpansion.NewFrontiers && polygon.Count <= 6) continue;
 
                 FillPolygon(polygon);
                 m_bounds.Add(polygon);

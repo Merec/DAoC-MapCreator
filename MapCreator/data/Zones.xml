@@ -1,32 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <!--
- 
+
 Available zone types:
 Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
- 
+
 -->
 
 <zones>
   <realm name="All Realms">
+    <expansion name="Old Frontiers">
+      <zone id="011" type="Outdoor">Forest Sauvage</zone>
+      <zone id="012" type="Outdoor">Snowdonia</zone>
+      <zone id="014" type="Outdoor">Pennine Mountains</zone>
+      <zone id="015" type="Outdoor">Hadrian's Wall</zone>
+      <zone id="111" type="Outdoor">Uppland</zone>
+      <zone id="112" type="Outdoor">Yggdra Forest</zone>
+      <zone id="113" type="Outdoor">Jamtland Mountains</zone>
+      <zone id="115" type="Outdoor">Odin's Gate</zone>
+      <zone id="210" type="Outdoor">Mount Collory</zone>
+      <zone id="211" type="Outdoor">Cruachan Gorge</zone>
+      <zone id="212" type="Outdoor">Breifine</zone>
+      <zone id="214" type="Outdoor">Emain Macha</zone>
+    </expansion>
+
     <expansion name="New Frontiers">
-      <zone id="163" type="Frontiers">Agramon (North Sea)</zone>
-      <zone id="164" type="Frontiers">Irish Sea</zone>
+      <zone id="163" type="Outdoor">Agramon (North Sea)</zone>
+      <zone id="164" type="Outdoor">Irish Sea</zone>
 
-      <zone id="167" type="Frontiers">Odin's Gate</zone>
-      <zone id="168" type="Frontiers">Jamtland Mountains</zone>
-      <zone id="169" type="Frontiers">Yggdra Forest</zone>
-      <zone id="170" type="Frontiers">Uppland</zone>
+      <zone id="167" type="Outdoor">Odin's Gate</zone>
+      <zone id="168" type="Outdoor">Jamtland Mountains</zone>
+      <zone id="169" type="Outdoor">Yggdra Forest</zone>
+      <zone id="170" type="Outdoor">Uppland</zone>
 
-      <zone id="171" type="Frontiers">Emain Macha</zone>
-      <zone id="172" type="Frontiers">Breifine</zone>
-      <zone id="173" type="Frontiers">Cruachan Gorge</zone>
-      <zone id="174" type="Frontiers">Mount Collory</zone>
+      <zone id="171" type="Outdoor">Emain Macha</zone>
+      <zone id="172" type="Outdoor">Breifine</zone>
+      <zone id="173" type="Outdoor">Cruachan Gorge</zone>
+      <zone id="174" type="Outdoor">Mount Collory</zone>
 
-      <zone id="175" type="Frontiers">Snowdonia</zone>
-      <zone id="176" type="Frontiers">Forest Sauvage</zone>
-      <zone id="177" type="Frontiers">Pennine Mountains</zone>
-      <zone id="178" type="Frontiers">Hadrian's Wall</zone>
+      <zone id="175" type="Outdoor">Snowdonia</zone>
+      <zone id="176" type="Outdoor">Forest Sauvage</zone>
+      <zone id="177" type="Outdoor">Pennine Mountains</zone>
+      <zone id="178" type="Outdoor">Hadrian's Wall</zone>
 
       <zone id="234" type="Battlegrounds">The Proving Grounds</zone>
       <zone id="235" type="Battlegrounds">The Lions Den</zone>
@@ -42,7 +57,6 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
 
       <zone id="233" type="Dungeons">Summoner's Hall</zone>
       <zone id="244" type="Dungeons">Passage of Conflict</zone>
-      <zone id="245" type="Dungeons">Labyrinth of the Minotaur</zone>
       <zone id="249" type="Dungeons">Darkness Falls</zone>
       <zone id="489" type="Dungeons">Demon's Breach</zone>
     </expansion>
@@ -73,19 +87,8 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="090" type="Dungeons">Aerus City</zone>
     </expansion>
 
-    <expansion name="Old Frontiers">
-      <zone id="011" type="Frontiers">Forest Sauvage</zone>
-      <zone id="012" type="Frontiers">Snowdonia</zone>
-      <zone id="014" type="Frontiers">Pennine Mountains</zone>
-      <zone id="015" type="Frontiers">Hadrian's Wall</zone>
-      <zone id="111" type="Frontiers">Uppland</zone>
-      <zone id="112" type="Frontiers">Yggdra Forest</zone>
-      <zone id="113" type="Frontiers">Jamtland Mountains</zone>
-      <zone id="115" type="Frontiers">Odin's Gate</zone>
-      <zone id="210" type="Frontiers">Mount Collory</zone>
-      <zone id="211" type="Frontiers">Cruachan Gorge</zone>
-      <zone id="212" type="Frontiers">Breifine</zone>
-      <zone id="214" type="Frontiers">Emain Macha</zone>
+    <expansion name="Labyrinth of the Minotaur">
+      <zone id="245" type="Dungeon">The Labyrinth</zone>
     </expansion>
   </realm>
 
@@ -93,11 +96,11 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
 
     <expansion name="Tutorial">
       <zone id="027" type="Outdoor">Constantine's Sound</zone>
-      
+
       <zone id="498" type="Dungeons">Alb Launch (?)</zone>
       <zone id="343" type="Dungeons">Alb Launch2 (?)</zone>
     </expansion>
-    
+
     <expansion name="Classic">
       <zone id="026" type="Capitol">Camelot</zone>
 
@@ -166,25 +169,31 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="339" type="Instances">Brimstone Caverns</zone>
       <zone id="347" type="Instances">Lair of the Demon's Lord</zone>
       <zone id="348" type="Instances">Baron's Gaol</zone>
-      <zone id="363" type="Instances">Anataeus's Sanctuary</zone>
+      <zone id="363" type="Instances">Anataeus' Sanctuary</zone>
       <zone id="394" type="Instances">Constantin's Throne Room</zone>
 
       <zone id="326" type="Instances">Epic Dungeons (Liv 30)</zone>
       <zone id="356" type="Instances">Epic Dungeons (Liv 40-45)</zone>
     </expansion>
+
+    <expansion name="Labyrinth of the Minotaur">
+      <zone id="391" type="Dungeon">Arcane Tower</zone>
+      <zone id="192" type="Dungeon">The High Consul's Sanctum</zone>
+    </expansion>
+
   </realm>
 
   <realm name="Hibernia">
 
     <expansion name="Tutorial">
       <zone id="029" type="Outdoor">Lamfhota's Sound</zone>
-      
+
       <zone id="497" type="Dungeons">Mid Launch (?)</zone>
       <zone id="342" type="Dungeons">Mid Launch2 (?)</zone>
     </expansion>
 
     <expansion name="Classic">
-      <zone id="27" type="Capitol">Tir na Nog</zone>
+      <zone id="209" type="Capitol">Tir na Nog</zone>
 
       <zone id="200" type="Outdoor">Lough Derg</zone>
       <zone id="201" type="Outdoor">Silvermine Mts.</zone>
@@ -196,7 +205,7 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="207" type="Outdoor">Connacht</zone>
       <zone id="208" type="Outdoor">Cursed Forest</zone>
       <zone id="216" type="Outdoor">Sheeroe Hills</zone>
-      
+
       <zone id="220" type="Dungeons">Coruscating Mines</zone>
       <zone id="221" type="Dungeons">Muire Tomb</zone>
       <zone id="222" type="Dungeons">Spraggon Den</zone>
@@ -223,7 +232,7 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="185" type="Outdoor">World's End</zone>
       <zone id="186" type="Outdoor">Vigilant Rock</zone>
       <zone id="187" type="Outdoor">Allta Fearann</zone>
-      
+
       <zone id="180" type="Dungeons">Fomor</zone>
       <zone id="190" type="Dungeons">Tur Suil</zone>
       <zone id="191" type="Dungeons">Galladoria</zone>
@@ -250,10 +259,15 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="355" type="Instances">Epic Dungeons (Liv 40-45)</zone>
       <zone id="338" type="Instances">Demonic Prison</zone>
       <zone id="341" type="Instances">Cave of Cruachan</zone>
-      <zone id="348" type="Instances">Morfesa's Gaol</zone>
-      <zone id="378" type="Instances">K.Garran's Sanctuary</zone>
-      <zone id="395" type="Instances">Lug's Throne Room</zone>
-    </expansion>    
+      <zone id="352" type="Instances">Morfesa's Gaol</zone>
+      <zone id="378" type="Instances">Keeper Garran's Sanctuary</zone>
+      <zone id="395" type="Instances">Lamfhotas' Throne Room</zone>
+    </expansion>
+
+    <expansion name="Labyrinth of the Minotaur">
+      <zone id="399" type="Dungeon">Arcane Tower</zone>
+      <zone id="194" type="Dungeon">The High Consul's Sanctum</zone>
+    </expansion>
   </realm>
   <realm name="Midgard">
 
@@ -328,15 +342,20 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
 
       <zone id="328" type="Instances">Epic Dungeons (Liv 30)</zone>
       <zone id="359" type="Instances">Epic Dungeons (Liv 40-45)</zone>
-      
+
       <zone id="337" type="Instances">Demonic Prison</zone>
       <zone id="340" type="Instances">Halls of Helgardh</zone>
       <zone id="347" type="Instances">Lair of the Demon's Lord</zone>
       <zone id="351" type="Instances">Nephraal's Gaol</zone>
-      <zone id="363" type="Instances">K.Iraeda's Sanctuary</zone>
-      <zone id="360" type="Instances">Erik's Throne Room</zone>
+      <zone id="364" type="Instances">Keeper Iraeda's Sanctuary</zone>
+      <zone id="360" type="Instances">Eirik's Throne Room</zone>
     </expansion>
-    
+
+    <expansion name="Labyrinth of the Minotaur">
+      <zone id="398" type="Dungeon">Arcane Tower</zone>
+      <zone id="193" type="Dungeon">The High Consul's Sanctum</zone>
+    </expansion>
+
   </realm>
 
 </zones>

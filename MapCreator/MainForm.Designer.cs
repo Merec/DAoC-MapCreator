@@ -310,12 +310,7 @@
             this.widthTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::MapCreator.Properties.Settings.Default, "mapWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.widthTextBox.Location = new System.Drawing.Point(68, 17);
             this.widthTextBox.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.widthTextBox.Minimum = new decimal(new int[] {
-            10,
+            65536,
             0,
             0,
             0});

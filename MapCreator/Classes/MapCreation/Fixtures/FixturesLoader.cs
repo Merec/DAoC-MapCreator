@@ -120,11 +120,11 @@ namespace MapCreator.Fixtures
                     if (row.StartsWith("NIF Name")) continue;
 
                     string[] fields = row.Split(',');
-                    if (fields[4] == "") continue;
+                    //if (fields[4] == "") continue;
 
                     TreeRow treeRow = new TreeRow();
                     treeRow.Name = fields[0];
-                    treeRow.ZOffset = Convert.ToInt32(fields[4]);
+                    treeRow.ZOffset = (string.IsNullOrEmpty(fields[4])) ? 0 : Convert.ToInt32(fields[4]);
                     treeRows.Add(treeRow);
                 }
 
