@@ -491,7 +491,6 @@ namespace MapCreator
                 }
             }
         }
-
         /// <summary>
         /// Load Image Delegate
         /// </summary>
@@ -681,10 +680,10 @@ namespace MapCreator
                         }
                     }
                 }
+                
 
                 if (mapFile.Exists)
                 {
-                    Log("Finished without errors!", LogLevel.success);
                     LoadImage(mapFile.FullName);
                     ProgressReset();
                 }
@@ -698,6 +697,20 @@ namespace MapCreator
                 MainForm.Log("Unhandled Exception thrown!", LogLevel.error);
                 MainForm.Log(ex.Message, LogLevel.error);
                 MainForm.Log(ex.StackTrace, LogLevel.error);
+            }
+        }
+
+        private void drawMapBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MainForm.Log("Unhandled Exception thrown!", LogLevel.error);
+                MainForm.Log(e.Error.Message, LogLevel.error);
+                MainForm.Log(e.Error.StackTrace, LogLevel.error);    
+            }
+            else
+            {
+                Log("Finished without errors!", LogLevel.success);
             }
         }
 

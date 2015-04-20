@@ -328,6 +328,12 @@ namespace MapCreator
 
         private void DrawImage(MagickImage overlay, DrawableFixture fixture)
         {
+            if (fixture.IsTree)
+            {
+                DrawTree(overlay, fixture);
+                return;
+            }
+
             //MainForm.Log(string.Format("Image: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
             string fileName = System.IO.Path.GetFileNameWithoutExtension(fixture.NifName);
             string defaultTree = "elm1";
@@ -465,6 +471,88 @@ namespace MapCreator
 
                     // Place the image on the right position
                     overlay.Composite(modelImage, Convert.ToInt32(fixture.CanvasX), Convert.ToInt32(fixture.CanvasY), CompositeOperator.SrcOver);
+                }
+            }
+        }
+
+        private void DrawTree(MagickImage overlay, DrawableFixture fixture)
+        {
+            System.Drawing.Color testColor = System.Drawing.ColorTranslator.FromHtml("#5e683a");
+
+            using (MagickImage pattern = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+            {
+                using (MagickImage patternTexture = new MagickImage(string.Format("{0}\\data\\textures\\{1}.png", System.Windows.Forms.Application.StartupPath, "leaves_mask")))
+                {
+                    patternTexture.Resize(fixture.CanvasWidth / 2, fixture.CanvasHeight / 2);
+                    pattern.Texture(patternTexture);
+
+                    Random rnd = new Random();
+                    pattern.Rotate(rnd.Next(0, 360));
+                    
+                    using (MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+                    {
+                        foreach (DrawableElement drawableElement in fixture.DrawableElements)
+                        {
+                            using (DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates))
+                            {
+                                // A Shaded model without lightning is not shaded... but just we add this just be flexible
+                                if (fixture.RendererConf.HasLight)
+                                {
+                                    float r, g, b, light;
+
+                                    light = (float)drawableElement.lightning * 2f;
+                                    r = fixture.Tree.AverageColor.R * light;
+                                    g = fixture.Tree.AverageColor.G * light;
+                                    b = fixture.Tree.AverageColor.B * light;
+
+
+                                    modelCanvas.FillColor = new MagickColor(
+                                        r * 255,
+                                        g * 255,
+                                        b * 255
+                                    );
+                                }
+                                else
+                                {
+                                    modelCanvas.FillColor = fixture.RendererConf.Color;
+                                }
+
+                                modelCanvas.Draw(polyDraw);
+                            }
+                        }
+
+                        // Add leaves pattern
+                        pattern.Composite(modelCanvas, Gravity.Center, CompositeOperator.DstIn);
+                        modelCanvas.Composite(pattern, Gravity.Center, CompositeOperator.CopyOpacity);
+
+
+                        if (fixture.RendererConf.HasShadow)
+                        {
+                            modelCanvas.BorderColor = MagickColor.Transparent;
+                            modelCanvas.Border((int)fixture.RendererConf.ShadowSize);
+                            modelCanvas.Shadow(
+                                fixture.RendererConf.ShadowOffsetX,
+                                fixture.RendererConf.ShadowOffsetY,
+                                fixture.RendererConf.ShadowSize,
+                                new Percentage(100 - fixture.RendererConf.ShadowTransparency),
+                                fixture.RendererConf.ShadowColor
+                            );
+
+                            // Update the canvas position to match the new border
+                            fixture.CanvasX -= fixture.RendererConf.ShadowSize;
+                            fixture.CanvasY -= fixture.RendererConf.ShadowSize;
+                        }
+
+                        if (fixture.RendererConf.Transparency != 0)
+                        {
+                            modelCanvas.Alpha(AlphaOption.Set);
+
+                            double divideValue = 100.0 / (100.0 - fixture.RendererConf.Transparency);
+                            modelCanvas.Evaluate(Channels.Alpha, EvaluateOperator.Divide, divideValue);
+                        }
+
+                        overlay.Composite(modelCanvas, Convert.ToInt32(fixture.CanvasX), Convert.ToInt32(fixture.CanvasY), CompositeOperator.SrcOver);
+                    }
                 }
             }
         }

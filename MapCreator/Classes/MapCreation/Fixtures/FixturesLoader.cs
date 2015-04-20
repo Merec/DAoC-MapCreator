@@ -125,6 +125,8 @@ namespace MapCreator.Fixtures
                     TreeRow treeRow = new TreeRow();
                     treeRow.Name = fields[0];
                     treeRow.ZOffset = (string.IsNullOrEmpty(fields[4])) ? 0 : Convert.ToInt32(fields[4]);
+                    treeRow.LeafTexture = (string.IsNullOrEmpty(fields[3])) ? "" : fields[3];
+                    treeRow.AverageColor = GetTreeColor(treeRow);
                     treeRows.Add(treeRow);
                 }
 
@@ -172,6 +174,33 @@ namespace MapCreator.Fixtures
             }
 
             MainForm.ProgressReset();
+        }
+
+        private static Dictionary<string, System.Drawing.Color> treeColors = new Dictionary<string,System.Drawing.Color>();
+
+        private static System.Drawing.Color GetTreeColor(TreeRow treeRow)
+        {
+            if (treeColors.ContainsKey(treeRow.Name)) return treeColors[treeRow.Name];
+
+            string treeTextureFile = string.Format("{0}\\zones\\trees\\{1}", Properties.Settings.Default.game_path, treeRow.LeafTexture);
+            if (!File.Exists(treeTextureFile))
+            {
+                MainForm.Log(string.Format("Unable to get texture for tree {0}. Using default color.", treeRow.Name));
+                return System.Drawing.ColorTranslator.FromHtml("#5e683a");
+            }
+            else
+            {
+                using (ImageMagick.MagickImage texture = new ImageMagick.MagickImage(treeTextureFile))
+                {
+                    texture.Resize(1, 1);
+                    ImageMagick.Pixel pixel = texture.GetReadOnlyPixels(0, 0, 1, 1).First();
+
+                    System.Drawing.Color color = pixel.ToColor();
+                    treeColors.Add(treeRow.Name, color);
+                    return color;
+                }
+            }
+
         }
 
         /// <summary>
