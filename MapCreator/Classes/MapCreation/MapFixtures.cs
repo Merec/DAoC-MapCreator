@@ -110,7 +110,7 @@ namespace MapCreator
                 int riverHeight = 0;
                 foreach (KeyValuePair<WaterConfiguration, System.Drawing.Drawing2D.GraphicsPath> river in riverPaths)
                 {
-                    if (river.Value.IsVisible(Convert.ToSingle(modelCenterX), Convert.ToSingle(modelCenterY)));
+                    if (river.Value.IsVisible(Convert.ToSingle(modelCenterX), Convert.ToSingle(modelCenterY)))
                     {
                         riverHeight = river.Key.Height;
                         break;

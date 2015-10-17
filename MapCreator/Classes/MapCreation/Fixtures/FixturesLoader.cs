@@ -302,93 +302,102 @@ namespace MapCreator.Fixtures
             int progressCounter = 0;
             foreach (FixtureRow fixtureRow in fixtureRows)
             {
-                NifRow nifRow = nifRows.Where(n => n.NifId == fixtureRow.NifId).FirstOrDefault();
-                if (nifRow == null) continue;
-
-                DrawableFixture fixture = new DrawableFixture();
-
-                // Set default values
-                fixture.Name = fixtureRow.TextualName;
-                fixture.NifName = nifRow.Filename;
-                fixture.FixtureRow = fixtureRow;
-                fixture.ZoneConf = zoneConf;
-
-                // Get renderer configuration
-                FixtureRendererConfiguration2? rConf = FixtureRendererConfigurations.GetFixtureRendererConfiguration(nifRow.Filename);
-
-                fixture.IsTree = treeRows.Any(t => t.Name.ToLower() == nifRow.Filename.ToLower());
-                fixture.IsTreeCluster = treeClusterRows.Any(tc => tc.Name.ToLower() == nifRow.Filename.ToLower());
-
-                if (rConf != null && (rConf.Value.Name == "TreeShaded" || rConf.Value.Name == "TreeImage"))
+                try
                 {
-                    fixture.IsTree = true;
-                }
+                    NifRow nifRow = nifRows.Where(n => n.NifId == fixtureRow.NifId).FirstOrDefault();
+                    if (nifRow == null) continue;
 
-                if (fixture.IsTree)
-                {
-                    fixture.Tree = treeRows.Where(tc => tc.Name.ToLower() == nifRow.Filename.ToLower()).FirstOrDefault();
-                    fixture.RawPolygons = nifRow.Polygons;
+                    DrawableFixture fixture = new DrawableFixture();
 
-                    if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("TreeImage");
-                    else fixture.RendererConf = rConf.GetValueOrDefault();
-                }
-                else if (fixture.IsTreeCluster)
-                {
-                    fixture.TreeCluster = treeClusterRows.Where(tc => tc.Name.ToLower() == nifRow.Filename.ToLower()).FirstOrDefault();
+                    // Set default values
+                    fixture.Name = fixtureRow.TextualName;
+                    fixture.NifName = nifRow.Filename;
+                    fixture.FixtureRow = fixtureRow;
+                    fixture.ZoneConf = zoneConf;
 
-                    // Get the polygons of the base nif
-                    var treeNif = nifRows.Where(n => n.Filename.ToLower() == fixture.TreeCluster.Tree.ToLower()).FirstOrDefault();
-                    if (treeNif == null) continue;
-                    Polygon[] baseTreePolygons = treeNif.Polygons;
+                    // Get renderer configuration
+                    FixtureRendererConfiguration2? rConf = FixtureRendererConfigurations.GetFixtureRendererConfiguration(nifRow.Filename);
 
-                    // Loop the instances and transform the polygons
-                    List<Polygon> treeClusterPolygons = new List<Polygon>();
-                    foreach (SharpDX.Vector3 tree in fixture.TreeCluster.TreeInstances)
+                    fixture.IsTree = treeRows.Any(t => t.Name.ToLower() == nifRow.Filename.ToLower());
+                    fixture.IsTreeCluster = treeClusterRows.Any(tc => tc.Name.ToLower() == nifRow.Filename.ToLower());
+
+                    if (rConf != null && (rConf.Value.Name == "TreeShaded" || rConf.Value.Name == "TreeImage"))
                     {
-                        foreach (Polygon treePolygon in baseTreePolygons)
+                        fixture.IsTree = true;
+                    }
+
+                    if (fixture.IsTree)
+                    {
+                        fixture.Tree = treeRows.Where(tc => tc.Name.ToLower() == nifRow.Filename.ToLower()).FirstOrDefault();
+                        fixture.RawPolygons = nifRow.Polygons;
+
+                        if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("TreeImage");
+                        else fixture.RendererConf = rConf.GetValueOrDefault();
+                    }
+                    else if (fixture.IsTreeCluster)
+                    {
+                        fixture.TreeCluster = treeClusterRows.Where(tc => tc.Name.ToLower() == nifRow.Filename.ToLower()).FirstOrDefault();
+
+                        // Get the polygons of the base nif
+                        var treeNif = nifRows.Where(n => n.Filename.ToLower() == fixture.TreeCluster.Tree.ToLower()).FirstOrDefault();
+                        if (treeNif == null) continue;
+                        Polygon[] baseTreePolygons = treeNif.Polygons;
+
+                        // Loop the instances and transform the polygons
+                        List<Polygon> treeClusterPolygons = new List<Polygon>();
+                        foreach (SharpDX.Vector3 tree in fixture.TreeCluster.TreeInstances)
                         {
-                            Polygon newPolygon = new Polygon(treePolygon.P1, treePolygon.P2, treePolygon.P3);
-                            for (int i = 0; i < newPolygon.Vectors.Length; i++)
+                            foreach (Polygon treePolygon in baseTreePolygons)
                             {
-                                newPolygon.Vectors[i].X -= tree.X;
-                                newPolygon.Vectors[i].Y += tree.Y;
-                                newPolygon.Vectors[i].Z += tree.Z;
+                                Polygon newPolygon = new Polygon(treePolygon.P1, treePolygon.P2, treePolygon.P3);
+                                for (int i = 0; i < newPolygon.Vectors.Length; i++)
+                                {
+                                    newPolygon.Vectors[i].X -= tree.X;
+                                    newPolygon.Vectors[i].Y += tree.Y;
+                                    newPolygon.Vectors[i].Z += tree.Z;
+                                }
+                                treeClusterPolygons.Add(newPolygon);
                             }
-                            treeClusterPolygons.Add(newPolygon);
                         }
+                        fixture.RawPolygons = treeClusterPolygons;
+
+                        if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("TreeImage");
+                        else fixture.RendererConf = rConf.GetValueOrDefault();
                     }
-                    fixture.RawPolygons = treeClusterPolygons;
-
-                    if (rConf == null) fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("TreeImage");
-                    else fixture.RendererConf = rConf.GetValueOrDefault();
-                }
-                else
-                {
-                    fixture.RawPolygons = nifRow.Polygons;
-
-                    if (rConf == null)
+                    else
                     {
-                        string nifFilenamWithoutExtension = Path.GetFileNameWithoutExtension(fixture.NifName);
-                        if (nifObjectImages.Contains(nifFilenamWithoutExtension.ToLower()))
+                        fixture.RawPolygons = nifRow.Polygons;
+
+                        if (rConf == null)
                         {
-                            fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("Prerendered");
+                            string nifFilenamWithoutExtension = Path.GetFileNameWithoutExtension(fixture.NifName);
+                            if (nifObjectImages.Contains(nifFilenamWithoutExtension.ToLower()))
+                            {
+                                fixture.RendererConf = FixtureRendererConfigurations.GetRendererById("Prerendered");
+                            }
+                            else
+                            {
+                                fixture.RendererConf = FixtureRendererConfigurations.DefaultConfiguration;
+                            }
                         }
-                        else
-                        {
-                            fixture.RendererConf = FixtureRendererConfigurations.DefaultConfiguration;
-                        }
+                        else fixture.RendererConf = rConf.GetValueOrDefault();
                     }
-                    else fixture.RendererConf = rConf.GetValueOrDefault();
+
+                    // Calculate the final look of the model
+                    fixture.Calc();
+
+                    drawables.Add(fixture);
+
+                    progressCounter++;
+                    int percent = 100 * progressCounter / fixtureRows.Count;
+                    MainForm.ProgressUpdate(percent);
                 }
-
-                // Calculate the final look of the model
-                fixture.Calc();
-
-                drawables.Add(fixture);
-
-                progressCounter++;
-                int percent = 100 * progressCounter / fixtureRows.Count;
-                MainForm.ProgressUpdate(percent);
+                catch
+                {
+                    // TODO: Send meesage to client
+                    MainForm.Log(string.Format("Error in fixture row of {0} (x: {1}, y: {2}, z: {3})", fixtureRow.TextualName, fixtureRow.X, fixtureRow.Y, fixtureRow.Z));
+                    continue;
+                }
             }
 
             MainForm.Log("Fixtures prepared!", MainForm.LogLevel.success);
