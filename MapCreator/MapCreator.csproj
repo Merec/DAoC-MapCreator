@@ -195,6 +195,7 @@
     <Reference Include="Magick.NET, Version=6.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Magick.NET-$(Platform).dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MPKLib, Version=1.0.3541.36583, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -208,6 +209,10 @@
     <Reference Include="MWControls, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\MWControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Niflib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Niflib.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.dll</HintPath>
@@ -508,15 +513,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="filever.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="fixtures.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
     <Content Include="lib\ICSharpCode.SharpZipLib.dll" />
     <Content Include="lib\Magick.NET-x64.dll" />
-    <Content Include="lib\Magick.NET-x64.xml" />
-    <Content Include="lib\Magick.NET-x86.dll" />
-    <Content Include="lib\Magick.NET-x86.xml" />
+    <Content Include="lib\Niflib.dll" />
+    <None Include="lib\Magick.NET-x64.xml" />
+    <None Include="lib\Magick.NET-x86.dll" />
+    <None Include="lib\Magick.NET-x86.xml" />
     <Content Include="lib\MPKLib.dll" />
     <Content Include="lib\MWCommon.dll" />
     <Content Include="lib\MWControls.dll" />
@@ -547,11 +556,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Niflib.NET\NifLib.NET\NifLib.NET.csproj">
-      <Project>{52F83B1D-16F5-4776-B862-A937BC01FA43}</Project>
-      <Name>NifLib.NET</Name>
-      <Private>True</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\NifParser\NifParser\NifUtil.csproj">
       <Project>{5DBE9619-3038-463E-9C7A-51C8043344EE}</Project>
       <Name>NifUtil</Name>
@@ -569,14 +573,21 @@ mkdir "$(TargetDir)lib"
 copy /Y "$(ProjectDir)lib\Magick.NET-$(PlatformName).dll" "$(TargetDir)lib"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>move "$(TargetDir)\*.dll" "$(TargetDir)\lib\"
+    <PostBuildEvent>move "$(TargetDir)*.dll" "$(TargetDir)lib\"
 del SharpDX.xml
+del Magick.NET-$(PlatformName).xml
+
+REM Get file version
+for /F "tokens=4" %25%25F in ('filever.exe /B /A /D $(TargetPath)') do (
+  set VERSION=%25%25F
+)
+del filever.exe
 
 if "$(ConfigurationName)" == "Release" (
-    "C:\Program Files\7-Zip\7z" a -tzip MapCreator-$(PlatformName).zip * -x!*.zip
+    "C:\Program Files\7-Zip\7z" a -tzip ..\MapCreator-%25VERSION%25-$(PlatformName).zip * -x!*.zip
 )
 if "$(ConfigurationName)" == "Release x86" (
-    "C:\Program Files\7-Zip\7z" a -tzip MapCreator-$(PlatformName).zip * -x!*.zip
+    "C:\Program Files\7-Zip\7z" a -tzip ..\MapCreator-%25VERSION%25-$(PlatformName).zip * -x!*.zip
 )</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('..\packages\SharpDX.2.6.3\build\SharpDX.targets')" />
