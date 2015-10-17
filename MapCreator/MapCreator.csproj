@@ -556,13 +556,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NifParser\NifParser\NifUtil.csproj">
-      <Project>{5DBE9619-3038-463E-9C7A-51C8043344EE}</Project>
+    <ProjectReference Include="..\NifUtil\NifUtil.csproj">
+      <Project>{5dbe9619-3038-463e-9c7a-51c8043344ee}</Project>
       <Name>NifUtil</Name>
-      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>IF "$(ConfigurationName)" == "Release" (
