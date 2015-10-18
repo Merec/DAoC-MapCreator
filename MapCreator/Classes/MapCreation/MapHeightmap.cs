@@ -71,7 +71,7 @@ namespace MapCreator
             {
                 using (MagickImage terrainmap = zoneConfiguration.GetTerrainMap())
                 {
-                    m_heightmap = new MagickImage(Color.Transparent, offsetmap.Width, offsetmap.Height);
+                    m_heightmap = new MagickImage(Color.Black, offsetmap.Width, offsetmap.Height);
 
                     using (WritablePixelCollection heightmapPixels = m_heightmap.GetWritablePixels())
                     {
@@ -86,7 +86,7 @@ namespace MapCreator
                                 ushort offsetPixelValue = (ushort)(offsetPixels[x, y].GetChannel(0) / 256);
                                 ushort heightmapPixelValue = (ushort)(terrainPixelValue * m_terrainfactor + offsetPixelValue * m_offsetfactor);
 
-                                heightmapPixels.Set(x, y, new ushort[] { heightmapPixelValue, heightmapPixelValue, heightmapPixelValue, 0 });
+                                heightmapPixels.Set(x, y, new ushort[] { heightmapPixelValue, heightmapPixelValue, heightmapPixelValue });
                             }
 
                             int percent = 100 * x / offsetmap.Width;

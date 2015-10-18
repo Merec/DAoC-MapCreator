@@ -230,10 +230,10 @@ namespace MapCreator
                                     if (y < 0) continue;
                                     if (y >= zoneConfiguration.TargetMapSize) continue;
 
-                                    double pixelHeight = heightmapPixels.GetPixel(x, y).GetChannel(0);
+                                    ushort pixelHeight = heightmapPixels.GetPixel(x, y).GetChannel(0);
                                     if (pixelHeight > river.Height)
                                     {
-                                        Pixel newPixel = new Pixel(x, y, new ushort[] { 0, 0, 0, ushort.MaxValue });
+                                        Pixel newPixel = new Pixel(x, y, new ushort[] { 0, 0, 0, ushort.MinValue });
                                         riverPixelCollection.Set(newPixel);
                                     }
                                 }
