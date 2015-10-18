@@ -86,7 +86,7 @@ namespace MapCreator
             // Get the heightmap
             MagickImage heightmap = zoneConfiguration.Heightmap.Heightmap;
 
-            using (MagickImage lightmap = new MagickImage(Color.Transparent, 256, 256))
+            using (MagickImage lightmap = new MagickImage(Color.Black, 256, 256))
             {
                 using (PixelCollection heightmapPixels = heightmap.GetReadOnlyPixels())
                 {
@@ -125,7 +125,18 @@ namespace MapCreator
                                 double ndotl = (nx * lightVector[0] + ny * lightVector[1] + nzlz) / m_normal;
 
                                 double pixelValue = lightBase - ndotl * lightScale * 256d;
-                                lightmapPixels.Set(x, y, new ushort[] { (ushort)pixelValue, (ushort)pixelValue, (ushort)pixelValue, 0 });
+
+                                ushort pixelValueDiff = 0;
+                                if(pixelValue < 0)
+                                {
+                                    pixelValueDiff = 0;
+                                }
+                                else
+                                {
+                                    pixelValueDiff = (ushort)pixelValue;
+                                }
+
+                                lightmapPixels.Set(x, y, new ushort[] { pixelValueDiff, pixelValueDiff, pixelValueDiff });
                             }
 
                             int percent = 100 * y / lightmap.Height;
@@ -135,6 +146,7 @@ namespace MapCreator
                 }
 
                 MainForm.ProgressStartMarquee("Merging...");
+                lightmap.Blur(0.0, 0.5);
                 lightmap.Resize(zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize);
 
                 // Apply the bumpmap using ColorDodge
