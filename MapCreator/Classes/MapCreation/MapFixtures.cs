@@ -249,24 +249,24 @@ namespace MapCreator
             {
                 foreach (DrawableElement drawableElement in fixture.DrawableElements)
                 {
-                    using (DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates))
+                    DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates);
+                    
+                    // A Shaded model without lightning is not shaded... but just we add this just be flexible
+                    if (fixture.RendererConf.HasLight)
                     {
-                        // A Shaded model without lightning is not shaded... but just we add this just be flexible
-                        if (fixture.RendererConf.HasLight)
-                        {
-                            modelCanvas.FillColor = new MagickColor(
-                                Convert.ToSingle(drawableElement.lightning * fixture.RendererConf.Color.R),
-                                Convert.ToSingle(drawableElement.lightning * fixture.RendererConf.Color.G),
-                                Convert.ToSingle(drawableElement.lightning * fixture.RendererConf.Color.B)
-                            );
-                        }
-                        else
-                        {
-                            modelCanvas.FillColor = fixture.RendererConf.Color;
-                        }
-
-                        modelCanvas.Draw(polyDraw);
+                        modelCanvas.FillColor = new MagickColor(
+                            Convert.ToUInt16(drawableElement.lightning * fixture.RendererConf.Color.R),
+                            Convert.ToUInt16(drawableElement.lightning * fixture.RendererConf.Color.G),
+                            Convert.ToUInt16(drawableElement.lightning * fixture.RendererConf.Color.B)
+                        );
                     }
+                    else
+                    {
+                        modelCanvas.FillColor = fixture.RendererConf.Color;
+                    }
+
+                    modelCanvas.Draw(polyDraw);
+                    
                 }
 
                 if (fixture.RendererConf.HasShadow)
@@ -308,10 +308,8 @@ namespace MapCreator
 
                 foreach (DrawableElement drawableElement in fixture.DrawableElements)
                 {
-                    using (DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates))
-                    {
-                        modelCanvas.Draw(polyDraw);
-                    }
+                    DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates);
+                    modelCanvas.Draw(polyDraw);
                 }
 
                 if (fixture.RendererConf.HasShadow)
@@ -443,15 +441,13 @@ namespace MapCreator
                             foreach (DrawableElement drawableElement in fixture.DrawableElements)
                             {
                                 modelShaped.FillColor = new MagickColor(
-                                    Convert.ToSingle(128 * 256 * drawableElement.lightning),
-                                    Convert.ToSingle(128 * 256 * drawableElement.lightning),
-                                    Convert.ToSingle(128 * 256 * drawableElement.lightning)
+                                    Convert.ToUInt16(128 * 256 * drawableElement.lightning),
+                                    Convert.ToUInt16(128 * 256 * drawableElement.lightning),
+                                    Convert.ToUInt16(128 * 256 * drawableElement.lightning)
                                 );
 
-                                using (DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates))
-                                {
-                                    modelShaped.Draw(polyDraw);
-                                }
+                                DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates);
+                                modelShaped.Draw(polyDraw);
                             }
 
                             // Remove outstanding edges from the shape using the replacing image
@@ -510,37 +506,36 @@ namespace MapCreator
                     {
                         foreach (DrawableElement drawableElement in fixture.DrawableElements)
                         {
-                            using (DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates))
+                            DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates);
+                            
+                            // A Shaded model without lightning is not shaded... but just we add this just be flexible
+                            if (fixture.RendererConf.HasLight)
                             {
-                                // A Shaded model without lightning is not shaded... but just we add this just be flexible
-                                if (fixture.RendererConf.HasLight)
-                                {
-                                    float r, g, b, light;
+                                float r, g, b, light;
 
-                                    light = (float)drawableElement.lightning * 2f;
-                                    r = fixture.Tree.AverageColor.R * light;
-                                    g = fixture.Tree.AverageColor.G * light;
-                                    b = fixture.Tree.AverageColor.B * light;
+                                light = (float)drawableElement.lightning * 2f;
+                                r = fixture.Tree.AverageColor.R * light;
+                                g = fixture.Tree.AverageColor.G * light;
+                                b = fixture.Tree.AverageColor.B * light;
 
 
-                                    modelCanvas.FillColor = new MagickColor(
-                                        r * 255,
-                                        g * 255,
-                                        b * 255
-                                    );
-                                }
-                                else
-                                {
-                                    modelCanvas.FillColor = fixture.RendererConf.Color;
-                                }
-
-                                modelCanvas.Draw(polyDraw);
+                                modelCanvas.FillColor = new MagickColor(
+                                    Convert.ToUInt16(r * 255),
+                                    Convert.ToUInt16(g * 255),
+                                    Convert.ToUInt16(b * 255)
+                                );
                             }
+                            else
+                            {
+                                modelCanvas.FillColor = fixture.RendererConf.Color;
+                            }
+
+                            modelCanvas.Draw(polyDraw);
                         }
 
                         // Add leaves pattern
                         pattern.Composite(modelCanvas, Gravity.Center, CompositeOperator.DstIn);
-                        modelCanvas.Composite(pattern, Gravity.Center, CompositeOperator.CopyOpacity);
+                        modelCanvas.Composite(pattern, Gravity.Center, CompositeOperator.CopyAlpha);
 
 
                         if (fixture.RendererConf.HasShadow)
@@ -637,15 +632,13 @@ namespace MapCreator
                         foreach (DrawableElement drawableElement in fixture.DrawableElements)
                         {
                             modelCanvas.FillColor = new MagickColor(
-                                Convert.ToSingle(128 * 256 * drawableElement.lightning),
-                                Convert.ToSingle(128 * 256 * drawableElement.lightning),
-                                Convert.ToSingle(128 * 256 * drawableElement.lightning)
+                                Convert.ToUInt16(128 * 256 * drawableElement.lightning),
+                                Convert.ToUInt16(128 * 256 * drawableElement.lightning),
+                                Convert.ToUInt16(128 * 256 * drawableElement.lightning)
                             );
 
-                            using (DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates))
-                            {
-                                modelCanvas.Draw(polyDraw);
-                            }
+                            DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates);
+                            modelCanvas.Draw(polyDraw);
                         }
 
                         modelCanvas.Composite(treeCluster, Gravity.Center, CompositeOperator.DstIn);

@@ -355,10 +355,8 @@ namespace MapCreator
                 boundMap.FillColor = m_boundsColor;
                 foreach (List<Coordinate> coords in polygons)
                 {
-                    using (DrawablePolygon poly = new DrawablePolygon(coords))
-                    {
-                        boundMap.Draw(poly);
-                    }
+                    DrawablePolygon poly = new DrawablePolygon(coords);
+                    boundMap.Draw(poly);
 
                     progressCounter++;
                     int percent = 100 * progressCounter / m_bounds.Count();
@@ -373,10 +371,8 @@ namespace MapCreator
 
                         foreach (List<Coordinate> coords in negatedPolygons)
                         {
-                            using (DrawablePolygon poly = new DrawablePolygon(coords))
-                            {
-                                negatedBoundMap.Draw(poly);
-                            }
+                            DrawablePolygon poly = new DrawablePolygon(coords);
+                            negatedBoundMap.Draw(poly);
 
                             progressCounter++;
                             int percent = 100 * progressCounter / m_bounds.Count();
@@ -427,12 +423,11 @@ namespace MapCreator
                 using (MagickImage bound = new MagickImage(MagickColor.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
                 {
                     List<Coordinate> coords = allCoords.Select(c => new Coordinate(zoneConfiguration.ZoneCoordinateToMapCoordinate(c.X), zoneConfiguration.ZoneCoordinateToMapCoordinate(c.Y))).ToList();
-                    using (DrawablePolygon poly = new DrawablePolygon(coords))
-                    {
-                        bound.FillColor = new MagickColor(0, 0, 0, 256 * 128);
-                        bound.Draw(poly);
-                    }
 
+                    DrawablePolygon poly = new DrawablePolygon(coords);
+                    bound.FillColor = new MagickColor(0, 0, 0, 256 * 128);
+                    bound.Draw(poly);
+                    
                     // Print Text
                     for (int i = 0; i < coords.Count; i++)
                     {
@@ -446,11 +441,9 @@ namespace MapCreator
 
                         bound.FontPointsize = 10.0;
                         bound.FillColor = Color.Black;
-                        using (DrawableText text = new DrawableText(x, y, string.Format("{0} ({1}/{2})", i, zoneConfiguration.MapCoordinateToZoneCoordinate(coords[i].X), zoneConfiguration.MapCoordinateToZoneCoordinate(coords[i].Y))))
-                        {
-                            bound.Draw(text);
-                        }
-
+                        DrawableText text = new DrawableText(x, y, string.Format("{0} ({1}/{2})", i, zoneConfiguration.MapCoordinateToZoneCoordinate(coords[i].X), zoneConfiguration.MapCoordinateToZoneCoordinate(coords[i].Y)));
+                        bound.Draw(text);
+                        
                         using (WritablePixelCollection pixels = bound.GetWritablePixels())
                         {
                             int x2, y2;
@@ -459,7 +452,7 @@ namespace MapCreator
                             if (coords[i].Y == zoneConfiguration.TargetMapSize) y2 = zoneConfiguration.TargetMapSize - 1;
                             else y2 = (int)coords[i].Y;
 
-                            pixels.Set(x2, y2, new float[] { 0, 0, 65535, 0 });
+                            pixels.Set(x2, y2, new ushort[] { 0, 0, 65535, 0 });
                         }
                     }
 

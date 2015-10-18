@@ -125,7 +125,7 @@ namespace MapCreator
                                 double ndotl = (nx * lightVector[0] + ny * lightVector[1] + nzlz) / m_normal;
 
                                 double pixelValue = lightBase - ndotl * lightScale * 256d;
-                                lightmapPixels.Set(x, y, new float[] { (float)pixelValue, (float)pixelValue, (float)pixelValue, 0 });
+                                lightmapPixels.Set(x, y, new ushort[] { (ushort)pixelValue, (ushort)pixelValue, (ushort)pixelValue, 0 });
                             }
 
                             int percent = 100 * y / lightmap.Height;

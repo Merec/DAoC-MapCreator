@@ -82,11 +82,11 @@ namespace MapCreator
                         {
                             for (int y = 0; y < offsetmap.Height; y++)
                             {
-                                float terrainPixelValue = terrainPixels[x, y].GetChannel(0) / 256;
-                                float offsetPixelValue = offsetPixels[x, y].GetChannel(0) / 256;
-                                float heightmapPixelValue = (terrainPixelValue * m_terrainfactor + offsetPixelValue * m_offsetfactor);
+                                ushort terrainPixelValue = (ushort)(terrainPixels[x, y].GetChannel(0) / 256);
+                                ushort offsetPixelValue = (ushort)(offsetPixels[x, y].GetChannel(0) / 256);
+                                ushort heightmapPixelValue = (ushort)(terrainPixelValue * m_terrainfactor + offsetPixelValue * m_offsetfactor);
 
-                                heightmapPixels.Set(x, y, new float[] { heightmapPixelValue, heightmapPixelValue, heightmapPixelValue, 0 });
+                                heightmapPixels.Set(x, y, new ushort[] { heightmapPixelValue, heightmapPixelValue, heightmapPixelValue, 0 });
                             }
 
                             int percent = 100 * x / offsetmap.Width;

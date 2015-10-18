@@ -119,9 +119,10 @@ namespace MapCreator
                     using (MagickImage mapTile = new MagickImage(mpak.GetFile(filename).Data))
                     {
                         int newSize = Convert.ToInt32(mapTile.Width * resizeFactor);
+                        //mapTile.Interpolate = PixelInterpolateMethod.Bilinear;
                         mapTile.Resize(newSize, newSize);
                         map.Composite(mapTile, x, y, CompositeOperator.SrcOver);
-
+                         
                         // Calculate new y
                         y += mapTile.Height;
                         lastWidth = mapTile.Height;

@@ -152,10 +152,10 @@ namespace MapCreator
             string textureFile = string.Format("{0}\\data\\textures\\watery.dds", System.Windows.Forms.Application.StartupPath);
             
             MagickImage tex = new MagickImage(textureFile);
-            tex.ColorSpace = ColorSpace.GRAY;
+            tex.ColorSpace = ColorSpace.Gray;
             double texResize = (1 - 256.0 / zoneConfiguration.TargetMapSize) * (zoneConfiguration.TargetMapSize * 0.0001);
             if (texResize < 0) texResize = 0.1;
-            tex.Resize(texResize);
+            tex.Resize(new Percentage(texResize));
 
             m_waterTexture = tex;
             return m_waterTexture;
@@ -170,7 +170,7 @@ namespace MapCreator
             MagickImage tex = new MagickImage(textureFile);
             //tex.ColorSpace = ColorSpace.GRAY;
             double texResize = (1 - 256.0 / zoneConfiguration.TargetMapSize) * (zoneConfiguration.TargetMapSize * 0.0001);
-            tex.Resize(texResize);
+            tex.Resize(new Percentage(texResize));
 
             m_lavaTexture = tex;
             return m_lavaTexture;
@@ -207,10 +207,8 @@ namespace MapCreator
                                 texture.Composite(pattern, 0, 0, CompositeOperator.ColorDodge);
 
                                 water.FillPattern = texture;
-                                using (DrawablePolygon poly = new DrawablePolygon(riverCoordinates))
-                                {
-                                    water.Draw(poly);
-                                }
+                                DrawablePolygon poly = new DrawablePolygon(riverCoordinates);
+                                water.Draw(poly);
                             }
                         }
 
@@ -235,7 +233,7 @@ namespace MapCreator
                                     double pixelHeight = heightmapPixels.GetPixel(x, y).GetChannel(0);
                                     if (pixelHeight > river.Height)
                                     {
-                                        Pixel newPixel = new Pixel(x, y, new float[] { 0, 0, 0, 256 * 256 });
+                                        Pixel newPixel = new Pixel(x, y, new ushort[] { 0, 0, 0, ushort.MaxValue });
                                         riverPixelCollection.Set(newPixel);
                                     }
                                 }
@@ -283,15 +281,13 @@ namespace MapCreator
             using (MagickImage debugRiver = new MagickImage(MagickColor.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
             {
                 debugRiver.BackgroundColor = Color.White;
-                debugRiver.FillColor = new MagickColor(0, 0, 256 * 256, 256 * 128);
+                debugRiver.FillColor = new MagickColor(0, 0, ushort.MaxValue, 256 * 128);
 
                 double resizeFactor = zoneConfiguration.TargetMapSize / zoneConfiguration.Heightmap.Heightmap.Width;
 
-                using (DrawablePolygon poly = new DrawablePolygon(riverCoordinates))
-                {
-                    debugRiver.Draw(poly);
-                }
-
+                DrawablePolygon poly = new DrawablePolygon(riverCoordinates);
+                debugRiver.Draw(poly);
+                
                 List<Coordinate> orginalCoords = river.GetCoordinates();
                 for (int i = 0; i < riverCoordinates.Count(); i++)
                 {
@@ -305,10 +301,8 @@ namespace MapCreator
 
                     debugRiver.FontPointsize = 14.0;
                     debugRiver.FillColor = Color.Black;
-                    using (DrawableText text = new DrawableText(x, y, string.Format("{0} ({1}/{2})", i, orginalCoords[i].X, orginalCoords[i].Y)))
-                    {
-                        debugRiver.Draw(text);
-                    }
+                    DrawableText text = new DrawableText(x, y, string.Format("{0} ({1}/{2})", i, orginalCoords[i].X, orginalCoords[i].Y));
+                    debugRiver.Draw(text);
                 }
 
                 debugRiver.Quality = 100;
