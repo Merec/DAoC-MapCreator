@@ -1,3 +1,4 @@
+# Base
 Thumbs.db
 *.obj
 *.exe
@@ -28,4 +29,8 @@ _ReSharper*/
 *.vssscc
 $tf*/
 
+# NuGet Packages
 /packages
+
+# Exceptions
+!/tools/filever.exe

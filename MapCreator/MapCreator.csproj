@@ -28,6 +28,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>MapCreator.Program</StartupObject>
@@ -189,30 +191,30 @@
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\libs\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magick.NET, Version=6.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Magick.NET-$(Platform).dll</HintPath>
+      <HintPath>..\libs\Magick.NET-$(Platform).dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MPKLib, Version=1.0.3541.36583, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\MPKLib.dll</HintPath>
+      <HintPath>..\libs\MPKLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MWCommon, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\MWCommon.dll</HintPath>
+      <HintPath>..\libs\MWCommon.dll</HintPath>
     </Reference>
     <Reference Include="MWControls, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\MWControls.dll</HintPath>
+      <HintPath>..\libs\MWControls.dll</HintPath>
     </Reference>
     <Reference Include="Niflib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Niflib.dll</HintPath>
+      <HintPath>..\libs\Niflib.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.dll</HintPath>
@@ -513,22 +515,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="filever.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="fixtures.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="lib\ICSharpCode.SharpZipLib.dll" />
-    <Content Include="lib\Magick.NET-x64.dll" />
-    <Content Include="lib\Niflib.dll" />
-    <None Include="lib\Magick.NET-x64.xml" />
-    <None Include="lib\Magick.NET-x86.dll" />
-    <None Include="lib\Magick.NET-x86.xml" />
-    <Content Include="lib\MPKLib.dll" />
-    <Content Include="lib\MWCommon.dll" />
-    <Content Include="lib\MWControls.dll" />
     <Content Include="icon.ico" />
     <None Include="Resources\MapCreatorInfo.jpg" />
     <None Include="Resources\dol_small.png" />
@@ -564,22 +554,27 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>IF "$(ConfigurationName)" == "Release" (
-    rmdir /s /q "$(TargetDir)"
+  rmdir /s /q "$(TargetDir)"
+
 )
 
-mkdir "$(TargetDir)lib"
-copy /Y "$(ProjectDir)lib\Magick.NET-$(PlatformName).dll" "$(TargetDir)lib"</PreBuildEvent>
+
+mkdir "$(TargetDir)libs"
+
+
+copy /Y "$(SolutionDir)libs\Magick.NET-$(PlatformName).dll" "$(TargetDir)libs"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>move "$(TargetDir)*.dll" "$(TargetDir)lib\"
+    <PostBuildEvent>move "$(TargetDir)*.dll" "$(TargetDir)libs\"
 del SharpDX.xml
 del Magick.NET-$(PlatformName).xml
 
+
 REM Get file version
-for /F "tokens=4" %25%25F in ('filever.exe /B /A /D $(TargetPath)') do (
+for /F "tokens=4" %25%25F in ('$(SolutionDir)tools\filever.exe /B /A /D $(TargetPath)') do (
   set VERSION=%25%25F
 )
-del filever.exe
+
 
 if "$(ConfigurationName)" == "Release" (
     "C:\Program Files\7-Zip\7z" a -tzip ..\MapCreator-%25VERSION%25-$(PlatformName).zip * -x!*.zip
@@ -591,7 +586,7 @@ if "$(ConfigurationName)" == "Release x86" (
   <Import Project="..\packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('..\packages\SharpDX.2.6.3\build\SharpDX.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Aktivieren Sie die Wiederherstellung von NuGet-Paketen, um die fehlende Datei herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\SharpDX.2.6.3\build\SharpDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SharpDX.2.6.3\build\SharpDX.targets'))" />
   </Target>
