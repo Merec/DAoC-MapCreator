@@ -577,10 +577,10 @@ for /F "tokens=4" %25%25F in ('$(SolutionDir)tools\filever.exe /B /A /D $(Target
 
 
 if "$(ConfigurationName)" == "Release" (
-    "C:\Program Files\7-Zip\7z" a -tzip ..\MapCreator-%25VERSION%25-$(PlatformName).zip * -x!*.zip
+    "$(SolutionDir)packages\7ZipCLI.9.20.0\tools\7za.exe" a -tzip ..\MapCreator-%25VERSION%25-$(PlatformName).zip * -x!*.zip
 )
 if "$(ConfigurationName)" == "Release x86" (
-    "C:\Program Files\7-Zip\7z" a -tzip ..\MapCreator-%25VERSION%25-$(PlatformName).zip * -x!*.zip
+    "$(SolutionDir)packages\7ZipCLI.9.20.0\tools\7za.exe" a -tzip ..\MapCreator-%25VERSION%25-$(PlatformName).zip * -x!*.zip
 )</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('..\packages\SharpDX.2.6.3\build\SharpDX.targets')" />
