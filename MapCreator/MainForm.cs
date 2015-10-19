@@ -610,7 +610,7 @@ namespace MapCreator
                     MapBackground background = new MapBackground(conf);
 
                     MainForm.Log("Rendering background ...", LogLevel.notice);
-                    using (ImageMagick.MagickImage map = background.Draw())
+                    using (MagickImage map = background.Draw())
                     {
                         if (map != null)
                         {

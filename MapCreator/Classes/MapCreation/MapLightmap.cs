@@ -86,7 +86,7 @@ namespace MapCreator
             // Get the heightmap
             MagickImage heightmap = zoneConfiguration.Heightmap.Heightmap;
 
-            using (MagickImage lightmap = new MagickImage(Color.Black, 256, 256))
+            using (MagickImage lightmap = new MagickImage(Color.Transparent, 256, 256))
             {
                 using (PixelCollection heightmapPixels = heightmap.GetReadOnlyPixels())
                 {
@@ -127,16 +127,21 @@ namespace MapCreator
                                 double pixelValue = lightBase - ndotl * lightScale * 256d;
 
                                 ushort pixelValueDiff = 0;
+                                ushort alphaValue = ushort.MaxValue;
                                 if(pixelValue < 0)
                                 {
                                     pixelValueDiff = 0;
+                                    alphaValue = (ushort)pixelValue;
                                 }
                                 else
                                 {
                                     pixelValueDiff = (ushort)pixelValue;
                                 }
 
-                                lightmapPixels.Set(x, y, new ushort[] { pixelValueDiff, pixelValueDiff, pixelValueDiff });
+                                // ColorDodge map
+                                // white lightens areas where black does nothing
+                                // alpha darkens areas
+                                lightmapPixels.Set(x, y, new ushort[] { pixelValueDiff, pixelValueDiff, pixelValueDiff, alphaValue });
                             }
 
                             int percent = 100 * y / lightmap.Height;
@@ -148,6 +153,7 @@ namespace MapCreator
                 MainForm.ProgressStartMarquee("Merging...");
                 lightmap.Blur(0.0, 0.5);
                 lightmap.Resize(zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize);
+                //lightmap.Write("lightmap.png");
 
                 // Apply the bumpmap using ColorDodge
                 map.Composite(lightmap, 0, 0, CompositeOperator.ColorDodge);

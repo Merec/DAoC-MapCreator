@@ -182,7 +182,7 @@ namespace MapCreator
                     conf.ShadowOffsetX = Convert.ToInt32(!string.IsNullOrEmpty(shadow.Attribute("offset_x").Value) ? shadow.Attribute("offset_x").Value : "0");
                     conf.ShadowOffsetY = Convert.ToInt32(!string.IsNullOrEmpty(shadow.Attribute("offset_y").Value) ? shadow.Attribute("offset_y").Value : "0");
                     conf.ShadowSize = Convert.ToDouble(!string.IsNullOrEmpty(shadow.Attribute("size").Value) ? shadow.Attribute("size").Value : "1", provider);
-                    conf.ShadowTransparency = Convert.ToInt32(!string.IsNullOrEmpty(shadow.Attribute("size").Value) ? shadow.Attribute("size").Value : "75");
+                    conf.ShadowTransparency = Convert.ToInt32(!string.IsNullOrEmpty(shadow.Attribute("transparency").Value) ? shadow.Attribute("transparency").Value : "75");
                 }
 
                 if (!string.IsNullOrEmpty(node.Attribute("is_default").Value) && Convert.ToBoolean(node.Attribute("is_default").Value) == true)

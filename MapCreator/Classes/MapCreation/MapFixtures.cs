@@ -343,11 +343,6 @@ namespace MapCreator
 
         private void DrawImage(MagickImage overlay, DrawableFixture fixture)
         {
-            if (fixture.IsTree)
-            {
-                DrawTree(overlay, fixture);
-                return;
-            }
 
             //MainForm.Log(string.Format("Image: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
             string fileName = System.IO.Path.GetFileNameWithoutExtension(fixture.NifName);
@@ -369,6 +364,8 @@ namespace MapCreator
                 }
             }
 
+            // TreeClusters are sets of trees in a specified arrangement
+            // They need to be drawe separately
             if (fixture.IsTreeCluster)
             {
                 DrawTreeCluster(overlay, fixture);
