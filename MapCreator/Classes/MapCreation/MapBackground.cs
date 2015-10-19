@@ -120,7 +120,8 @@ namespace MapCreator
                     {
                         int newSize = Convert.ToInt32(mapTile.Width * resizeFactor);
                         //mapTile.Interpolate = PixelInterpolateMethod.Bilinear;
-                        mapTile.Resize(newSize, newSize);
+                        mapTile.AdaptiveResize(newSize, newSize);
+                        //mapTile.Write("tile" + col + "_" + row + ".jpg");
                         map.Composite(mapTile, x, y, CompositeOperator.SrcOver);
                          
                         // Calculate new y
@@ -145,7 +146,7 @@ namespace MapCreator
             if (this.flipY) map.Flip();
 
             // Sharpen (tested a lot, seems to be the best values)
-            map.Sharpen(4, 3);
+            //map.Sharpen(4, 3);
 
             MainForm.ProgressReset();
 
