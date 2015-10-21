@@ -152,8 +152,10 @@ namespace MapCreator
 
                 MainForm.ProgressStartMarquee("Merging...");
                 lightmap.Blur(0.0, 0.5);
-                lightmap.AdaptiveResize(zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize);
-                //lightmap.Write("lightmap.png");
+
+                lightmap.VirtualPixelMethod = VirtualPixelMethod.Transparent;
+                lightmap.FilterType = FilterType.Gaussian;
+                lightmap.Resize(zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize);
 
                 // Apply the bumpmap using ColorDodge
                 map.Composite(lightmap, 0, 0, CompositeOperator.ColorDodge);
