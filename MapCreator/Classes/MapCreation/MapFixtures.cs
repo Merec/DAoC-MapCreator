@@ -222,8 +222,9 @@ namespace MapCreator
                             new Percentage(100 - treeImagesRConf.ShadowTransparency),
                             treeImagesRConf.ShadowColor
                         );
-                    }
 
+                    }
+                    
                     if (treeImagesRConf.Transparency != 0)
                     {
                         treeOverlay.Alpha(AlphaOption.Set);
@@ -343,7 +344,6 @@ namespace MapCreator
 
         private void DrawImage(MagickImage overlay, DrawableFixture fixture)
         {
-
             //MainForm.Log(string.Format("Image: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
             string fileName = System.IO.Path.GetFileNameWithoutExtension(fixture.NifName);
             string defaultTree = "elm1";
@@ -418,8 +418,10 @@ namespace MapCreator
                         double scaleHeightToTreeImage = objectSize.Height / newModelImage.Height;
                         int width = Convert.ToInt32(newModelImage.Width * scaleWidthToTreeImage * fixture.Scale);
                         int height = Convert.ToInt32(newModelImage.Height * scaleHeightToTreeImage * fixture.Scale);
-                        
+
                         // Resize to new size
+                        newModelImage.FilterType = FilterType.Gaussian;
+                        newModelImage.VirtualPixelMethod = VirtualPixelMethod.Transparent;
                         newModelImage.Resize(width, height);
 
                         // Rotate the image
@@ -437,20 +439,25 @@ namespace MapCreator
                         {
                             foreach (DrawableElement drawableElement in fixture.DrawableElements)
                             {
+                                var light = 1 - drawableElement.lightning;
                                 modelShaped.FillColor = new MagickColor(
-                                    Convert.ToUInt16(128 * 256 * drawableElement.lightning),
-                                    Convert.ToUInt16(128 * 256 * drawableElement.lightning),
-                                    Convert.ToUInt16(128 * 256 * drawableElement.lightning)
+                                    Convert.ToUInt16(ushort.MaxValue * light),
+                                    Convert.ToUInt16(ushort.MaxValue * light),
+                                    Convert.ToUInt16(ushort.MaxValue * light)
                                 );
 
                                 DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates);
                                 modelShaped.Draw(polyDraw);
                             }
 
-                            // Remove outstanding edges from the shape using the replacing image
-                            modelShaped.Composite(modelImage, 0, 0, CompositeOperator.DstIn);
-                            // Enlight the replacing image using the shape
-                            modelImage.Composite(modelShaped, 0, 0, CompositeOperator.Overlay);
+                            using(MagickImage modelMask = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+                            {
+                                modelShaped.Blur();
+                                modelMask.Composite(modelShaped, 0, 0, CompositeOperator.DstAtop);
+                                modelMask.Composite(modelImage, 0, 0, CompositeOperator.DstIn);
+                                modelMask.Level(new Percentage(20), new Percentage(100), Channels.All);
+                                modelImage.Composite(modelMask, 0, 0, CompositeOperator.ColorDodge);
+                            }
                         }
                     }
 
