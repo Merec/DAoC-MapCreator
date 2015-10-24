@@ -419,26 +419,26 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>IF "$(ConfigurationName)" == "Release" (
-  rmdir /s /q "$(TargetDir)"
-)
+    <PreBuildEvent>IF NOT EXIST "$(TargetDir)libs" (
+  
+    mkdir "$(TargetDir)libs"
 
- IF NOT EXIST "$(TargetDir)libs" (
-  mkdir "$(TargetDir)libs"
 )</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>move "$(TargetDir)*.dll" "$(TargetDir)libs\"
 del SharpDX.xml
-del Magick.NET-$(PlatformName).xml
+
+
 
 REM Get file version
-for /F "tokens=4" %25%25F in ('$(SolutionDir)tools\filever.exe /B /A /D $(TargetPath)') do (
-  set VERSION=%25%25F
-)
 
+for /F "tokens=4" %25%25F in ('$(SolutionDir)tools\filever.exe /B /A /D $(TargetPath)') do (
+    set VERSION=%25%25F
+
+)
 if "$(ConfigurationName)" == "Release" (
-  "$(SolutionDir)packages\7ZipCLI.9.20.0\tools\7za.exe" a -tzip ..\MapCreator-%25VERSION%25.zip * -x!*.zip
+    "$(SolutionDir)packages\7ZipCLI.9.20.0\tools\7za.exe" a -tzip ..\MapCreator-%25VERSION%25.zip * -x!*.zip
 )</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('..\packages\SharpDX.2.6.3\build\SharpDX.targets')" />
