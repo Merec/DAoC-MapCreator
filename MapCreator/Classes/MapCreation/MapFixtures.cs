@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -170,9 +170,9 @@ namespace MapCreator
             MainForm.ProgressStart(string.Format("Drawing fixtures ({0}) ...", fixtures.Count));
             Stopwatch timer = Stopwatch.StartNew();
 
-            using (MagickImage modelsOverlay = new MagickImage(MagickColor.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
+            using (MagickImage modelsOverlay = new MagickImage(MagickColors.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
             {
-                using (MagickImage treeOverlay = new MagickImage(MagickColor.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
+                using (MagickImage treeOverlay = new MagickImage(MagickColors.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
                 {
                     int processCounter = 0;
                     foreach (DrawableFixture fixture in fixtures)
@@ -187,7 +187,7 @@ namespace MapCreator
                         {
                             DrawShaded((fixture.IsTree || fixture.IsTreeCluster) ? treeOverlay : modelsOverlay, fixture);
                         }
-                        */
+                        */                        
 
                         switch (fixture.RendererConf.Renderer)
                         {
@@ -213,16 +213,15 @@ namespace MapCreator
                     FixtureRendererConfiguration2 treeImagesRConf = FixtureRendererConfigurations.GetRendererById("TreeImage");
                     if (treeImagesRConf.HasShadow)
                     {
-                        //treeOverlay.BorderColor = MagickColor.Transparent;
-                        //treeOverlay.Border(1);
-                        treeOverlay.Shadow(
+                        CastShadow(
+                            treeOverlay,
                             treeImagesRConf.ShadowOffsetX,
                             treeImagesRConf.ShadowOffsetY,
                             treeImagesRConf.ShadowSize,
                             new Percentage(100 - treeImagesRConf.ShadowTransparency),
-                            treeImagesRConf.ShadowColor
+                            treeImagesRConf.ShadowColor,
+                            false
                         );
-
                     }
                     
                     if (treeImagesRConf.Transparency != 0)
@@ -246,16 +245,14 @@ namespace MapCreator
         {
             //MainForm.Log(string.Format("Shaded: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
 
-            using (MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+            using (MagickImage modelCanvas = new MagickImage(MagickColors.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
             {
                 foreach (DrawableElement drawableElement in fixture.DrawableElements)
-                {
-                    DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates);
-                    
+                {                    
                     // A Shaded model without lightning is not shaded... but just we add this just be flexible
                     if (fixture.RendererConf.HasLight)
                     {
-                        modelCanvas.FillColor = new MagickColor(
+                        modelCanvas.Settings.FillColor = new MagickColor(
                             Convert.ToUInt16(drawableElement.lightning * fixture.RendererConf.Color.R),
                             Convert.ToUInt16(drawableElement.lightning * fixture.RendererConf.Color.G),
                             Convert.ToUInt16(drawableElement.lightning * fixture.RendererConf.Color.B)
@@ -263,20 +260,20 @@ namespace MapCreator
                     }
                     else
                     {
-                        modelCanvas.FillColor = fixture.RendererConf.Color;
+                        modelCanvas.Settings.FillColor = fixture.RendererConf.Color;
                     }
 
+                    DrawablePolygon polyDraw = new DrawablePolygon(drawableElement.coordinates);
                     modelCanvas.Draw(polyDraw);
                     
                 }
 
                 if (fixture.RendererConf.HasShadow)
                 {
-                    modelCanvas.BorderColor = MagickColor.Transparent;
-                    modelCanvas.Border((int)fixture.RendererConf.ShadowSize);
-                    modelCanvas.Shadow(
-                        fixture.RendererConf.ShadowOffsetX, 
-                        fixture.RendererConf.ShadowOffsetY, 
+                    CastShadow(
+                        modelCanvas,
+                        fixture.RendererConf.ShadowOffsetX,
+                        fixture.RendererConf.ShadowOffsetY,
                         fixture.RendererConf.ShadowSize,
                         new Percentage(100 - fixture.RendererConf.ShadowTransparency),
                         fixture.RendererConf.ShadowColor
@@ -294,7 +291,7 @@ namespace MapCreator
                     double divideValue = 100.0 / (100.0 - fixture.RendererConf.Transparency);
                     modelCanvas.Evaluate(Channels.Alpha, EvaluateOperator.Divide, divideValue);
                 }
-
+                
                 overlay.Composite(modelCanvas, Convert.ToInt32(fixture.CanvasX), Convert.ToInt32(fixture.CanvasY), CompositeOperator.SrcOver);
             }
         }
@@ -303,9 +300,9 @@ namespace MapCreator
         {
             //MainForm.Log(string.Format("Flat: {0} ({1}) ...", fixture.Name, fixture.NifName), MainForm.LogLevel.notice);
 
-            using (MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+            using (MagickImage modelCanvas = new MagickImage(MagickColors.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
             {
-                modelCanvas.FillColor = fixture.RendererConf.Color;
+                modelCanvas.Settings.FillColor = fixture.RendererConf.Color;
 
                 foreach (DrawableElement drawableElement in fixture.DrawableElements)
                 {
@@ -315,9 +312,8 @@ namespace MapCreator
 
                 if (fixture.RendererConf.HasShadow)
                 {
-                    modelCanvas.BorderColor = MagickColor.Transparent;
-                    modelCanvas.Border(1);
-                    modelCanvas.Shadow(
+                    CastShadow(
+                        modelCanvas,
                         fixture.RendererConf.ShadowOffsetX,
                         fixture.RendererConf.ShadowOffsetY,
                         fixture.RendererConf.ShadowSize,
@@ -407,12 +403,12 @@ namespace MapCreator
                 System.Drawing.SizeF objectSize = orginalNif.GetSize(0, 0);
 
                 // The final image
-                using (MagickImage modelImage = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+                using (MagickImage modelImage = new MagickImage(MagickColors.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
                 {
                     // Place the replacing image
-                    using (MagickImage newModelImage = m_modelImages[fileName].Clone())
+                    using (IMagickImage newModelImage = m_modelImages[fileName].Clone())
                     {
-                        newModelImage.BackgroundColor = MagickColor.Transparent;
+                        newModelImage.BackgroundColor = MagickColors.Transparent;
 
                         double scaleWidthToTreeImage = objectSize.Width / newModelImage.Width;
                         double scaleHeightToTreeImage = objectSize.Height / newModelImage.Height;
@@ -435,12 +431,12 @@ namespace MapCreator
                     // Draw the shaped model if wanted
                     if (fixture.RendererConf.HasLight)
                     {
-                        using (MagickImage modelShaped = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+                        using (MagickImage modelShaped = new MagickImage(MagickColors.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
                         {
                             foreach (DrawableElement drawableElement in fixture.DrawableElements)
                             {
                                 var light = 1 - drawableElement.lightning;
-                                modelShaped.FillColor = new MagickColor(
+                                modelShaped.Settings.FillColor = new MagickColor(
                                     Convert.ToUInt16(ushort.MaxValue * light),
                                     Convert.ToUInt16(ushort.MaxValue * light),
                                     Convert.ToUInt16(ushort.MaxValue * light)
@@ -450,7 +446,7 @@ namespace MapCreator
                                 modelShaped.Draw(polyDraw);
                             }
 
-                            using(MagickImage modelMask = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+                            using(MagickImage modelMask = new MagickImage(MagickColors.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
                             {
                                 modelShaped.Blur();
                                 modelMask.Composite(modelShaped, 0, 0, CompositeOperator.DstAtop);
@@ -464,9 +460,8 @@ namespace MapCreator
                     // Add the shadow if not a tree (tree shadow are substituted by a treeoverlay)
                     if (fixture.RendererConf.HasShadow && !fixture.IsTree)
                     {
-                        modelImage.BorderColor = MagickColor.Transparent;
-                        modelImage.Border((int)fixture.RendererConf.ShadowSize);
-                        modelImage.Shadow(
+                        CastShadow(
+                            modelImage,
                             fixture.RendererConf.ShadowOffsetX,
                             fixture.RendererConf.ShadowOffsetY,
                             fixture.RendererConf.ShadowSize,
@@ -496,7 +491,7 @@ namespace MapCreator
         {
             System.Drawing.Color testColor = System.Drawing.ColorTranslator.FromHtml("#5e683a");
 
-            using (MagickImage pattern = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+            using (MagickImage pattern = new MagickImage(MagickColors.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
             {
                 using (MagickImage patternTexture = new MagickImage(string.Format("{0}\\data\\textures\\{1}.png", System.Windows.Forms.Application.StartupPath, "leaves_mask")))
                 {
@@ -506,7 +501,7 @@ namespace MapCreator
                     Random rnd = new Random();
                     pattern.Rotate(rnd.Next(0, 360));
                     
-                    using (MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+                    using (MagickImage modelCanvas = new MagickImage(MagickColors.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
                     {
                         foreach (DrawableElement drawableElement in fixture.DrawableElements)
                         {
@@ -523,7 +518,7 @@ namespace MapCreator
                                 b = fixture.Tree.AverageColor.B * light;
 
 
-                                modelCanvas.FillColor = new MagickColor(
+                                modelCanvas.Settings.FillColor = new MagickColor(
                                     Convert.ToUInt16(r * 255),
                                     Convert.ToUInt16(g * 255),
                                     Convert.ToUInt16(b * 255)
@@ -531,7 +526,7 @@ namespace MapCreator
                             }
                             else
                             {
-                                modelCanvas.FillColor = fixture.RendererConf.Color;
+                                modelCanvas.Settings.FillColor = fixture.RendererConf.Color;
                             }
 
                             modelCanvas.Draw(polyDraw);
@@ -544,9 +539,8 @@ namespace MapCreator
 
                         if (fixture.RendererConf.HasShadow)
                         {
-                            modelCanvas.BorderColor = MagickColor.Transparent;
-                            modelCanvas.Border((int)fixture.RendererConf.ShadowSize);
-                            modelCanvas.Shadow(
+                            CastShadow(
+                                modelCanvas,
                                 fixture.RendererConf.ShadowOffsetX,
                                 fixture.RendererConf.ShadowOffsetY,
                                 fixture.RendererConf.ShadowSize,
@@ -608,14 +602,14 @@ namespace MapCreator
                 int extendedWidth = dimensions - fixture.CanvasWidth;
                 int extendedHeight = dimensions - fixture.CanvasHeight;
 
-                using (MagickImage treeCluster = new MagickImage(MagickColor.Transparent, dimensions, dimensions))
+                using (MagickImage treeCluster = new MagickImage(MagickColors.Transparent, dimensions, dimensions))
                 {
                     double centerX = treeCluster.Width / 2d;
                     double centerY = treeCluster.Height / 2d;
 
                     foreach (SharpDX.Vector3 treeInstance in fixture.TreeCluster.TreeInstances)
                     {
-                        using (MagickImage treeImage = m_modelImages[fileName].Clone())
+                        using (IMagickImage treeImage = m_modelImages[fileName].Clone())
                         {
                             double scaleWidthToTreeImage = treeSize.Width / treeImage.Width;
                             double scaleHeightToTreeImage = treeSize.Height / treeImage.Height;
@@ -631,11 +625,11 @@ namespace MapCreator
 
                     treeCluster.Rotate((360d * fixture.FixtureRow.AxisZ3D - fixture.FixtureRow.A) * -1);
 
-                    using (MagickImage modelCanvas = new MagickImage(MagickColor.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
+                    using (MagickImage modelCanvas = new MagickImage(MagickColors.Transparent, fixture.CanvasWidth, fixture.CanvasHeight))
                     {
                         foreach (DrawableElement drawableElement in fixture.DrawableElements)
                         {
-                            modelCanvas.FillColor = new MagickColor(
+                            modelCanvas.Settings.FillColor = new MagickColor(
                                 Convert.ToUInt16(128 * 256 * drawableElement.lightning),
                                 Convert.ToUInt16(128 * 256 * drawableElement.lightning),
                                 Convert.ToUInt16(128 * 256 * drawableElement.lightning)
@@ -652,14 +646,14 @@ namespace MapCreator
 
                     if (fixture.RendererConf.HasShadow)
                     {
-                        treeCluster.BorderColor = MagickColor.Transparent;
-                        treeCluster.Border(1);
-                        treeCluster.Shadow(
+                        CastShadow(
+                            treeCluster,
                             fixture.RendererConf.ShadowOffsetX,
                             fixture.RendererConf.ShadowOffsetY,
                             fixture.RendererConf.ShadowSize,
                             new Percentage(100 - fixture.RendererConf.ShadowTransparency),
-                            fixture.RendererConf.ShadowColor
+                            fixture.RendererConf.ShadowColor,
+                            false
                         );
                     }
 
@@ -673,6 +667,22 @@ namespace MapCreator
 
                     overlay.Composite(treeCluster, Convert.ToInt32(fixture.CanvasX - extendedWidth/2), Convert.ToInt32(fixture.CanvasY - extendedHeight/2), CompositeOperator.SrcOver);
                 }
+            }
+        }
+
+        public void CastShadow(IMagickImage caster, int offsetX, int offsetY, double size, Percentage alpha, MagickColor color, bool extendCasterWithBorder = true)
+        {
+            using(IMagickImage shadow = caster.Clone())
+            {
+                shadow.Shadow(offsetX, offsetY, size, alpha, color);
+
+                if (extendCasterWithBorder)
+                {
+                    caster.BorderColor = MagickColors.Transparent;
+                    caster.Border((int)size);
+                }
+
+                caster.Composite(shadow, 0, 0, CompositeOperator.DstOver);
             }
         }
 

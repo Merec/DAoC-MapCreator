@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -88,9 +88,9 @@ namespace MapCreator
 
             using (MagickImage lightmap = new MagickImage(Color.Transparent, 256, 256))
             {
-                using (PixelCollection heightmapPixels = heightmap.GetReadOnlyPixels())
+                using (IPixelCollection heightmapPixels = heightmap.GetPixels())
                 {
-                    using (WritablePixelCollection lightmapPixels = lightmap.GetWritablePixels())
+                    using (IPixelCollection lightmapPixels = lightmap.GetPixels())
                     {
                         // z-component of surface normals
                         double nz = 512d / zScale;
@@ -141,7 +141,7 @@ namespace MapCreator
                                 // ColorDodge map
                                 // white lightens areas where black does nothing
                                 // alpha darkens areas
-                                lightmapPixels.Set(x, y, new ushort[] { pixelValueDiff, pixelValueDiff, pixelValueDiff, alphaValue });
+                                lightmapPixels.SetPixel(x, y, new ushort[] { pixelValueDiff, pixelValueDiff, pixelValueDiff, alphaValue });
                             }
 
                             int percent = 100 * y / lightmap.Height;

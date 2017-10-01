@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -328,20 +328,20 @@ namespace MapCreator
             MainForm.ProgressStart("Drawing zone bounds ...");
 
             // Sort the polygons
-            List<List<Coordinate>> polygons = new List<List<Coordinate>>();
-            List<List<Coordinate>> negatedPolygons = new List<List<Coordinate>>();
+            List<List<PointD>> polygons = new List<List<PointD>>();
+            List<List<PointD>> negatedPolygons = new List<List<PointD>>();
 
             foreach (List<PointF> polygon in m_bounds)
             {
                 bool isClockwise = Tools.PolygonHasClockwiseOrder(polygon);
-                var polygonConverted = polygon.Select(c => new Coordinate(zoneConfiguration.ZoneCoordinateToMapCoordinate(c.X), zoneConfiguration.ZoneCoordinateToMapCoordinate(c.Y))).ToList();
+                var polygonConverted = polygon.Select(c => new PointD(zoneConfiguration.ZoneCoordinateToMapCoordinate(c.X), zoneConfiguration.ZoneCoordinateToMapCoordinate(c.Y))).ToList();
 
                 // polygons in clockwise order needs to be negated
                 if (isClockwise) negatedPolygons.Add(polygonConverted);
                 else polygons.Add(polygonConverted);
             }
 
-            MagickColor backgroundColor = MagickColor.Transparent;
+            MagickColor backgroundColor = MagickColors.Transparent;
             if (polygons.Count == 0) {
                 // There are no normal polygons, we need to fill the hole zone and substract negatedPolygons
                 backgroundColor = m_boundsColor;
@@ -352,8 +352,8 @@ namespace MapCreator
                 int progressCounter = 0;
 
                 boundMap.Alpha(AlphaOption.Set);
-                boundMap.FillColor = m_boundsColor;
-                foreach (List<Coordinate> coords in polygons)
+                boundMap.Settings.FillColor = m_boundsColor;
+                foreach (List<PointD> coords in polygons)
                 {
                     DrawablePolygon poly = new DrawablePolygon(coords);
                     boundMap.Draw(poly);
@@ -367,9 +367,9 @@ namespace MapCreator
                 {
                     using (MagickImage negatedBoundMap = new MagickImage(Color.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
                     {
-                        negatedBoundMap.FillColor = m_boundsColor;
+                        negatedBoundMap.Settings.FillColor = m_boundsColor;
 
-                        foreach (List<Coordinate> coords in negatedPolygons)
+                        foreach (List<PointD> coords in negatedPolygons)
                         {
                             DrawablePolygon poly = new DrawablePolygon(coords);
                             negatedBoundMap.Draw(poly);
@@ -420,12 +420,12 @@ namespace MapCreator
             int boundIndex = 0;
             foreach (List<PointF> allCoords in m_bounds)
             {
-                using (MagickImage bound = new MagickImage(MagickColor.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
+                using (MagickImage bound = new MagickImage(MagickColors.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
                 {
-                    List<Coordinate> coords = allCoords.Select(c => new Coordinate(zoneConfiguration.ZoneCoordinateToMapCoordinate(c.X), zoneConfiguration.ZoneCoordinateToMapCoordinate(c.Y))).ToList();
+                    List<PointD> coords = allCoords.Select(c => new PointD(zoneConfiguration.ZoneCoordinateToMapCoordinate(c.X), zoneConfiguration.ZoneCoordinateToMapCoordinate(c.Y))).ToList();
 
                     DrawablePolygon poly = new DrawablePolygon(coords);
-                    bound.FillColor = new MagickColor(0, 0, 0, 256 * 128);
+                    bound.Settings.FillColor = new MagickColor(0, 0, 0, 256 * 128);
                     bound.Draw(poly);
                     
                     // Print Text
@@ -439,12 +439,12 @@ namespace MapCreator
                         if (coords[i].Y < zoneConfiguration.TargetMapSize / 2) y = coords[i].Y + 15;
                         else y = coords[i].Y - 1;
 
-                        bound.FontPointsize = 10.0;
-                        bound.FillColor = Color.Black;
+                        bound.Settings.FontPointsize = 10.0;
+                        bound.Settings.FillColor = Color.Black;
                         DrawableText text = new DrawableText(x, y, string.Format("{0} ({1}/{2})", i, zoneConfiguration.MapCoordinateToZoneCoordinate(coords[i].X), zoneConfiguration.MapCoordinateToZoneCoordinate(coords[i].Y)));
                         bound.Draw(text);
                         
-                        using (WritablePixelCollection pixels = bound.GetWritablePixels())
+                        using (IPixelCollection pixels = bound.GetPixels())
                         {
                             int x2, y2;
                             if (coords[i].X == zoneConfiguration.TargetMapSize) x2 = zoneConfiguration.TargetMapSize - 1;
@@ -452,7 +452,7 @@ namespace MapCreator
                             if (coords[i].Y == zoneConfiguration.TargetMapSize) y2 = zoneConfiguration.TargetMapSize - 1;
                             else y2 = (int)coords[i].Y;
 
-                            pixels.Set(x2, y2, new ushort[] { 0, 0, 65535, 0 });
+                            pixels.SetPixel(x2, y2, new ushort[] { 0, 0, 65535, 0 });
                         }
                     }
 

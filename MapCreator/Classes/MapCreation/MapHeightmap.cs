@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -73,10 +73,10 @@ namespace MapCreator
                 {
                     m_heightmap = new MagickImage(Color.Black, offsetmap.Width, offsetmap.Height);
 
-                    using (WritablePixelCollection heightmapPixels = m_heightmap.GetWritablePixels())
+                    using (IPixelCollection heightmapPixels = m_heightmap.GetPixels())
                     {
-                        PixelCollection terrainPixels = terrainmap.GetReadOnlyPixels();
-                        PixelCollection offsetPixels = offsetmap.GetReadOnlyPixels();
+                        IPixelCollection terrainPixels = terrainmap.GetPixels();
+                        IPixelCollection offsetPixels = offsetmap.GetPixels();
 
                         for (int x = 0; x < offsetmap.Width; x++)
                         {
@@ -86,14 +86,14 @@ namespace MapCreator
                                 ushort offsetPixelValue = (ushort)(offsetPixels[x, y].GetChannel(0) / 256);
                                 ushort heightmapPixelValue = (ushort)(terrainPixelValue * m_terrainfactor + offsetPixelValue * m_offsetfactor);
 
-                                heightmapPixels.Set(x, y, new ushort[] { heightmapPixelValue, heightmapPixelValue, heightmapPixelValue });
+                                heightmapPixels.SetPixel(x, y, new ushort[] { heightmapPixelValue, heightmapPixelValue, heightmapPixelValue });
                             }
 
                             int percent = 100 * x / offsetmap.Width;
                             MainForm.ProgressUpdate(percent);
                         }
 
-                        heightmapPixels.Write();    
+                        //heightmapPixels.Write();    
                     }
 
                     MainForm.ProgressStartMarquee("Merging ...");
@@ -128,7 +128,7 @@ namespace MapCreator
             if (y == zoneConfiguration.TargetMapSize) y -= 1;
             else if (y < 0) y = 0;
 
-            return m_heightmapScaled.GetReadOnlyPixels().GetPixel(x, y).GetChannel(0);
+            return m_heightmapScaled.GetPixels().GetPixel(x, y).GetChannel(0);
         }
 
         public void Dispose()

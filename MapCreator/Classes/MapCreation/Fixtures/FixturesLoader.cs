@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -211,7 +211,7 @@ namespace MapCreator.Fixtures
                 using (ImageMagick.MagickImage texture = new ImageMagick.MagickImage(treeTextureFile))
                 {
                     texture.Resize(1, 1);
-                    ImageMagick.Pixel pixel = texture.GetReadOnlyPixels(0, 0, 1, 1).First();
+                    ImageMagick.Pixel pixel = texture.GetPixels().First();
 
                     System.Drawing.Color color = pixel.ToColor();
                     treeColors.Add(treeRow.Name, color);

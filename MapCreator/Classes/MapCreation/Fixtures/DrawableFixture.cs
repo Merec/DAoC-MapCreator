@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -133,10 +133,10 @@ namespace MapCreator
                 if (lighting < 0) lighting = 0;
                 else if (lighting > 1) lighting = 1;
 
-                List<ImageMagick.Coordinate> coordinates = new List<ImageMagick.Coordinate>();
+                List<ImageMagick.PointD> coordinates = new List<ImageMagick.PointD>();
                 foreach (Vector3 vector in poly.Vectors)
                 {
-                    coordinates.Add(new ImageMagick.Coordinate(CanvasWidth / 2 + vector.X, CanvasHeight / 2 - vector.Y));
+                    coordinates.Add(new ImageMagick.PointD(CanvasWidth / 2 + vector.X, CanvasHeight / 2 - vector.Y));
                 }
 
                 // We want to draw the vectors in z-order
@@ -243,9 +243,9 @@ namespace MapCreator
     {
         public double order;
         public double lightning;
-        public IEnumerable<ImageMagick.Coordinate> coordinates;
+        public IEnumerable<ImageMagick.PointD> coordinates;
 
-        public DrawableElement(double order, double lightning, IEnumerable<ImageMagick.Coordinate> coordinates)
+        public DrawableElement(double order, double lightning, IEnumerable<ImageMagick.PointD> coordinates)
         {
             this.order = order;
             this.lightning = lightning;
