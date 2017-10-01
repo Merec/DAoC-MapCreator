@@ -6,7 +6,7 @@ Generate Dark Age of Camelot (DAoC) maps using the game client.
 - It is recommended to use the map dimensions of 2^x, this means: 512, 1024, 2048, 4096. DAoC itself uses 2^16.
 - Don't try to create maps larger than 8096 pixels, the data is too much to handle....
 
-## Requirements
+### Requirements
 Following should be no longer needed after I updated the Magick.NET library:
 _You need to install [.NET 4.0: Visual C++ Redistributable](http://www.microsoft.com/en-us/download/details.aspx?id=30679) for 
 x64 or x86 to run Magick.NET which is required to get any result._
