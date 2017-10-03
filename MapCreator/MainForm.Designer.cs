@@ -39,6 +39,9 @@
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.createShapedNIFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cachesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearfixturesPolygonCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearheightmapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dawnOfLightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportABugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -224,18 +227,42 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createShapedNIFToolStripMenuItem});
+            this.createShapedNIFToolStripMenuItem,
+            this.cachesToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(47, 20);
             this.toolStripMenuItem1.Text = "&Tools";
-            this.toolStripMenuItem1.Visible = false;
             // 
             // createShapedNIFToolStripMenuItem
             // 
             this.createShapedNIFToolStripMenuItem.Name = "createShapedNIFToolStripMenuItem";
             this.createShapedNIFToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.createShapedNIFToolStripMenuItem.Text = "Create &shaped NIF";
+            this.createShapedNIFToolStripMenuItem.Visible = false;
             this.createShapedNIFToolStripMenuItem.Click += new System.EventHandler(this.createShapedNIFToolStripMenuItem_Click);
+            // 
+            // cachesToolStripMenuItem
+            // 
+            this.cachesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearfixturesPolygonCacheToolStripMenuItem,
+            this.clearheightmapsToolStripMenuItem});
+            this.cachesToolStripMenuItem.Name = "cachesToolStripMenuItem";
+            this.cachesToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.cachesToolStripMenuItem.Text = "&Caches";
+            // 
+            // clearfixturesPolygonCacheToolStripMenuItem
+            // 
+            this.clearfixturesPolygonCacheToolStripMenuItem.Name = "clearfixturesPolygonCacheToolStripMenuItem";
+            this.clearfixturesPolygonCacheToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.clearfixturesPolygonCacheToolStripMenuItem.Text = "Delete &fixture polygons";
+            this.clearfixturesPolygonCacheToolStripMenuItem.Click += new System.EventHandler(this.clearfixturesPolygonCacheToolStripMenuItem_Click);
+            // 
+            // clearheightmapsToolStripMenuItem
+            // 
+            this.clearheightmapsToolStripMenuItem.Name = "clearheightmapsToolStripMenuItem";
+            this.clearheightmapsToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.clearheightmapsToolStripMenuItem.Text = "Delete &heightmaps";
+            this.clearheightmapsToolStripMenuItem.Click += new System.EventHandler(this.clearheightmapsToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -370,9 +397,9 @@
             this.generateLightmapCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapGenerateHeightmap", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.generateLightmapCheckBox.Location = new System.Drawing.Point(9, 19);
             this.generateLightmapCheckBox.Name = "generateLightmapCheckBox";
-            this.generateLightmapCheckBox.Size = new System.Drawing.Size(112, 17);
+            this.generateLightmapCheckBox.Size = new System.Drawing.Size(99, 17);
             this.generateLightmapCheckBox.TabIndex = 25;
-            this.generateLightmapCheckBox.Text = "Generate lightmap";
+            this.generateLightmapCheckBox.Text = "Create lightmap";
             this.generateLightmapCheckBox.UseVisualStyleBackColor = true;
             // 
             // label13
@@ -547,11 +574,11 @@
             // selectMapsButton
             // 
             this.selectMapsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectMapsButton.Location = new System.Drawing.Point(277, 92);
+            this.selectMapsButton.Location = new System.Drawing.Point(244, 92);
             this.selectMapsButton.Name = "selectMapsButton";
-            this.selectMapsButton.Size = new System.Drawing.Size(67, 25);
+            this.selectMapsButton.Size = new System.Drawing.Size(100, 25);
             this.selectMapsButton.TabIndex = 5;
-            this.selectMapsButton.Text = "select";
+            this.selectMapsButton.Text = "Select maps...";
             this.selectMapsButton.UseVisualStyleBackColor = true;
             this.selectMapsButton.Click += new System.EventHandler(this.selectMapsButton_Click);
             // 
@@ -569,11 +596,11 @@
             // selecetedMapsResetButton
             // 
             this.selecetedMapsResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.selecetedMapsResetButton.Location = new System.Drawing.Point(225, 92);
+            this.selecetedMapsResetButton.Location = new System.Drawing.Point(196, 92);
             this.selecetedMapsResetButton.Name = "selecetedMapsResetButton";
             this.selecetedMapsResetButton.Size = new System.Drawing.Size(42, 25);
             this.selecetedMapsResetButton.TabIndex = 3;
-            this.selecetedMapsResetButton.Text = "reset";
+            this.selecetedMapsResetButton.Text = "Clear";
             this.selecetedMapsResetButton.UseVisualStyleBackColor = true;
             this.selecetedMapsResetButton.Click += new System.EventHandler(this.selecetedMapsResetButton_Click);
             // 
@@ -626,9 +653,9 @@
             this.excludeBoundsFromMapCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "removeBoundsFromMap", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.excludeBoundsFromMapCheckbox.Location = new System.Drawing.Point(123, 19);
             this.excludeBoundsFromMapCheckbox.Name = "excludeBoundsFromMapCheckbox";
-            this.excludeBoundsFromMapCheckbox.Size = new System.Drawing.Size(110, 17);
+            this.excludeBoundsFromMapCheckbox.Size = new System.Drawing.Size(83, 17);
             this.excludeBoundsFromMapCheckbox.TabIndex = 29;
-            this.excludeBoundsFromMapCheckbox.Text = "Exclude from map";
+            this.excludeBoundsFromMapCheckbox.Text = "Transparent";
             this.excludeBoundsFromMapCheckbox.UseVisualStyleBackColor = true;
             // 
             // label18
@@ -676,9 +703,9 @@
             // 
             this.boundsColorSelectButton.Location = new System.Drawing.Point(212, 41);
             this.boundsColorSelectButton.Name = "boundsColorSelectButton";
-            this.boundsColorSelectButton.Size = new System.Drawing.Size(60, 23);
+            this.boundsColorSelectButton.Size = new System.Drawing.Size(91, 23);
             this.boundsColorSelectButton.TabIndex = 4;
-            this.boundsColorSelectButton.Text = "Select";
+            this.boundsColorSelectButton.Text = "Choose color...";
             this.boundsColorSelectButton.UseVisualStyleBackColor = true;
             this.boundsColorSelectButton.Click += new System.EventHandler(this.boundsColorSelectButton_Click);
             // 
@@ -719,9 +746,9 @@
             this.generateBoundsCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapGenerateBounds", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.generateBoundsCheckBox.Location = new System.Drawing.Point(9, 19);
             this.generateBoundsCheckBox.Name = "generateBoundsCheckBox";
-            this.generateBoundsCheckBox.Size = new System.Drawing.Size(108, 17);
+            this.generateBoundsCheckBox.Size = new System.Drawing.Size(89, 17);
             this.generateBoundsCheckBox.TabIndex = 0;
-            this.generateBoundsCheckBox.Text = "Generate bounds";
+            this.generateBoundsCheckBox.Text = "Draw bounds";
             this.generateBoundsCheckBox.UseVisualStyleBackColor = true;
             // 
             // groupBox3
@@ -753,9 +780,9 @@
             this.riversUseDefaultColorCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapRiverColorUseDefault", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.riversUseDefaultColorCheckBox.Location = new System.Drawing.Point(81, 98);
             this.riversUseDefaultColorCheckBox.Name = "riversUseDefaultColorCheckBox";
-            this.riversUseDefaultColorCheckBox.Size = new System.Drawing.Size(149, 17);
+            this.riversUseDefaultColorCheckBox.Size = new System.Drawing.Size(143, 17);
             this.riversUseDefaultColorCheckBox.TabIndex = 29;
-            this.riversUseDefaultColorCheckBox.Text = "use color given from client";
+            this.riversUseDefaultColorCheckBox.Text = "game client defines color";
             this.riversUseDefaultColorCheckBox.UseVisualStyleBackColor = true;
             this.riversUseDefaultColorCheckBox.CheckedChanged += new System.EventHandler(this.riverUseColorDefault_CheckedChanged);
             // 
@@ -804,9 +831,9 @@
             // 
             this.riversColorSelectButton.Location = new System.Drawing.Point(212, 43);
             this.riversColorSelectButton.Name = "riversColorSelectButton";
-            this.riversColorSelectButton.Size = new System.Drawing.Size(60, 23);
+            this.riversColorSelectButton.Size = new System.Drawing.Size(91, 23);
             this.riversColorSelectButton.TabIndex = 4;
-            this.riversColorSelectButton.Text = "Select";
+            this.riversColorSelectButton.Text = "Choose color...";
             this.riversColorSelectButton.UseVisualStyleBackColor = true;
             this.riversColorSelectButton.Click += new System.EventHandler(this.riverColorSelectButton_Click);
             // 
@@ -847,9 +874,9 @@
             this.generateRiversCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapGenerateRivers", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.generateRiversCheckBox.Location = new System.Drawing.Point(9, 19);
             this.generateRiversCheckBox.Name = "generateRiversCheckBox";
-            this.generateRiversCheckBox.Size = new System.Drawing.Size(98, 17);
+            this.generateRiversCheckBox.Size = new System.Drawing.Size(79, 17);
             this.generateRiversCheckBox.TabIndex = 0;
-            this.generateRiversCheckBox.Text = "Generate rivers";
+            this.generateRiversCheckBox.Text = "Draw rivers";
             this.generateRiversCheckBox.UseVisualStyleBackColor = true;
             // 
             // logListBox
@@ -1155,7 +1182,7 @@
             this.renderButton.Name = "renderButton";
             this.renderButton.Size = new System.Drawing.Size(133, 33);
             this.renderButton.TabIndex = 33;
-            this.renderButton.Text = "Render";
+            this.renderButton.Text = "Create map(s)";
             this.renderButton.UseVisualStyleBackColor = true;
             this.renderButton.Click += new System.EventHandler(this.renderButton_Click);
             // 
@@ -1380,6 +1407,9 @@
         private System.Windows.Forms.NumericUpDown mapTreeTransparencyTextBox;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ToolStripMenuItem cachesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearfixturesPolygonCacheToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearheightmapsToolStripMenuItem;
     }
 }
 

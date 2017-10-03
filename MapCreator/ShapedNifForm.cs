@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ namespace MapCreator
                 file = selectedFileTextBox.Text;
             }
 
-            selectFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(file);
+            //selectFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(file);
             selectFileDialog.FileName = System.IO.Path.GetFileName(file);
 
             if (selectFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)

@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator NifUtil Library
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,9 +20,12 @@
 using System.Collections.Generic;
 using Niflib;
 using SharpDX;
+using System;
 
 namespace NifUtil
 {
+    public delegate bool IsNodeDrawableEventHandler(NiAVObject node);
+
     class Convert
     {
         /// <summary>
@@ -60,20 +63,25 @@ namespace NifUtil
             set { ignoreNodeNames = value; }
         }
 
-        public Convert(NiFile file)
-        {
-            File = file;
+        public event IsNodeDrawableEventHandler IsNodeDrawable;
 
-            ignoreNodeNames.Add("collidee");
-            ignoreNodeNames.Add("bounding");
-            ignoreNodeNames.Add("climb");
-            ignoreNodeNames.Add("!lod_cullme");
-            ignoreNodeNames.Add("!visible_damaged");
-            ignoreNodeNames.Add("shadowcaster");
-            ignoreNodeNames.Add("far");
+        public Convert(NiFile niFile)
+        {
+            File = niFile;
+
+            ignoreNodeNames.AddRange(new List<string> {
+                "collidee",
+                "bounding",
+                "climb",
+                "!lod_cullme",
+                "!visible_damaged",
+                "shadowcaster",
+                "far"
+            });
+
         }
 
-        internal bool IsNodeDrawable(NiAVObject node)
+        internal bool IsValidNode(NiAVObject node)
         {
             // Invisible Flag
             if ((node.Flags & 1) == 1) return false;
@@ -82,6 +90,12 @@ namespace NifUtil
             foreach (string ignoreName in IgnoreNodeNames)
             {
                 if (node.Name.Value.ToLower().StartsWith(ignoreName.ToLower())) return false;
+            }
+
+            // Additional Callback
+            if(IsNodeDrawable != null)
+            {
+                return IsNodeDrawable(node);
             }
 
             return true;

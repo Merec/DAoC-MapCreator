@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator NifUtil Library
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -28,11 +28,17 @@ namespace NifUtil
 {
     public class NifParser : IDisposable
     {
+        string m_fileName;
+
         private StreamReader m_fileReader;
 
         private NiFile m_nifFile;
 
         private Polygon[] m_polygons;
+
+        #region Events
+        public event IsNodeDrawableEventHandler IsNodeDrawable;
+        #endregion
 
         public NifParser()
         {
@@ -53,6 +59,7 @@ namespace NifUtil
                 throw new FileNotFoundException("NIF File not found!");
             }
 
+            m_fileName = nifFile;
             m_fileReader = new StreamReader(nifFile);
             ReadNifFile();
         }
@@ -89,18 +96,35 @@ namespace NifUtil
             {
                 case ConvertType.WaveFrontObject:
                     ConvertWavefront wf = new ConvertWavefront(m_nifFile);
+                    if(IsNodeDrawable != null)
+                    {
+                        wf.IsNodeDrawable += delegate(NiAVObject node)
+                        {
+                            return IsNodeDrawable(node);
+                        };
+                    }
+
+                    wf.Start();
                     wf.Write(targetFilename);
                     break;
                 case ConvertType.PolyText:
                 case ConvertType.Poly:
                     ConvertPoly conv = new ConvertPoly(m_nifFile);
+                    if (IsNodeDrawable != null)
+                    {
+                        conv.IsNodeDrawable += delegate (NiAVObject node)
+                        {
+                            return IsNodeDrawable(node);
+                        };
+                    }
+
+                    conv.Start();
                     m_polygons = conv.Polys.ToArray();
 
                     if (type == ConvertType.PolyText) conv.WritePlain(targetFilename);
                     else conv.Write(targetFilename);
 
                     break;
-
             }
         }
 

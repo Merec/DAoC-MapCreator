@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator NifUtil Library
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -36,17 +36,21 @@ namespace NifUtil
         public ConvertWavefront(NiFile file)
             : base(file)
         {
+        }
+
+        public void Start()
+        {
             Export.Add("# Build with NifParser by Merec");
             Export.Add("# special thanks to Schaf");
             Export.Add("");
 
-            WalkNodes(file.FindRoot());
+            WalkNodes(File.FindRoot());
         }
 
         private void WalkNodes(NiAVObject node)
         {
             // Ignore some node names
-            if (!IsNodeDrawable(node)) return;
+            if (!IsValidNode(node)) return;
 
             // Render Children
             if (node is NiTriShape)

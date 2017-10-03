@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator NifUtil Library
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using Niflib;
 using System.IO;
 using SharpDX;
+using System;
 
 namespace NifUtil
 {
@@ -34,15 +35,20 @@ namespace NifUtil
             set { m_polys = value; }
         }
 
-        public ConvertPoly(NiFile file)
-            :base(file)
+        public ConvertPoly(NiFile niFile)
+            :base(niFile)
         {
-            WalkNodes(file.FindRoot());
+          
+        }
+
+        public void Start()
+        {
+            WalkNodes(File.FindRoot());
         }
 
         private void WalkNodes(NiAVObject node)
         {
-            if (!IsNodeDrawable(node)) return;
+            if (!IsValidNode(node)) return;
 
             // Render Children
             if (node is NiTriShape)

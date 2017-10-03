@@ -272,6 +272,11 @@ namespace MapCreator.Fixtures
                             polyMpkModified = true;
 
                             NifParser nifParser = new NifParser();
+                            nifParser.IsNodeDrawable += delegate(Niflib.NiAVObject node)
+                            {
+                                return NifParser_IsNodeDrawable(nifRow, node);
+                            };
+
                             nifParser.Load(nifFileFromNpk);
                             nifParser.Convert(ConvertType.Poly, modelPolySavePath);
 
@@ -307,6 +312,36 @@ namespace MapCreator.Fixtures
 
             MainForm.Log("Polygons loaded!", MainForm.LogLevel.success);
             MainForm.ProgressReset();
+        }
+
+        private static bool NifParser_IsNodeDrawable(NifRow nifRow, Niflib.NiAVObject node)
+        {
+            // Only draw the elements, sticking out of the ground
+            if(nifRow.NifId == 408)
+            {
+                List<string> validNodes = new List<string>
+                {
+                    "agramonKeep01",
+                    "collisionswitch",
+                    "visible",
+                    "wall -outdoors",
+                    "wall -outdoors01",
+                    "tower",
+                    "tower01",
+                    "tower02",
+                    "entrance",
+                    "disc"
+                };
+
+                var result = validNodes.Find(v => node.Name.Value.StartsWith(v));
+                if (result != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            
+            return true;
         }
 
         public static List<DrawableFixture> GetDrawableFixtures()

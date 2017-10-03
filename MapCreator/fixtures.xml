@@ -78,7 +78,12 @@
     <pattern>Iarnwood</pattern>
     <category>TreeImage</category>
   </Fixture>
-  
+  <!-- Grenlocks Sound -->
+  <Fixture>
+    <pattern>creepywebPine</pattern>
+    <category>TreeImage</category>
+  </Fixture>
+
   <!-- Some examples -->
   <Fixture>
     <pattern>b-fence[0-9]+</pattern>
@@ -114,6 +119,20 @@
   <Fixture>
     <pattern>the_awesome_nifname_here_as_regex_pattern</pattern>
     <category>YourOwnConfiguration</category>
+  </Fixture>
+
+  <FixtureCategory is_default="false">
+    <id>agramonKeep01</id>
+    <renderer>Image</renderer>
+    <light min="0.7" max="1.0" direction="1.0,1.0,-1.0">true</light>
+    <color>#DDD</color>
+    <transparency>0</transparency>
+    <shadow color="#000" offset_x="0" offset_y="0" size="1" transparency="25">false</shadow>
+  </FixtureCategory>
+
+  <Fixture>
+    <pattern>agramonKeep01</pattern>
+    <category>Shaded</category>
   </Fixture>
   
 </Fixtures>

@@ -178,16 +178,10 @@ namespace MapCreator
                     foreach (DrawableFixture fixture in fixtures)
                     {
                         // Debug single models
-                        /*
-                        if (fixture.FixtureRow.NifId != 443 && fixture.FixtureRow.NifId != 433 && fixture.FixtureRow.NifId != 459)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            DrawShaded((fixture.IsTree || fixture.IsTreeCluster) ? treeOverlay : modelsOverlay, fixture);
-                        }
-                        */                        
+                        //if (fixture.FixtureRow.NifId != 408)
+                        //{
+                        //    continue;
+                        //}                                             
 
                         switch (fixture.RendererConf.Renderer)
                         {

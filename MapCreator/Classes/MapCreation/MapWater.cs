@@ -92,13 +92,18 @@ namespace MapCreator
                 waterConf.Tesselation = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "Tesselation");
                 waterConf.Type = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "type");
 
-
-                // Adjust some river heights heights
+                // Adjust some river heights
                 if (zoneConfiguration.ZoneId == "168" || zoneConfiguration.ZoneId == "171" || zoneConfiguration.ZoneId == "178")
                 {
                     waterConf.Height += 30;
                 }
 
+                // Ignore some definitions
+                if(zoneConfiguration.ZoneId == "163" && riverIndexString == "river14")
+                {
+                    riverIndex++;
+                    continue;
+                }
 
                 string color = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "color");
                 string baseColor = DataWrapper.GetDatFileProperty(zoneConfiguration.SectorDatStreamReader, riverIndexString, "base_color");

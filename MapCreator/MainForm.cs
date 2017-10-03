@@ -1,6 +1,6 @@
 ﻿//
 // MapCreator
-// Copyright(C) 2015 Stefan Schäfer <merec@merec.org>
+// Copyright(C) 2017 Stefan Schäfer <merec@merec.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -779,6 +779,29 @@ namespace MapCreator
             (new ShapedNifForm()).ShowDialog();
         }
 
+        private void clearfixturesPolygonCacheToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Do you really want to delete the fixture polygon cache?", "Delete fixture polygons", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                FileInfo fixturesCache = new FileInfo(Application.StartupPath + Path.DirectorySeparatorChar + "data" + Path.DirectorySeparatorChar + "polys.mpk");
+                if (fixturesCache.Exists)
+                {
+                    fixturesCache.Delete();
+                }
+            }
+        }
+
+        private void clearheightmapsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Do you really want to delete all prerendered heightmaps?", "Delete heightmaps", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DirectoryInfo heightmapsCache = new DirectoryInfo(Application.StartupPath + Path.DirectorySeparatorChar + "data" + Path.DirectorySeparatorChar + "heightmaps");
+                if (heightmapsCache.Exists)
+                {
+                    heightmapsCache.Delete(true);
+                }
+            }
+        }
     }
 
 }
