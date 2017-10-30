@@ -125,16 +125,35 @@ namespace MapCreator
             }
         }
 
+        private void AddZonesRecursive(TreeNode node)
+        {
+            if(node.Tag is ZoneSelection)
+            {
+                if (!SelectedZones.Contains((ZoneSelection)node.Tag))
+                {
+                    SelectedZones.Add((ZoneSelection)node.Tag);
+                }
+            }
+            else
+            {
+                foreach(TreeNode childNode in node.Nodes)
+                {
+                    AddZonesRecursive(childNode);
+                }
+            }
+        }
+
         private void addAllButton_Click(object sender, EventArgs e)
         {
-            foreach (TreeNode node in m_allNodes)
+            if(mapsTreeView.SelectedNode != null && !(mapsTreeView.SelectedNode.Tag is ZoneSelection))
             {
-                if (node.Tag is ZoneSelection)
+                AddZonesRecursive(mapsTreeView.SelectedNode);
+            }
+            else if(mapsTreeView.SelNodes.Count > 0)
+            {
+                foreach(DictionaryEntry nodeEntry in mapsTreeView.SelNodes)
                 {
-                    if (!SelectedZones.Contains((ZoneSelection)node.Tag))
-                    {
-                        SelectedZones.Add((ZoneSelection)node.Tag);
-                    }
+                    AddZonesRecursive(((MWCommon.MWTreeNodeWrapper)nodeEntry.Value).Node);
                 }
             }
             UpdateSelectedMapsListBox();
