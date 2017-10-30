@@ -254,6 +254,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitattributes" />
     <Content Include="data\prerendered\objects\alb_relictemple_f.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -468,22 +469,18 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>IF NOT EXIST "$(TargetDir)libs" (
-  
     mkdir "$(TargetDir)libs"
-
 )</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>move "$(TargetDir)*.dll" "$(TargetDir)libs\"
 del SharpDX.xml
-
-
+del SharpDX.Mathematics.xml
+del Magick.NET-Q16-AnyCPU.xml
 
 REM Get file version
-
 for /F "tokens=4" %25%25F in ('$(SolutionDir)tools\filever.exe /B /A /D $(TargetPath)') do (
     set VERSION=%25%25F
-
 )
 if "$(ConfigurationName)" == "Release" (
     "$(SolutionDir)packages\7ZipCLI.9.20.0\tools\7za.exe" a -tzip ..\MapCreator-%25VERSION%25.zip * -x!*.zip
