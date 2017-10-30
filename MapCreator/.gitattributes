@@ -58,3 +58,4 @@
 
 ## EXECUTABLES
 *.exe binary
+*.dll binary
