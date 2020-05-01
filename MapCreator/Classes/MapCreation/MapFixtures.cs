@@ -157,10 +157,12 @@ namespace MapCreator
         {
             if (underwater)
             {
+                MainForm.Log(string.Format("There are {0} fixtures to draw.", m_fixturesUnderWater.Count), MainForm.LogLevel.notice);
                 Draw(map, m_fixturesUnderWater);
             }
             else
             {
+                MainForm.Log(string.Format("There are {0} fixtures to draw.", m_fixturesAboveWater.Count), MainForm.LogLevel.notice);
                 Draw(map, m_fixturesAboveWater);
             }
         }

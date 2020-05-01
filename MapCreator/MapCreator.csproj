@@ -478,16 +478,18 @@
   <PropertyGroup>
     <PostBuildEvent>move "$(TargetDir)*.dll" "$(TargetDir)libs\"
 del SharpDX.xml
+del SharpDX.pdb
 del SharpDX.Mathematics.xml
+del SharpDX.Mathematics.pdb
 del Magick.NET-Q16-x64.xml
 
 REM Get file version
 for /F "tokens=4" %25%25F in ('$(SolutionDir)tools\filever.exe /B /A /D $(TargetPath)') do (
     set VERSION=%25%25F
 )
-if "$(ConfigurationName)" == "Release" (
-    "$(SolutionDir)packages\7ZipCLI.9.20.0\tools\7za.exe" a -tzip ..\MapCreator-%25VERSION%25.zip * -x!*.zip
-)</PostBuildEvent>
+REM if "$(ConfigurationName)" == "Release" (
+REM     "$(SolutionDir)packages\7ZipCLI.9.20.0\tools\7za.exe" a -tzip ..\MapCreator-%25VERSION%25.zip * -x!*.zip
+REM )</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Magick.NET-Q16-x64.7.16.1\build\net40\Magick.NET-Q16-x64.targets" Condition="Exists('..\packages\Magick.NET-Q16-x64.7.16.1\build\net40\Magick.NET-Q16-x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

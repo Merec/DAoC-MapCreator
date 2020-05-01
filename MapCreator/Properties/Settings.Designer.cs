@@ -398,6 +398,18 @@ namespace MapCreator.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool enableLog {
+            get {
+                return ((bool)(this["enableLog"]));
+            }
+            set {
+                this["enableLog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool enableResultPreview {
             get {
                 return ((bool)(this["enableResultPreview"]));
@@ -410,12 +422,12 @@ namespace MapCreator.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool enableLog {
+        public bool mapDrawBuildingsBelowWater {
             get {
-                return ((bool)(this["enableLog"]));
+                return ((bool)(this["mapDrawBuildingsBelowWater"]));
             }
             set {
-                this["enableLog"] = value;
+                this["mapDrawBuildingsBelowWater"] = value;
             }
         }
     }

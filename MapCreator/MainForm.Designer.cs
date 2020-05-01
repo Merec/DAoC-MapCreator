@@ -31,6 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainStatus = new System.Windows.Forms.StatusStrip();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.queueProcessedLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.queueTotalLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,8 +91,6 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.enableLogCheckBox = new System.Windows.Forms.CheckBox();
-            this.enableResultPreview = new System.Windows.Forms.CheckBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -102,6 +103,10 @@
             this.mapPreview = new System.Windows.Forms.PictureBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.excludeBoundsFromMapCheckbox = new System.Windows.Forms.CheckBox();
+            this.mapBoundsOpacityTextBox = new System.Windows.Forms.NumericUpDown();
+            this.mapBoundsColorPreview = new System.Windows.Forms.Panel();
+            this.generateBoundsCheckBox = new System.Windows.Forms.CheckBox();
             this.heightTextBox = new System.Windows.Forms.NumericUpDown();
             this.widthTextBox = new System.Windows.Forms.NumericUpDown();
             this.createBackgroundCheckBox = new System.Windows.Forms.CheckBox();
@@ -112,19 +117,18 @@
             this.heightmapZScaleTextBox = new System.Windows.Forms.NumericUpDown();
             this.heightmapLightMaxTextBox = new System.Windows.Forms.NumericUpDown();
             this.heightmapLightMinTextBox = new System.Windows.Forms.NumericUpDown();
-            this.excludeBoundsFromMapCheckbox = new System.Windows.Forms.CheckBox();
-            this.mapBoundsOpacityTextBox = new System.Windows.Forms.NumericUpDown();
-            this.mapBoundsColorPreview = new System.Windows.Forms.Panel();
-            this.generateBoundsCheckBox = new System.Windows.Forms.CheckBox();
             this.riversUseDefaultColorCheckBox = new System.Windows.Forms.CheckBox();
             this.mapRiversOpacityTextBox = new System.Windows.Forms.NumericUpDown();
             this.riversColorPreview = new System.Windows.Forms.Panel();
             this.generateRiversCheckBox = new System.Windows.Forms.CheckBox();
+            this.drawFixturesBelowWaterCheckBox = new System.Windows.Forms.CheckBox();
             this.mapTreeTransparencyTextBox = new System.Windows.Forms.NumericUpDown();
             this.treesAsImages = new System.Windows.Forms.RadioButton();
             this.treesAsShadedModel = new System.Windows.Forms.RadioButton();
             this.drawTreesCheckBox = new System.Windows.Forms.CheckBox();
             this.drawFixturesCheckBox = new System.Windows.Forms.CheckBox();
+            this.enableLogCheckBox = new System.Windows.Forms.CheckBox();
+            this.enableResultPreview = new System.Windows.Forms.CheckBox();
             this.skipIfFileExistsCheckbox = new System.Windows.Forms.CheckBox();
             this.directoryPatternTextBox = new System.Windows.Forms.TextBox();
             this.filePatternTextBox = new System.Windows.Forms.TextBox();
@@ -151,6 +155,7 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mapBoundsOpacityTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.widthTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapZVector3TextBox)).BeginInit();
@@ -159,7 +164,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.heightmapZScaleTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapLightMaxTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapLightMinTextBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mapBoundsOpacityTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mapRiversOpacityTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mapTreeTransparencyTextBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mapQualityTextBox)).BeginInit();
@@ -169,10 +173,13 @@
             // 
             this.mainStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusProgressBar,
+            this.queueProcessedLabel,
+            this.toolStripStatusLabel2,
+            this.queueTotalLabel,
             this.statusLabel});
-            this.mainStatus.Location = new System.Drawing.Point(0, 719);
+            this.mainStatus.Location = new System.Drawing.Point(2, 866);
             this.mainStatus.Name = "mainStatus";
-            this.mainStatus.Size = new System.Drawing.Size(984, 22);
+            this.mainStatus.Size = new System.Drawing.Size(1530, 22);
             this.mainStatus.TabIndex = 0;
             this.mainStatus.Text = "statusStrip1";
             // 
@@ -180,6 +187,25 @@
             // 
             this.statusProgressBar.Name = "statusProgressBar";
             this.statusProgressBar.Size = new System.Drawing.Size(100, 16);
+            // 
+            // queueProcessedLabel
+            // 
+            this.queueProcessedLabel.Name = "queueProcessedLabel";
+            this.queueProcessedLabel.Size = new System.Drawing.Size(13, 17);
+            this.queueProcessedLabel.Text = "0";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Margin = new System.Windows.Forms.Padding(-4, 3, -4, 2);
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(12, 17);
+            this.toolStripStatusLabel2.Text = "/";
+            // 
+            // queueTotalLabel
+            // 
+            this.queueTotalLabel.Name = "queueTotalLabel";
+            this.queueTotalLabel.Size = new System.Drawing.Size(13, 17);
+            this.queueTotalLabel.Text = "0";
             // 
             // statusLabel
             // 
@@ -194,9 +220,9 @@
             this.settingsToolStripMenuItem,
             this.toolStripMenuItem1,
             this.aboutToolStripMenuItem});
-            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Location = new System.Drawing.Point(2, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(984, 24);
+            this.mainMenu.Size = new System.Drawing.Size(1530, 24);
             this.mainMenu.TabIndex = 1;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -310,8 +336,7 @@
             this.groupBox1.Controls.Add(this.widthTextBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(7, 126);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.groupBox1.Location = new System.Drawing.Point(3, 238);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(350, 50);
             this.groupBox1.TabIndex = 2;
@@ -354,8 +379,7 @@
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.heightmapLightMinTextBox);
-            this.groupBox2.Location = new System.Drawing.Point(7, 179);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.groupBox2.Location = new System.Drawing.Point(3, 294);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(350, 149);
             this.groupBox2.TabIndex = 15;
@@ -423,8 +447,7 @@
             this.groupBox5.Controls.Add(this.selecetedMapsResetButton);
             this.groupBox5.Controls.Add(this.selectedMapsCounterLabel);
             this.groupBox5.Controls.Add(this.label22);
-            this.groupBox5.Location = new System.Drawing.Point(7, 0);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.groupBox5.Location = new System.Drawing.Point(3, 3);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(350, 123);
             this.groupBox5.TabIndex = 5;
@@ -498,8 +521,7 @@
             this.groupBox4.Controls.Add(this.mapBoundsColorPreview);
             this.groupBox4.Controls.Add(this.label21);
             this.groupBox4.Controls.Add(this.generateBoundsCheckBox);
-            this.groupBox4.Location = new System.Drawing.Point(7, 331);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.groupBox4.Location = new System.Drawing.Point(3, 132);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(350, 100);
             this.groupBox4.TabIndex = 30;
@@ -576,8 +598,7 @@
             this.groupBox3.Controls.Add(this.riversColorPreview);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.generateRiversCheckBox);
-            this.groupBox3.Location = new System.Drawing.Point(7, 434);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.groupBox3.Location = new System.Drawing.Point(3, 449);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(350, 122);
             this.groupBox3.TabIndex = 16;
@@ -642,16 +663,14 @@
             // 
             // logListBox
             // 
-            this.logListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.logListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.logListBox.FormattingEnabled = true;
             this.logListBox.IntegralHeight = false;
-            this.logListBox.Location = new System.Drawing.Point(3, 3);
+            this.logListBox.Location = new System.Drawing.Point(0, 0);
             this.logListBox.Name = "logListBox";
             this.logListBox.ScrollAlwaysVisible = true;
-            this.logListBox.Size = new System.Drawing.Size(258, 134);
+            this.logListBox.Size = new System.Drawing.Size(814, 236);
             this.logListBox.TabIndex = 3;
             this.logListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.logListBox_DrawItem);
             // 
@@ -678,38 +697,36 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
-            this.flowLayoutPanel1.Controls.Add(this.flowLayoutSizerPanel);
             this.flowLayoutPanel1.Controls.Add(this.groupBox5);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox4);
             this.flowLayoutPanel1.Controls.Add(this.groupBox1);
             this.flowLayoutPanel1.Controls.Add(this.groupBox2);
-            this.flowLayoutPanel1.Controls.Add(this.groupBox4);
             this.flowLayoutPanel1.Controls.Add(this.groupBox3);
             this.flowLayoutPanel1.Controls.Add(this.groupBox6);
-            this.flowLayoutPanel1.Controls.Add(this.groupBox7);
             this.flowLayoutPanel1.Controls.Add(this.panel1);
+            this.flowLayoutPanel1.Controls.Add(this.flowLayoutSizerPanel);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(713, 693);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(712, 842);
             this.flowLayoutPanel1.TabIndex = 33;
             // 
             // flowLayoutSizerPanel
             // 
-            this.flowLayoutSizerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.flowLayoutSizerPanel.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutSizerPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutSizerPanel.Location = new System.Drawing.Point(359, 309);
+            this.flowLayoutSizerPanel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.flowLayoutSizerPanel.Name = "flowLayoutSizerPanel";
-            this.flowLayoutSizerPanel.Size = new System.Drawing.Size(1, 687);
+            this.flowLayoutSizerPanel.Padding = new System.Windows.Forms.Padding(3);
+            this.flowLayoutSizerPanel.Size = new System.Drawing.Size(350, 2);
             this.flowLayoutSizerPanel.TabIndex = 36;
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.drawFixturesBelowWaterCheckBox);
             this.groupBox6.Controls.Add(this.label25);
             this.groupBox6.Controls.Add(this.mapTreeTransparencyTextBox);
             this.groupBox6.Controls.Add(this.label24);
@@ -718,10 +735,9 @@
             this.groupBox6.Controls.Add(this.label1);
             this.groupBox6.Controls.Add(this.drawTreesCheckBox);
             this.groupBox6.Controls.Add(this.drawFixturesCheckBox);
-            this.groupBox6.Location = new System.Drawing.Point(360, 0);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.groupBox6.Location = new System.Drawing.Point(3, 577);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(350, 158);
+            this.groupBox6.Size = new System.Drawing.Size(350, 180);
             this.groupBox6.TabIndex = 31;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Fixtures";
@@ -729,7 +745,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(191, 107);
+            this.label25.Location = new System.Drawing.Point(186, 133);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(15, 13);
             this.label25.TabIndex = 28;
@@ -738,7 +754,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(17, 107);
+            this.label24.Location = new System.Drawing.Point(17, 130);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(93, 13);
             this.label24.TabIndex = 5;
@@ -747,7 +763,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 134);
+            this.label1.Location = new System.Drawing.Point(3, 157);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(193, 13);
             this.label1.TabIndex = 2;
@@ -767,37 +783,12 @@
             this.groupBox7.Controls.Add(this.label5);
             this.groupBox7.Controls.Add(this.fileTypeComboBox);
             this.groupBox7.Controls.Add(this.label4);
-            this.groupBox7.Location = new System.Drawing.Point(363, 164);
+            this.groupBox7.Location = new System.Drawing.Point(0, 0);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(347, 251);
+            this.groupBox7.Size = new System.Drawing.Size(350, 251);
             this.groupBox7.TabIndex = 35;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "File settings";
-            // 
-            // enableLogCheckBox
-            // 
-            this.enableLogCheckBox.AutoSize = true;
-            this.enableLogCheckBox.Checked = global::MapCreator.Properties.Settings.Default.enableLog;
-            this.enableLogCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "enableLog", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.enableLogCheckBox.Location = new System.Drawing.Point(77, 219);
-            this.enableLogCheckBox.Name = "enableLogCheckBox";
-            this.enableLogCheckBox.Size = new System.Drawing.Size(96, 17);
-            this.enableLogCheckBox.TabIndex = 23;
-            this.enableLogCheckBox.Text = "Enable logging";
-            this.enableLogCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // enableResultPreview
-            // 
-            this.enableResultPreview.AutoSize = true;
-            this.enableResultPreview.Checked = global::MapCreator.Properties.Settings.Default.enableResultPreview;
-            this.enableResultPreview.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.enableResultPreview.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "enableResultPreview", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.enableResultPreview.Location = new System.Drawing.Point(77, 196);
-            this.enableResultPreview.Name = "enableResultPreview";
-            this.enableResultPreview.Size = new System.Drawing.Size(170, 17);
-            this.enableResultPreview.TabIndex = 22;
-            this.enableResultPreview.Text = "Enable preview of result image";
-            this.enableResultPreview.UseVisualStyleBackColor = true;
             // 
             // label26
             // 
@@ -815,7 +806,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label23.Location = new System.Drawing.Point(74, 121);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(267, 107);
+            this.label23.Size = new System.Drawing.Size(270, 107);
             this.label23.TabIndex = 18;
             this.label23.Text = "{id} = Zone ID; {name} = Zone name; {realm} = Realm of the zone; {expanision} = E" +
     "xpansion of the zone; {type} = Zone type; {size} = Map size;";
@@ -851,17 +842,20 @@
             // 
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.renderButton);
-            this.panel1.Location = new System.Drawing.Point(363, 421);
+            this.panel1.Controls.Add(this.groupBox7);
+            this.panel1.Location = new System.Drawing.Point(359, 3);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(347, 55);
+            this.panel1.Size = new System.Drawing.Size(350, 306);
             this.panel1.TabIndex = 34;
             // 
             // button1
             // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(116, 11);
+            this.button1.Location = new System.Drawing.Point(3, 269);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 33);
+            this.button1.Size = new System.Drawing.Size(160, 33);
             this.button1.TabIndex = 34;
             this.button1.Text = "Stop!";
             this.button1.UseVisualStyleBackColor = true;
@@ -869,24 +863,23 @@
             // 
             // renderButton
             // 
-            this.renderButton.Location = new System.Drawing.Point(211, 11);
+            this.renderButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.renderButton.Location = new System.Drawing.Point(184, 269);
             this.renderButton.Name = "renderButton";
-            this.renderButton.Size = new System.Drawing.Size(133, 33);
+            this.renderButton.Size = new System.Drawing.Size(160, 33);
             this.renderButton.TabIndex = 33;
-            this.renderButton.Text = "Create map(s)";
+            this.renderButton.Text = "Start";
             this.renderButton.UseVisualStyleBackColor = true;
             this.renderButton.Click += new System.EventHandler(this.renderButton_Click);
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.mapPreview);
             this.panel2.Controls.Add(this.label7);
-            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(258, 545);
+            this.panel2.Size = new System.Drawing.Size(814, 602);
             this.panel2.TabIndex = 4;
             // 
             // mapPreview
@@ -895,9 +888,9 @@
             this.mapPreview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mapPreview.ImageLocation = "";
             this.mapPreview.Location = new System.Drawing.Point(0, 16);
-            this.mapPreview.Margin = new System.Windows.Forms.Padding(10);
+            this.mapPreview.Margin = new System.Windows.Forms.Padding(10, 10, 20, 10);
             this.mapPreview.Name = "mapPreview";
-            this.mapPreview.Size = new System.Drawing.Size(258, 529);
+            this.mapPreview.Size = new System.Drawing.Size(814, 586);
             this.mapPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.mapPreview.TabIndex = 3;
             this.mapPreview.TabStop = false;
@@ -907,7 +900,7 @@
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.IsSplitterFixed = true;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Location = new System.Drawing.Point(2, 24);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -917,8 +910,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(984, 695);
-            this.splitContainer1.SplitterDistance = 716;
+            this.splitContainer1.Size = new System.Drawing.Size(1530, 842);
+            this.splitContainer1.SplitterDistance = 712;
             this.splitContainer1.TabIndex = 6;
             // 
             // splitContainer2
@@ -939,9 +932,58 @@
             this.splitContainer2.Panel2.Controls.Add(this.logListBox);
             this.splitContainer2.Panel2.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", global::MapCreator.Properties.Settings.Default, "enableLog", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.splitContainer2.Panel2.Enabled = global::MapCreator.Properties.Settings.Default.enableLog;
-            this.splitContainer2.Size = new System.Drawing.Size(264, 695);
-            this.splitContainer2.SplitterDistance = 551;
+            this.splitContainer2.Size = new System.Drawing.Size(814, 842);
+            this.splitContainer2.SplitterDistance = 602;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // excludeBoundsFromMapCheckbox
+            // 
+            this.excludeBoundsFromMapCheckbox.AutoSize = true;
+            this.excludeBoundsFromMapCheckbox.Checked = global::MapCreator.Properties.Settings.Default.removeBoundsFromMap;
+            this.excludeBoundsFromMapCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "removeBoundsFromMap", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.excludeBoundsFromMapCheckbox.Location = new System.Drawing.Point(123, 19);
+            this.excludeBoundsFromMapCheckbox.Name = "excludeBoundsFromMapCheckbox";
+            this.excludeBoundsFromMapCheckbox.Size = new System.Drawing.Size(83, 17);
+            this.excludeBoundsFromMapCheckbox.TabIndex = 29;
+            this.excludeBoundsFromMapCheckbox.Text = "Transparent";
+            this.excludeBoundsFromMapCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // mapBoundsOpacityTextBox
+            // 
+            this.mapBoundsOpacityTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::MapCreator.Properties.Settings.Default, "mapBoundsOpacity", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.mapBoundsOpacityTextBox.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.mapBoundsOpacityTextBox.Location = new System.Drawing.Point(135, 69);
+            this.mapBoundsOpacityTextBox.Name = "mapBoundsOpacityTextBox";
+            this.mapBoundsOpacityTextBox.Size = new System.Drawing.Size(69, 20);
+            this.mapBoundsOpacityTextBox.TabIndex = 26;
+            this.mapBoundsOpacityTextBox.Value = global::MapCreator.Properties.Settings.Default.mapBoundsOpacity;
+            // 
+            // mapBoundsColorPreview
+            // 
+            this.mapBoundsColorPreview.BackColor = global::MapCreator.Properties.Settings.Default.mapBoundsColor;
+            this.mapBoundsColorPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mapBoundsColorPreview.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::MapCreator.Properties.Settings.Default, "mapBoundsColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.mapBoundsColorPreview.Location = new System.Drawing.Point(81, 42);
+            this.mapBoundsColorPreview.Name = "mapBoundsColorPreview";
+            this.mapBoundsColorPreview.Size = new System.Drawing.Size(33, 48);
+            this.mapBoundsColorPreview.TabIndex = 2;
+            // 
+            // generateBoundsCheckBox
+            // 
+            this.generateBoundsCheckBox.AutoSize = true;
+            this.generateBoundsCheckBox.Checked = global::MapCreator.Properties.Settings.Default.mapGenerateBounds;
+            this.generateBoundsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.generateBoundsCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapGenerateBounds", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.generateBoundsCheckBox.Location = new System.Drawing.Point(9, 19);
+            this.generateBoundsCheckBox.Name = "generateBoundsCheckBox";
+            this.generateBoundsCheckBox.Size = new System.Drawing.Size(89, 17);
+            this.generateBoundsCheckBox.TabIndex = 0;
+            this.generateBoundsCheckBox.Text = "Draw bounds";
+            this.generateBoundsCheckBox.UseVisualStyleBackColor = true;
             // 
             // heightTextBox
             // 
@@ -1103,55 +1145,6 @@
             this.heightmapLightMinTextBox.TabIndex = 13;
             this.heightmapLightMinTextBox.Value = global::MapCreator.Properties.Settings.Default.mapHeightmapMinLight;
             // 
-            // excludeBoundsFromMapCheckbox
-            // 
-            this.excludeBoundsFromMapCheckbox.AutoSize = true;
-            this.excludeBoundsFromMapCheckbox.Checked = global::MapCreator.Properties.Settings.Default.removeBoundsFromMap;
-            this.excludeBoundsFromMapCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "removeBoundsFromMap", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.excludeBoundsFromMapCheckbox.Location = new System.Drawing.Point(123, 19);
-            this.excludeBoundsFromMapCheckbox.Name = "excludeBoundsFromMapCheckbox";
-            this.excludeBoundsFromMapCheckbox.Size = new System.Drawing.Size(83, 17);
-            this.excludeBoundsFromMapCheckbox.TabIndex = 29;
-            this.excludeBoundsFromMapCheckbox.Text = "Transparent";
-            this.excludeBoundsFromMapCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // mapBoundsOpacityTextBox
-            // 
-            this.mapBoundsOpacityTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::MapCreator.Properties.Settings.Default, "mapBoundsOpacity", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.mapBoundsOpacityTextBox.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.mapBoundsOpacityTextBox.Location = new System.Drawing.Point(135, 69);
-            this.mapBoundsOpacityTextBox.Name = "mapBoundsOpacityTextBox";
-            this.mapBoundsOpacityTextBox.Size = new System.Drawing.Size(69, 20);
-            this.mapBoundsOpacityTextBox.TabIndex = 26;
-            this.mapBoundsOpacityTextBox.Value = global::MapCreator.Properties.Settings.Default.mapBoundsOpacity;
-            // 
-            // mapBoundsColorPreview
-            // 
-            this.mapBoundsColorPreview.BackColor = global::MapCreator.Properties.Settings.Default.mapBoundsColor;
-            this.mapBoundsColorPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mapBoundsColorPreview.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::MapCreator.Properties.Settings.Default, "mapBoundsColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.mapBoundsColorPreview.Location = new System.Drawing.Point(81, 42);
-            this.mapBoundsColorPreview.Name = "mapBoundsColorPreview";
-            this.mapBoundsColorPreview.Size = new System.Drawing.Size(33, 48);
-            this.mapBoundsColorPreview.TabIndex = 2;
-            // 
-            // generateBoundsCheckBox
-            // 
-            this.generateBoundsCheckBox.AutoSize = true;
-            this.generateBoundsCheckBox.Checked = global::MapCreator.Properties.Settings.Default.mapGenerateBounds;
-            this.generateBoundsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.generateBoundsCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapGenerateBounds", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.generateBoundsCheckBox.Location = new System.Drawing.Point(9, 19);
-            this.generateBoundsCheckBox.Name = "generateBoundsCheckBox";
-            this.generateBoundsCheckBox.Size = new System.Drawing.Size(89, 17);
-            this.generateBoundsCheckBox.TabIndex = 0;
-            this.generateBoundsCheckBox.Text = "Draw bounds";
-            this.generateBoundsCheckBox.UseVisualStyleBackColor = true;
-            // 
             // riversUseDefaultColorCheckBox
             // 
             this.riversUseDefaultColorCheckBox.AutoSize = true;
@@ -1202,6 +1195,19 @@
             this.generateRiversCheckBox.Text = "Draw rivers";
             this.generateRiversCheckBox.UseVisualStyleBackColor = true;
             // 
+            // drawFixturesBelowWaterCheckBox
+            // 
+            this.drawFixturesBelowWaterCheckBox.AutoSize = true;
+            this.drawFixturesBelowWaterCheckBox.Checked = global::MapCreator.Properties.Settings.Default.mapDrawBuildingsBelowWater;
+            this.drawFixturesBelowWaterCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.drawFixturesBelowWaterCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapDrawBuildingsBelowWater", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.drawFixturesBelowWaterCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.drawFixturesBelowWaterCheckBox.Name = "drawFixturesBelowWaterCheckBox";
+            this.drawFixturesBelowWaterCheckBox.Size = new System.Drawing.Size(172, 17);
+            this.drawFixturesBelowWaterCheckBox.TabIndex = 29;
+            this.drawFixturesBelowWaterCheckBox.Text = "Draw fixtures below water level";
+            this.drawFixturesBelowWaterCheckBox.UseVisualStyleBackColor = true;
+            // 
             // mapTreeTransparencyTextBox
             // 
             this.mapTreeTransparencyTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::MapCreator.Properties.Settings.Default, "mapTreeTransparency", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -1210,7 +1216,7 @@
             0,
             0,
             0});
-            this.mapTreeTransparencyTextBox.Location = new System.Drawing.Point(116, 105);
+            this.mapTreeTransparencyTextBox.Location = new System.Drawing.Point(116, 128);
             this.mapTreeTransparencyTextBox.Name = "mapTreeTransparencyTextBox";
             this.mapTreeTransparencyTextBox.Size = new System.Drawing.Size(69, 20);
             this.mapTreeTransparencyTextBox.TabIndex = 6;
@@ -1221,7 +1227,7 @@
             this.treesAsImages.AutoSize = true;
             this.treesAsImages.Checked = global::MapCreator.Properties.Settings.Default.treesAsImages;
             this.treesAsImages.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "treesAsImages", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.treesAsImages.Location = new System.Drawing.Point(20, 82);
+            this.treesAsImages.Location = new System.Drawing.Point(20, 105);
             this.treesAsImages.Name = "treesAsImages";
             this.treesAsImages.Size = new System.Drawing.Size(136, 17);
             this.treesAsImages.TabIndex = 4;
@@ -1235,7 +1241,7 @@
             this.treesAsShadedModel.AutoSize = true;
             this.treesAsShadedModel.Checked = global::MapCreator.Properties.Settings.Default.treesAsShadedModel;
             this.treesAsShadedModel.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "treesAsShadedModel", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.treesAsShadedModel.Location = new System.Drawing.Point(20, 62);
+            this.treesAsShadedModel.Location = new System.Drawing.Point(20, 85);
             this.treesAsShadedModel.Name = "treesAsShadedModel";
             this.treesAsShadedModel.Size = new System.Drawing.Size(105, 17);
             this.treesAsShadedModel.TabIndex = 3;
@@ -1249,7 +1255,7 @@
             this.drawTreesCheckBox.Checked = global::MapCreator.Properties.Settings.Default.mapDrawTrees;
             this.drawTreesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.drawTreesCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapDrawTrees", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.drawTreesCheckBox.Location = new System.Drawing.Point(6, 42);
+            this.drawTreesCheckBox.Location = new System.Drawing.Point(6, 65);
             this.drawTreesCheckBox.Name = "drawTreesCheckBox";
             this.drawTreesCheckBox.Size = new System.Drawing.Size(77, 17);
             this.drawTreesCheckBox.TabIndex = 1;
@@ -1263,12 +1269,38 @@
             this.drawFixturesCheckBox.Checked = global::MapCreator.Properties.Settings.Default.mapDrawBuildings;
             this.drawFixturesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.drawFixturesCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "mapDrawBuildings", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.drawFixturesCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.drawFixturesCheckBox.Location = new System.Drawing.Point(6, 42);
             this.drawFixturesCheckBox.Name = "drawFixturesCheckBox";
-            this.drawFixturesCheckBox.Size = new System.Drawing.Size(87, 17);
+            this.drawFixturesCheckBox.Size = new System.Drawing.Size(174, 17);
             this.drawFixturesCheckBox.TabIndex = 0;
-            this.drawFixturesCheckBox.Text = "Draw fixtures";
+            this.drawFixturesCheckBox.Text = "Draw fixtures above water level";
             this.drawFixturesCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // enableLogCheckBox
+            // 
+            this.enableLogCheckBox.AutoSize = true;
+            this.enableLogCheckBox.Checked = global::MapCreator.Properties.Settings.Default.enableLog;
+            this.enableLogCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.enableLogCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "enableLog", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.enableLogCheckBox.Location = new System.Drawing.Point(77, 219);
+            this.enableLogCheckBox.Name = "enableLogCheckBox";
+            this.enableLogCheckBox.Size = new System.Drawing.Size(96, 17);
+            this.enableLogCheckBox.TabIndex = 23;
+            this.enableLogCheckBox.Text = "Enable logging";
+            this.enableLogCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // enableResultPreview
+            // 
+            this.enableResultPreview.AutoSize = true;
+            this.enableResultPreview.Checked = global::MapCreator.Properties.Settings.Default.enableResultPreview;
+            this.enableResultPreview.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.enableResultPreview.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MapCreator.Properties.Settings.Default, "enableResultPreview", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.enableResultPreview.Location = new System.Drawing.Point(77, 196);
+            this.enableResultPreview.Name = "enableResultPreview";
+            this.enableResultPreview.Size = new System.Drawing.Size(170, 17);
+            this.enableResultPreview.TabIndex = 22;
+            this.enableResultPreview.Text = "Enable preview of result image";
+            this.enableResultPreview.UseVisualStyleBackColor = true;
             // 
             // skipIfFileExistsCheckbox
             // 
@@ -1289,7 +1321,7 @@
             this.directoryPatternTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::MapCreator.Properties.Settings.Default, "targetDirectoryPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.directoryPatternTextBox.Location = new System.Drawing.Point(74, 98);
             this.directoryPatternTextBox.Name = "directoryPatternTextBox";
-            this.directoryPatternTextBox.Size = new System.Drawing.Size(267, 20);
+            this.directoryPatternTextBox.Size = new System.Drawing.Size(270, 20);
             this.directoryPatternTextBox.TabIndex = 20;
             this.directoryPatternTextBox.Text = global::MapCreator.Properties.Settings.Default.targetDirectoryPattern;
             // 
@@ -1300,7 +1332,7 @@
             this.filePatternTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::MapCreator.Properties.Settings.Default, "mapFilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.filePatternTextBox.Location = new System.Drawing.Point(74, 72);
             this.filePatternTextBox.Name = "filePatternTextBox";
-            this.filePatternTextBox.Size = new System.Drawing.Size(267, 20);
+            this.filePatternTextBox.Size = new System.Drawing.Size(270, 20);
             this.filePatternTextBox.TabIndex = 17;
             this.filePatternTextBox.Text = global::MapCreator.Properties.Settings.Default.mapFilePattern;
             // 
@@ -1330,7 +1362,7 @@
             "JPEG"});
             this.fileTypeComboBox.Location = new System.Drawing.Point(74, 19);
             this.fileTypeComboBox.Name = "fileTypeComboBox";
-            this.fileTypeComboBox.Size = new System.Drawing.Size(267, 21);
+            this.fileTypeComboBox.Size = new System.Drawing.Size(270, 21);
             this.fileTypeComboBox.TabIndex = 1;
             this.fileTypeComboBox.Text = global::MapCreator.Properties.Settings.Default.mapType;
             // 
@@ -1338,15 +1370,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 741);
+            this.ClientSize = new System.Drawing.Size(1537, 888);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mainStatus);
             this.Controls.Add(this.mainMenu);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
-            this.MinimumSize = new System.Drawing.Size(1000, 780);
+            this.MinimumSize = new System.Drawing.Size(1000, 850);
             this.Name = "MainForm";
+            this.Padding = new System.Windows.Forms.Padding(2, 0, 5, 0);
             this.Text = "MapCreator";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -1375,7 +1408,6 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mapPreview)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -1383,6 +1415,7 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mapBoundsOpacityTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.widthTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapZVector3TextBox)).EndInit();
@@ -1391,7 +1424,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.heightmapZScaleTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapLightMaxTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightmapLightMinTextBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mapBoundsOpacityTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mapRiversOpacityTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mapTreeTransparencyTextBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mapQualityTextBox)).EndInit();
@@ -1465,7 +1497,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.CheckBox drawFixturesCheckBox;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button renderButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -1503,6 +1534,11 @@
         private System.Windows.Forms.CheckBox createBackgroundCheckBox;
         private System.Windows.Forms.CheckBox enableResultPreview;
         private System.Windows.Forms.CheckBox enableLogCheckBox;
+        private System.Windows.Forms.ToolStripStatusLabel queueTotalLabel;
+        private System.Windows.Forms.ToolStripStatusLabel queueProcessedLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.CheckBox drawFixturesBelowWaterCheckBox;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 

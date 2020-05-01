@@ -123,6 +123,8 @@ namespace MapCreator
             selectedMapsListBox.DataSource = null;
             selectedMapsListBox.DataSource = SelectedZones.OrderBy(z => z.Id).ToList();
             selectedMapsCounterLabel.Text = SelectedZones.Count.ToString();
+            queueTotalLabel.Text = selectedMapsCounterLabel.Text;
+            queueProcessedLabel.Text = "0";
         }
 
         /// <summary>
@@ -505,15 +507,19 @@ namespace MapCreator
                 {
                     HandleRenderButton(false);
 
+                    int counter = 1;
                     foreach (ZoneSelection zone in SelectedZones)
                     {
                         Log(string.Format("Rendering {0} ({1})...", zone.Name, zone.Id), LogLevel.notice);
+                        queueProcessedLabel.Text = counter.ToString();
                         drawMapBackgroundWorker.RunWorkerAsync(zone);
 
                         while (drawMapBackgroundWorker.IsBusy)
                         {
                             Application.DoEvents();
                         }
+
+                        counter++;
                     }
 
                     HandleRenderButton(true);
@@ -635,8 +641,9 @@ namespace MapCreator
             int boundsOpacity = Convert.ToInt32(mapBoundsOpacityTextBox.Text);
             bool excludeBoundsFromMap = excludeBoundsFromMapCheckbox.Checked;
 
-            bool fixtures = drawFixturesCheckBox.Checked;
-            bool trees = drawTreesCheckBox.Checked;
+            bool drawFixtures = drawFixturesCheckBox.Checked;
+            bool drawFixturesBelowWater = drawFixturesBelowWaterCheckBox.Checked;
+            bool drawTrees = drawTreesCheckBox.Checked;
 
             // Generate the map
             using (ZoneConfiguration conf = new ZoneConfiguration(zone.Id, TargetMapSize))
@@ -672,11 +679,11 @@ namespace MapCreator
                         MainForm.Log("Finished loading water configurations!", LogLevel.success);
 
                         MapFixtures fixturesGenerator = null;
-                        if (fixtures || trees)
+                        if (drawFixtures || drawFixturesBelowWater || drawTrees)
                         {
                             MainForm.Log("Loading fixtures ...", LogLevel.notice);
                             fixturesGenerator = new MapFixtures(conf, river.WaterAreas);
-                            fixturesGenerator.DrawFixtures = drawFixturesCheckBox.Checked;
+                            fixturesGenerator.DrawFixtures = drawFixturesCheckBox.Checked || drawFixturesBelowWaterCheckBox.Checked;
                             fixturesGenerator.DrawTrees = drawTreesCheckBox.Checked;
                             fixturesGenerator.DrawTreesAsImages = treesAsImages.Checked;
                             fixturesGenerator.TreeTransparency = Convert.ToInt32(mapTreeTransparencyTextBox.Value);
@@ -685,7 +692,7 @@ namespace MapCreator
                         }
 
                         // Draw Fixtures below water
-                        if (fixtures || trees)
+                        if (drawFixturesBelowWater)
                         {
                             MainForm.Log("Rendering fixtures below water level ...", LogLevel.notice);
                             fixturesGenerator.Draw(map, true);
@@ -704,7 +711,7 @@ namespace MapCreator
                         }
 
                         // Draw Fixtures above water
-                        if (fixtures || trees)
+                        if (drawFixtures || drawTrees)
                         {
                             MainForm.Log("Rendering fixtures above water level ...", LogLevel.notice);
                             fixturesGenerator.Draw(map, false);
@@ -772,12 +779,7 @@ namespace MapCreator
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            flowLayoutSizerPanel.Height = splitContainer1.Panel1.Height - splitContainer1.Panel1.Padding.Top - splitContainer1.Panel1.Padding.Bottom;
-
-            if (flowLayoutPanel1.Width < 800)
-            {
-                splitContainer1.SplitterDistance = flowLayoutPanel1.Width;
-            }
+            splitContainer1.SplitterDistance = flowLayoutSizerPanel.Location.X + flowLayoutSizerPanel.Width;
         }
 
         private void treesAsShadedModel_CheckedChanged(object sender, EventArgs e)
@@ -839,7 +841,5 @@ namespace MapCreator
                 }
             }
         }
-
     }
-
 }

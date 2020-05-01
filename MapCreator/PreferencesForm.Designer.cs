@@ -32,16 +32,16 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.targetMapBrowseButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.targetMapPathTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.gamePathBrowseButton = new System.Windows.Forms.Button();
+            this.gamePathTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.gamePathFileBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.targetMapPathBrowser = new System.Windows.Forms.FolderBrowserDialog();
-            this.targetMapPathTextBox = new System.Windows.Forms.TextBox();
-            this.gamePathTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,6 +82,17 @@
             this.label4.Text = "Select the base directory for created maps. This is altered with the dynamic dire" +
     "ctory pattern in the main window. Leave empty for the directory of the program.";
             // 
+            // targetMapPathTextBox
+            // 
+            this.targetMapPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.targetMapPathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::MapCreator.Properties.Settings.Default, "targetMapPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.targetMapPathTextBox.Location = new System.Drawing.Point(101, 70);
+            this.targetMapPathTextBox.Name = "targetMapPathTextBox";
+            this.targetMapPathTextBox.Size = new System.Drawing.Size(430, 20);
+            this.targetMapPathTextBox.TabIndex = 5;
+            this.targetMapPathTextBox.Text = global::MapCreator.Properties.Settings.Default.targetMapPath;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -110,6 +121,17 @@
             this.gamePathBrowseButton.Text = "browse";
             this.gamePathBrowseButton.UseVisualStyleBackColor = true;
             this.gamePathBrowseButton.Click += new System.EventHandler(this.gamePathBrowseButton_Click);
+            // 
+            // gamePathTextBox
+            // 
+            this.gamePathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gamePathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::MapCreator.Properties.Settings.Default, "game_path", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.gamePathTextBox.Location = new System.Drawing.Point(101, 19);
+            this.gamePathTextBox.Name = "gamePathTextBox";
+            this.gamePathTextBox.Size = new System.Drawing.Size(430, 20);
+            this.gamePathTextBox.TabIndex = 1;
+            this.gamePathTextBox.Text = global::MapCreator.Properties.Settings.Default.game_path;
             // 
             // label1
             // 
@@ -147,28 +169,6 @@
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
-            // targetMapPathTextBox
-            // 
-            this.targetMapPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.targetMapPathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::MapCreator.Properties.Settings.Default, "targetMapPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.targetMapPathTextBox.Location = new System.Drawing.Point(101, 70);
-            this.targetMapPathTextBox.Name = "targetMapPathTextBox";
-            this.targetMapPathTextBox.Size = new System.Drawing.Size(430, 20);
-            this.targetMapPathTextBox.TabIndex = 5;
-            this.targetMapPathTextBox.Text = global::MapCreator.Properties.Settings.Default.targetMapPath;
-            // 
-            // gamePathTextBox
-            // 
-            this.gamePathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gamePathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::MapCreator.Properties.Settings.Default, "game_path", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.gamePathTextBox.Location = new System.Drawing.Point(101, 19);
-            this.gamePathTextBox.Name = "gamePathTextBox";
-            this.gamePathTextBox.Size = new System.Drawing.Size(430, 20);
-            this.gamePathTextBox.TabIndex = 1;
-            this.gamePathTextBox.Text = global::MapCreator.Properties.Settings.Default.game_path;
-            // 
             // PreferencesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -177,9 +177,15 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PreferencesForm";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Preferences";
+            this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
