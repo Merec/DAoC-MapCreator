@@ -132,6 +132,7 @@
             this.mapPreview = new System.Windows.Forms.PictureBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.currentMapLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainStatus.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -173,10 +174,11 @@
             this.queueProcessedLabel,
             this.toolStripStatusLabel2,
             this.queueTotalLabel,
+            this.currentMapLabel,
             this.statusLabel});
-            this.mainStatus.Location = new System.Drawing.Point(2, 866);
+            this.mainStatus.Location = new System.Drawing.Point(2, 789);
             this.mainStatus.Name = "mainStatus";
-            this.mainStatus.Size = new System.Drawing.Size(1530, 22);
+            this.mainStatus.Size = new System.Drawing.Size(977, 22);
             this.mainStatus.TabIndex = 0;
             this.mainStatus.Text = "statusStrip1";
             // 
@@ -219,7 +221,7 @@
             this.aboutToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(2, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(1530, 24);
+            this.mainMenu.Size = new System.Drawing.Size(977, 24);
             this.mainMenu.TabIndex = 1;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -897,7 +899,7 @@
             this.logListBox.Location = new System.Drawing.Point(0, 0);
             this.logListBox.Name = "logListBox";
             this.logListBox.ScrollAlwaysVisible = true;
-            this.logListBox.Size = new System.Drawing.Size(814, 236);
+            this.logListBox.Size = new System.Drawing.Size(261, 215);
             this.logListBox.TabIndex = 3;
             this.logListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.logListBox_DrawItem);
             // 
@@ -938,7 +940,7 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(712, 842);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(712, 765);
             this.flowLayoutPanel1.TabIndex = 33;
             // 
             // groupBox6
@@ -1277,7 +1279,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(814, 602);
+            this.panel2.Size = new System.Drawing.Size(261, 546);
             this.panel2.TabIndex = 4;
             // 
             // mapPreview
@@ -1288,7 +1290,7 @@
             this.mapPreview.Location = new System.Drawing.Point(0, 16);
             this.mapPreview.Margin = new System.Windows.Forms.Padding(10, 10, 20, 10);
             this.mapPreview.Name = "mapPreview";
-            this.mapPreview.Size = new System.Drawing.Size(814, 586);
+            this.mapPreview.Size = new System.Drawing.Size(261, 530);
             this.mapPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.mapPreview.TabIndex = 3;
             this.mapPreview.TabStop = false;
@@ -1308,7 +1310,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1530, 842);
+            this.splitContainer1.Size = new System.Drawing.Size(977, 765);
             this.splitContainer1.SplitterDistance = 712;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -1330,15 +1332,21 @@
             this.splitContainer2.Panel2.Controls.Add(this.logListBox);
             this.splitContainer2.Panel2.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", global::MapCreator.Properties.Settings.Default, "enableLog", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.splitContainer2.Panel2.Enabled = global::MapCreator.Properties.Settings.Default.enableLog;
-            this.splitContainer2.Size = new System.Drawing.Size(814, 842);
-            this.splitContainer2.SplitterDistance = 602;
+            this.splitContainer2.Size = new System.Drawing.Size(261, 765);
+            this.splitContainer2.SplitterDistance = 546;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // currentMapLabel
+            // 
+            this.currentMapLabel.Name = "currentMapLabel";
+            this.currentMapLabel.Size = new System.Drawing.Size(24, 17);
+            this.currentMapLabel.Text = "| - |";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1537, 888);
+            this.ClientSize = new System.Drawing.Size(984, 811);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mainStatus);
             this.Controls.Add(this.mainMenu);
@@ -1504,6 +1512,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.CheckBox drawFixturesBelowWaterCheckBox;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.ToolStripStatusLabel currentMapLabel;
     }
 }
 

@@ -125,6 +125,7 @@ namespace MapCreator
             selectedMapsCounterLabel.Text = SelectedZones.Count.ToString();
             queueTotalLabel.Text = selectedMapsCounterLabel.Text;
             queueProcessedLabel.Text = "0";
+            currentMapLabel.Text = "| - |";
         }
 
         /// <summary>
@@ -155,9 +156,10 @@ namespace MapCreator
         private void selecetedMapsResetButton_Click(object sender, EventArgs e)
         {
             SelectedZones.Clear();
-            selectedMapsListBox.DataSource = null;
-            selectedMapsListBox.DataSource = SelectedZones;
-            selectedMapsCounterLabel.Text = SelectedZones.Count.ToString();
+            UpdateSelectedZoneListBox();
+            //selectedMapsListBox.DataSource = null;
+            //selectedMapsListBox.DataSource = SelectedZones;
+            //selectedMapsCounterLabel.Text = SelectedZones.Count.ToString();
         }
 
         #region Logging
@@ -511,6 +513,7 @@ namespace MapCreator
                     foreach (ZoneSelection zone in SelectedZones)
                     {
                         Log(string.Format("Rendering {0} ({1})...", zone.Name, zone.Id), LogLevel.notice);
+                        currentMapLabel.Text = string.Format("| {0} ({1}) |", zone.Name, zone.Id);
                         queueProcessedLabel.Text = counter.ToString();
                         drawMapBackgroundWorker.RunWorkerAsync(zone);
 
