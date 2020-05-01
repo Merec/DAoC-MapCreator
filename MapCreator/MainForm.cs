@@ -841,5 +841,41 @@ namespace MapCreator
                 }
             }
         }
+
+        private void widthTextBox_ValueChanged(object sender, EventArgs e)
+        {
+            int[] steps = new int[] { 256, 512, 1024, 2048, 4096, 8192, 16384, 32768 };
+            int newValue = 256;
+
+            int currentValue = (int)widthTextBox.Value;
+            if (currentValue < steps.First())
+            {
+                newValue = steps.First();
+            }
+            else if (currentValue > steps.Last())
+            {
+                newValue = steps.Last();
+            }
+            else
+            {
+                int closestValue = steps.Aggregate((current, next) => Math.Abs((long)current - widthTextBox.Value) < Math.Abs((long)next - widthTextBox.Value) ? current : next);
+                int closestIndex = Array.IndexOf(steps, closestValue);
+
+                if (currentValue > closestValue)
+                {
+                    newValue = steps[closestIndex + 1];
+                }
+                else if (currentValue < closestValue)
+                {
+                    newValue = steps[closestIndex - 1];
+                }
+                else
+                {
+                    newValue = closestValue;
+                }
+            }
+
+            widthTextBox.Value = newValue;
+        }
     }
 }
