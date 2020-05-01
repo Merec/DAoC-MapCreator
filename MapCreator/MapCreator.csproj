@@ -60,8 +60,8 @@
       <HintPath>..\libs\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Magick.NET-Q16-x64, Version=7.13.1.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=AMD64">
-      <HintPath>..\packages\Magick.NET-Q16-x64-OpenMP.7.13.1\lib\net40\Magick.NET-Q16-x64.dll</HintPath>
+    <Reference Include="Magick.NET-Q16-x64, Version=7.16.1.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=AMD64">
+      <HintPath>..\packages\Magick.NET-Q16-x64.7.16.1\lib\net40\Magick.NET-Q16-x64.dll</HintPath>
     </Reference>
     <Reference Include="MPKLib, Version=1.0.3541.36583, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -79,11 +79,11 @@
     <Reference Include="Niflib.SharpDX">
       <HintPath>..\libs\Niflib.SharpDX.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpDX.4.0.1\lib\net40\SharpDX.dll</HintPath>
+    <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.4.2.0\lib\net40\SharpDX.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Mathematics, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpDX.Mathematics.4.0.1\lib\net40\SharpDX.Mathematics.dll</HintPath>
+    <Reference Include="SharpDX.Mathematics, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Mathematics.4.2.0\lib\net40\SharpDX.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -489,12 +489,12 @@ if "$(ConfigurationName)" == "Release" (
     "$(SolutionDir)packages\7ZipCLI.9.20.0\tools\7za.exe" a -tzip ..\MapCreator-%25VERSION%25.zip * -x!*.zip
 )</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\Magick.NET-Q16-x64-OpenMP.7.13.1\build\net40\Magick.NET-Q16-x64-OpenMP.targets" Condition="Exists('..\packages\Magick.NET-Q16-x64-OpenMP.7.13.1\build\net40\Magick.NET-Q16-x64-OpenMP.targets')" />
+  <Import Project="..\packages\Magick.NET-Q16-x64.7.16.1\build\net40\Magick.NET-Q16-x64.targets" Condition="Exists('..\packages\Magick.NET-Q16-x64.7.16.1\build\net40\Magick.NET-Q16-x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Magick.NET-Q16-x64-OpenMP.7.13.1\build\net40\Magick.NET-Q16-x64-OpenMP.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Magick.NET-Q16-x64-OpenMP.7.13.1\build\net40\Magick.NET-Q16-x64-OpenMP.targets'))" />
+    <Error Condition="!Exists('..\packages\Magick.NET-Q16-x64.7.16.1\build\net40\Magick.NET-Q16-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Magick.NET-Q16-x64.7.16.1\build\net40\Magick.NET-Q16-x64.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
