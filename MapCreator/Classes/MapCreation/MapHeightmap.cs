@@ -24,7 +24,7 @@ using System.IO;
 
 namespace MapCreator
 {
-    public class MapHeightmap
+    public class MapHeightmap: IDisposable
     {
         private ZoneConfiguration zoneConfiguration;
         private int m_terrainfactor = 1;

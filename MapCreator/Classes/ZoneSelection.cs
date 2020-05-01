@@ -23,6 +23,7 @@ namespace MapCreator
     {
         private string m_id;
         private string m_name;
+        private string m_realm;
         private string m_expansion;
         private string m_type;
 
@@ -37,6 +38,11 @@ namespace MapCreator
             get { return m_name; }
             set { m_name = value; }
         }
+        public string Realm
+        {
+            get { return m_realm; }
+            set { m_realm = value; }
+        }
 
         public string Expansion
         {
@@ -50,10 +56,11 @@ namespace MapCreator
             set { m_type = value; }
         }
 
-        public ZoneSelection(string id, string name, string expansion, string type)
+        public ZoneSelection(string id, string name, string expansion, string realm, string type)
         {
             m_id = id;
             m_name = name;
+            m_realm = realm;
             m_expansion = expansion;
             m_type = type;
         }

@@ -437,9 +437,15 @@ namespace MapCreator.Fixtures
                     }
 
                     // Calculate the final look of the model
-                    fixture.Calc();
-
-                    drawables.Add(fixture);
+                    bool result = fixture.Calc();
+                    if (result)
+                    {
+                        drawables.Add(fixture);
+                    }
+                    else
+                    {
+                        MainForm.Log(string.Format("Fixture {0} (x: {1}, y: {2}, z: {3}) is too small to get drawn.", fixtureRow.TextualName, fixtureRow.X, fixtureRow.Y, fixtureRow.Z));
+                    }
 
                     progressCounter++;
                     int percent = 100 * progressCounter / fixtureRows.Count;

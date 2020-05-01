@@ -12,7 +12,7 @@ namespace MapCreator.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -32,6 +32,18 @@ namespace MapCreator.Properties {
             }
             set {
                 this["game_path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool mapGenerateBackground {
+            get {
+                return ((bool)(this["mapGenerateBackground"]));
+            }
+            set {
+                this["mapGenerateBackground"] = value;
             }
         }
         
@@ -344,6 +356,66 @@ namespace MapCreator.Properties {
             }
             set {
                 this["mapTreeTransparency"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("maps")]
+        public string targetDirectoryPattern {
+            get {
+                return ((string)(this["targetDirectoryPattern"]));
+            }
+            set {
+                this["targetDirectoryPattern"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool skipIfFileExists {
+            get {
+                return ((bool)(this["skipIfFileExists"]));
+            }
+            set {
+                this["skipIfFileExists"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string targetMapPath {
+            get {
+                return ((string)(this["targetMapPath"]));
+            }
+            set {
+                this["targetMapPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool enableResultPreview {
+            get {
+                return ((bool)(this["enableResultPreview"]));
+            }
+            set {
+                this["enableResultPreview"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool enableLog {
+            get {
+                return ((bool)(this["enableLog"]));
+            }
+            set {
+                this["enableLog"] = value;
             }
         }
     }

@@ -83,6 +83,13 @@ namespace MapCreator
             return System.Text.RegularExpressions.Regex.Replace(name, invalidRegStr, "_");
         }
 
+        public static string MakeValidDirectoryName(string name)
+        {
+            string invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(System.IO.Path.GetInvalidPathChars()));
+            string invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
+
+            return System.Text.RegularExpressions.Regex.Replace(name, invalidRegStr, "_");
+        }
 
         public static PointF GetCentroid(List<PointF> polygon)
         {

@@ -65,18 +65,18 @@ namespace MapCreator
 
         #endregion
 
-        public void Calc()
+        public bool Calc()
         {
             // Do nothig if we don't want to draw the nif
             if (RendererConf.Renderer == FixtureRenderererType.None)
             {
-                return;
+                return false;
             }
 
             // Do nothing is there are no polgons
             if (RawPolygons.Count() == 0)
             {
-                return;
+                return false;
             }
 
             // Calculate X, Y, Z on the map canvas
@@ -93,12 +93,12 @@ namespace MapCreator
 
             // Transform Polygons
             TransformPolygons();
-            GenerateCanvas();
+            return GenerateCanvas();
         }
 
-        private void GenerateCanvas()
+        private bool GenerateCanvas()
         {
-            if (ProcessedPolygons.Count() == 0) return;
+            if (ProcessedPolygons.Count() == 0) return false;
 
             var vectors = ProcessedPolygons.SelectMany(p => p.Vectors);
             double minX = vectors.Min(p => p.X);
@@ -113,6 +113,12 @@ namespace MapCreator
             double maxYProduct = (maxY < 0) ? maxY * -1 : maxY;
             CanvasWidth = Convert.ToInt32((minXProduct < maxXProduct) ? maxXProduct * 2f : minXProduct * 2f);
             CanvasHeight = Convert.ToInt32((minYProduct < maxYProduct) ? maxYProduct * 2f : minYProduct * 2f);
+
+            if(CanvasWidth <= 0 || CanvasHeight <= 0)
+            {
+                return false;
+            }
+
 
             // Contains all polygons
             List<DrawableElement> drawlist = new List<DrawableElement>();
@@ -149,6 +155,7 @@ namespace MapCreator
             CanvasY = Convert.ToInt32(ZoneConf.ZoneCoordinateToMapCoordinate(FixtureRow.Y) - CanvasHeight / 2d);
             ModelColor = RendererConf.Color;
             ModelTransparency = RendererConf.Transparency;
+            return true;
         }
 
         private void TransformPolygons()

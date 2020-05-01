@@ -5,6 +5,9 @@
     <Setting Name="game_path" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="mapGenerateBackground" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
     <Setting Name="mapGenerateHeightmap" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -82,6 +85,21 @@
     </Setting>
     <Setting Name="mapTreeTransparency" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">25</Value>
+    </Setting>
+    <Setting Name="targetDirectoryPattern" Type="System.String" Scope="User">
+      <Value Profile="(Default)">maps</Value>
+    </Setting>
+    <Setting Name="skipIfFileExists" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="targetMapPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="enableResultPreview" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="enableLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

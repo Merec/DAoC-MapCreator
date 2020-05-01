@@ -179,7 +179,8 @@ namespace MapCreator
         {
             MainForm.ProgressStart("Rendering water ...");
 
-            using (IPixelCollection heightmapPixels = zoneConfiguration.Heightmap.HeightmapScaled.GetPixels())
+
+            using (IPixelCollection heightmapPixels = zoneConfiguration.Heightmap.HeightmapScaled.GetPixelsUnsafe())
             {
                 using (MagickImage water = new MagickImage(MagickColors.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize))
                 {
@@ -217,7 +218,7 @@ namespace MapCreator
                         int minY = Convert.ToInt32(riverCoordinates.Min(m => m.Y)) - 10;
                         int maxY = Convert.ToInt32(riverCoordinates.Max(m => m.Y)) + 10;
 
-                        using (IPixelCollection riverPixelCollection = water.GetPixels())
+                        using (IPixelCollection riverPixelCollection = water.GetPixelsUnsafe())
                         {
                             for (int x = minX; x < maxX; x++)
                             {
@@ -232,12 +233,12 @@ namespace MapCreator
                                     ushort pixelHeight = heightmapPixels.GetPixel(x, y).GetChannel(0);
                                     if (pixelHeight > river.Height)
                                     {
-                                        Pixel newPixel = new Pixel(x, y, new ushort[] { 0, 0, 0, ushort.MinValue });
-                                        riverPixelCollection.SetPixel(newPixel);
+                                        riverPixelCollection.SetPixel(new Pixel(x, y, new ushort[] { 0, 0, 0, ushort.MinValue }));
                                     }
                                 }
                             }
                         }
+                        
 
                         if (debug)
                         {
@@ -262,6 +263,7 @@ namespace MapCreator
                     map.Composite(water, 0, 0, CompositeOperator.SrcOver);
                 }
             }
+            
 
             MainForm.ProgressReset();
         }

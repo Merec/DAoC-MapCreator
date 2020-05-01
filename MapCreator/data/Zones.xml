@@ -87,8 +87,8 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="090" type="Dungeons">Aerus City</zone>
     </expansion>
 
-    <expansion name="Labyrinth of the Minotaur">
-      <zone id="245" type="Dungeon">The Labyrinth</zone>
+    <expansion name="Labyrith Of The Minotaur">
+      <zone id="245" type="Dungeons">The Labyrinth</zone>
     </expansion>
   </realm>
 
@@ -131,6 +131,7 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="064" type="Outdoor">Aylesbury</zone>
       <zone id="260" type="Outdoor">Chiltern</zone>
       <zone id="261" type="Outdoor">Sherborne</zone>
+	  <zone id="262" type="Outdoor">Stoneleigh</zone>
     </expansion>
 
     <expansion name="Shrouded Isles">
@@ -176,9 +177,9 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="356" type="Instances">Epic Dungeons (Liv 40-45)</zone>
     </expansion>
 
-    <expansion name="Labyrinth of the Minotaur">
-      <zone id="391" type="Dungeon">Arcane Tower</zone>
-      <zone id="192" type="Dungeon">The High Consul's Sanctum</zone>
+    <expansion name="Labyrith Of The Minotaur">
+      <zone id="391" type="Dungeons">Arcane Tower</zone>
+      <zone id="192" type="Dungeons">The High Consul's Sanctum</zone>
     </expansion>
 
   </realm>
@@ -214,7 +215,7 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
     </expansion>
 
     <expansion name="Foundations">
-      <zone id="213" type="Outdoor">Meath</zone>
+	  <zone id="213" type="Outdoor">Meath</zone>
       <zone id="215" type="Outdoor">Dunshire</zone>
       <zone id="217" type="Outdoor">Torrylin</zone>
       <zone id="218" type="Outdoor">Kilcullen</zone>
@@ -222,6 +223,7 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="225" type="Outdoor">Aberillan</zone>
       <zone id="272" type="Outdoor">Tullamore</zone>
       <zone id="273" type="Outdoor">Moycullen</zone>
+	  <zone id="274" type="Outdoor">Broughshane</zone>
     </expansion>
 
     <expansion name="Shrouded Isles">
@@ -264,9 +266,9 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="395" type="Instances">Lamfhotas' Throne Room</zone>
     </expansion>
 
-    <expansion name="Labyrinth of the Minotaur">
-      <zone id="399" type="Dungeon">Arcane Tower</zone>
-      <zone id="194" type="Dungeon">The High Consul's Sanctum</zone>
+    <expansion name="Labyrith Of The Minotaur">
+      <zone id="399" type="Dungeons">Arcane Tower</zone>
+      <zone id="194" type="Dungeons">The High Consul's Sanctum</zone>
     </expansion>
   </realm>
   <realm name="Midgard">
@@ -307,6 +309,7 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="122" type="Outdoor">Kaupang</zone>
       <zone id="266" type="Outdoor">Holmestrand</zone>
       <zone id="267" type="Outdoor">Nittedal</zone>
+      <zone id="268" type="Outdoor">Stavgaard</zone>
     </expansion>
 
     <expansion name="Shrouded Isles">
@@ -351,9 +354,9 @@ Frontiers, Battlegrounds, Capitol, Outdoor, Indoor, Dungeons, Instances
       <zone id="360" type="Instances">Eirik's Throne Room</zone>
     </expansion>
 
-    <expansion name="Labyrinth of the Minotaur">
-      <zone id="398" type="Dungeon">Arcane Tower</zone>
-      <zone id="193" type="Dungeon">The High Consul's Sanctum</zone>
+    <expansion name="Labyrith Of The Minotaur">
+      <zone id="398" type="Dungeons">Arcane Tower</zone>
+      <zone id="193" type="Dungeons">The High Consul's Sanctum</zone>
     </expansion>
 
   </realm>

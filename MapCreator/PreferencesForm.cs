@@ -60,5 +60,17 @@ namespace MapCreator
             }
         }
 
+        private void targetMapBrowseButton_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(targetMapPathTextBox.Text))
+            {
+                targetMapPathBrowser.SelectedPath = targetMapPathTextBox.Text;
+            }
+
+            if (targetMapPathBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                targetMapPathTextBox.Text = targetMapPathBrowser.SelectedPath;
+            }
+        }
     }
 }

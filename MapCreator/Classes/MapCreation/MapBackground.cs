@@ -30,6 +30,8 @@ namespace MapCreator
     {
         private ZoneConfiguration zoneConfiguration;
 
+        private bool drawBackground = true;
+
         private string textureZoneDataDirectory;
 
         private string textureZoneId;
@@ -60,9 +62,16 @@ namespace MapCreator
             }
         }
 
+        public bool DrawBackground { get => drawBackground; set => drawBackground = value; }
+
         public MagickImage Draw()
         {
             MainForm.ProgressStart("Rendering background ...");
+
+            if(!this.drawBackground)
+            {
+                return new MagickImage(Color.Transparent, zoneConfiguration.TargetMapSize, zoneConfiguration.TargetMapSize);
+            }
 
             // Check which terrain file is used
             string texMpk = string.Format("{0}\\tex{1}.mpk", this.textureZoneDataDirectory, this.textureZoneId);

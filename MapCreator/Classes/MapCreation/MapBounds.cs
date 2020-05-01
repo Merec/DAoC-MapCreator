@@ -167,8 +167,9 @@ namespace MapCreator
             if (zoneConfiguration.ZoneId == "117") polygons[2].Reverse();
             if (zoneConfiguration.ZoneId == "122") polygons[1].Reverse();
             if (zoneConfiguration.ZoneId == "218") polygons[1].Reverse();
+            if (zoneConfiguration.ZoneId == "262") polygons[0].Reverse();
 
-            polygons = CombinePolygons(polygons);
+            //polygons = CombinePolygons(polygons);
 
             // 015 old hadrians wall
             if (zoneConfiguration.ZoneId == "015")

@@ -185,7 +185,8 @@ namespace MapCreator
             if (results.Count() > 0)
             {
                 string expansion = results.First().Parent.Attribute("name").Value;
-                return new ZoneSelection(zoneId, results.First().Value, expansion, results.First().Attribute("type").Value);
+                string realm = results.First().Parent.Parent.Attribute("name").Value;
+                return new ZoneSelection(zoneId, results.First().Value, expansion, realm, results.First().Attribute("type").Value);
             }
             else
             {
